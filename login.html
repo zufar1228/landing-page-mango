@@ -24,16 +24,10 @@
         <div style="font-size: 14px; color: #666; font-family: sans-serif; padding: 0 20px;">
             Membuka halaman pembelian voucher...
         </div>
-    </div>
-
-    <!-- =====================================================
-         VOUCHER IFRAME OVERLAY (transaksi tetap 1 webview)
-         ===================================================== -->
-    <div id="voucher-iframe-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:99998;">
-        <div style="position:absolute; top:0; left:0; width:100%; height:44px; background:#f5f5f5; box-shadow:0 1px 3px rgba(0,0,0,0.15); display:flex; align-items:center; justify-content:flex-end; box-sizing:border-box; padding:0 12px; z-index:2;">
-            <button type="button" id="btn-close-voucher" style="border:none; background:transparent; font-size:22px; line-height:1; cursor:pointer; color:#333;">&times;</button>
+        <div style="font-size: 13px; color: #999; font-family: sans-serif; padding: 16px 24px 0; max-width: 420px; margin: 0 auto; line-height: 1.5;">
+            Jika membayar dengan GoPay dan aplikasinya tidak terbuka,
+            pilih metode <strong>QRIS</strong> pada halaman pembayaran.
         </div>
-        <iframe id="voucher-iframe" src="about:blank" style="position:absolute; top:44px; left:0; width:100%; height:calc(100% - 44px); border:none;"></iframe>
     </div>
 
     <!-- =====================================================
@@ -165,41 +159,34 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            // Seluruh alur pembelian dijalankan di dalam captive portal itu sendiri --
-            // tidak ada lagi pengalihan ke browser eksternal.
             // =====================================================
-            // LANGSUNG KE PEMBELIAN VOUCHER
-            // (tanpa membuat sesi trial MikroTik)
+            // PEMBELIAN VOUCHER -- NAVIGASI TOP-LEVEL (BUKAN IFRAME)
             // =====================================================
-            $('#btn-buy-vchr').click(function(e){
+            // Halaman pembelian sengaja dibuka sebagai halaman utama, bukan
+            // di dalam iframe. Pembayaran GoPay perlu membuka aplikasi lewat
+            // deeplink, dan browser memblokir pembukaan aplikasi eksternal
+            // dari dalam iframe lintas-origin. Halaman GoPay sendiri juga
+            // menolak ditampilkan di dalam iframe (X-Frame-Options), yang
+            // membuat iframe berubah jadi layar putih.
+            $('#btn-buy-vchr').click(function (e) {
                 e.preventDefault();
 
-                // 1. Tampilkan Loading Overlay
                 $('#loading-overlay').fadeIn(200);
 
                 var mac = "$(mac-esc)";
                 var locationId = "$(location-id)";
 
-                // 2. Target URL Pembelian
-                var targetBuyUrl = "http://172.22.230.118:8080/hotspot/embed/voucher/buy/" + encodeURIComponent(locationId) + "?cmac=" + encodeURIComponent(mac);
+                // Alamat halaman login portal, dikirim supaya aplikasi
+                // pembelian bisa menyediakan tombol kembali ke portal dan
+                // memakainya sebagai callback URL pembayaran.
+                var returnUrl = "$(link-login-only)";
 
-                // 3. Muat halaman pembelian langsung di iframe utama.
-                var $voucherIframe = $('#voucher-iframe');
+                var targetBuyUrl = "http://172.22.230.118:8080/hotspot/embed/voucher/buy/" +
+                    encodeURIComponent(locationId) +
+                    "?cmac=" + encodeURIComponent(mac) +
+                    "&return_url=" + encodeURIComponent(returnUrl);
 
-                $voucherIframe.off('load').on('load', function () {
-                    $('#loading-overlay').fadeOut(200);
-                    $('#voucher-iframe-overlay').fadeIn(200);
-                });
-
-                $voucherIframe.attr('src', targetBuyUrl);
-            });
-
-            $('#btn-close-voucher').click(function () {
-                // Lepas listener 'load' dulu supaya perubahan src ke about:blank
-                // tidak memicu ulang fadeIn overlay (penyebab layar blank putih).
-                $('#voucher-iframe').off('load').attr('src', 'about:blank');
-                $('#voucher-iframe-overlay').fadeOut(200);
-
+                window.location.href = targetBuyUrl;
             });
         });
     </script>
