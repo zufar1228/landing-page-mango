@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MangoSphere Hotspot Login">
+    <meta name="author" content="Telkomsat">
+    <title>MangoSphere | Login</title>
+    <link rel="icon" type="image/x-icon" href="img/hotspot.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="body-login-slr" role="document">
+
+    <!-- =====================================================
+         LOADING OVERLAY
+         ===================================================== -->
+    <div id="loading-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.98); z-index:99999; text-align:center; padding-top:35vh;">
+        <div style="font-size: 18px; font-weight: bold; color: #333; margin-bottom: 10px; font-family: sans-serif;">
+            Menyiapkan Koneksi...
+        </div>
+        <div style="font-size: 14px; color: #666; font-family: sans-serif; padding: 0 20px;">
+            Membuka halaman pembelian voucher...
+        </div>
+    </div>
+
+    <!-- =====================================================
+         VOUCHER IFRAME OVERLAY (transaksi tetap 1 webview)
+         ===================================================== -->
+    <div id="voucher-iframe-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:99998;">
+        <div style="position:absolute; top:0; left:0; width:100%; height:44px; background:#f5f5f5; box-shadow:0 1px 3px rgba(0,0,0,0.15); display:flex; align-items:center; justify-content:flex-end; box-sizing:border-box; padding:0 12px; z-index:2;">
+            <button type="button" id="btn-close-voucher" style="border:none; background:transparent; font-size:22px; line-height:1; cursor:pointer; color:#333;">&times;</button>
+        </div>
+        <iframe id="voucher-iframe" src="about:blank" style="position:absolute; top:44px; left:0; width:100%; height:calc(100% - 44px); border:none;"></iframe>
+    </div>
+
+    <!-- =====================================================
+         MIKROTIK CHAP FORM
+         ===================================================== -->
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post">
+        <input type="hidden" name="username">
+        <input type="hidden" name="password">
+        <input type="hidden" name="dst" value="$(link-orig)">
+        <input type="hidden" name="popup" value="true">
+    </form>
+
+    <script type="text/javascript" src="/md5.js"></script>
+    $(endif)
+
+    <!-- =====================================================
+         LOGIN FUNCTION & ERROR PARSER
+         ===================================================== -->
+    <script type="text/javascript">
+        function doLogin() {
+            var username = document.login.username.value;
+            var password = document.login.password.value;
+
+            if (password === '') {
+                password = username;
+            }
+
+            $(if chap-id)
+            document.sendin.username.value = username;
+            document.sendin.password.value = hexMD5(
+                '$(chap-id)' +
+                password +
+                '$(chap-challenge)'
+            );
+            document.sendin.submit();
+            return false;
+            $(else)
+            document.login.password.value = password;
+            return true;
+            $(endif)
+        }
+
+        var error_msg = "$(error)";
+        var matched;
+
+        if ((matched = error_msg.match(/Sorry... you have used all your data allowance/))) {
+            error_msg = "Maaf kuota Anda sudah habis";
+        } else if ((matched = error_msg.match(/Sorry... you have used your (.*?) data allowance/))) {
+            error_msg = "Maaf kuota Anda sudah habis";
+        } else if ((matched = error_msg.match(/Maximum usage exceeded/))) {
+            error_msg = "Maaf waktu Anda sudah habis";
+        } else if ((matched = error_msg.match(/Maximum (.*?) usage exceeded/))) {
+            error_msg = "Maaf waktu Anda sudah habis";
+        } else if ((matched = error_msg.match(/The time for voucher (.*?) is depleted/))) {
+            error_msg = "Maaf waktu Anda sudah habis";
+        } else if ((matched = error_msg.match(/You are already logged in/))) {
+            error_msg = "Anda sudah login";
+        } else if ((matched = error_msg.match(/Account disabled/))) {
+            error_msg = "Voucher dinonaktifkan";
+        } else if ((matched = error_msg.match(/Unknown user/))) {
+            error_msg = "Voucher tidak diketahui";
+        } else if ((matched = error_msg.match(/Simultaneous connections limited to (\d+)/))) {
+            error_msg = "Voucher hanya bisa digunakan di " + matched[1] + " perangkat dalam waktu bersamaan";
+        } else if ((matched = error_msg.match(/User (.*?) not registered/))) {
+            error_msg = "Voucher tidak terdaftar";
+        }
+    </script>
+
+    <!-- =====================================================
+         TELKOMSAT LOGO
+         ===================================================== -->
+    <div id="pageTelkomsat" class="Telkomsat">
+        <a href="https://www.telkomsat.co.id/" class="Telkomsat-logo"></a>
+    </div>
+
+    <!-- =====================================================
+         LOGIN PAGE / CARD
+         ===================================================== -->
+    <div id="pageLogin" class="Login">
+        <div class="mangosphere-logo"></div>
+
+        <form name="login" id="formLogin" class="login-form-slr form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+
+            <div class="form-caption">
+                Login
+            </div>
+
+            <script type="text/javascript">
+                if (error_msg) {
+                    document.write(
+                        '<div class="alert alert-danger">' +
+                        error_msg +
+                        '</div>'
+                    );
+                }
+            </script>
+
+            <input type="hidden" name="dst" value="$(link-orig)">
+            <input type="hidden" name="popup" value="true">
+
+            <label for="username"></label>
+
+            <p class="input-subcaption">
+                Silahkan masukan kode voucher agar dapat menikmati akses internet.
+            </p>
+
+            <input type="text" class="input-login" name="username" placeholder="Kode Voucher" aria-describedby="username-field" value="$(username)">
+
+            <input type="hidden" class="input-login" name="password">
+
+            <input type="submit" class="submit-login" value="Login">
+
+            <div id="input-voucher">
+                <a href="#" id="btn-buy-vchr" class="submit-voucher">Beli Voucher Disini</a>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- =====================================================
+         JAVASCRIPT LIBRARIES & HANDLER
+         ===================================================== -->
+    <script src="/js/jquery-1.12.2.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>');
+    </script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Seluruh alur pembelian dijalankan di dalam captive portal itu sendiri --
+            // tidak ada lagi pengalihan ke browser eksternal.
+            // =====================================================
+            // LANGSUNG KE PEMBELIAN VOUCHER
+            // (tanpa membuat sesi trial MikroTik)
+            // =====================================================
+            $('#btn-buy-vchr').click(function(e){
+                e.preventDefault();
+
+                // 1. Tampilkan Loading Overlay
+                $('#loading-overlay').fadeIn(200);
+
+                var mac = "$(mac-esc)";
+                var locationId = "$(location-id)";
+
+                // 2. Target URL Pembelian
+                var targetBuyUrl = "http://172.22.230.118:8080/hotspot/embed/voucher/buy/" + encodeURIComponent(locationId) + "?cmac=" + encodeURIComponent(mac);
+
+                // 3. Muat halaman pembelian langsung di iframe utama.
+                var $voucherIframe = $('#voucher-iframe');
+
+                $voucherIframe.off('load').on('load', function () {
+                    $('#loading-overlay').fadeOut(200);
+                    $('#voucher-iframe-overlay').fadeIn(200);
+                });
+
+                $voucherIframe.attr('src', targetBuyUrl);
+            });
+
+            $('#btn-close-voucher').click(function () {
+                // Lepas listener 'load' dulu supaya perubahan src ke about:blank
+                // tidak memicu ulang fadeIn overlay (penyebab layar blank putih).
+                $('#voucher-iframe').off('load').attr('src', 'about:blank');
+                $('#voucher-iframe-overlay').fadeOut(200);
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>

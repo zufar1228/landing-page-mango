@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)"> $(endif)
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>MangoSphere | Logged in</title>
+    <link rel="icon" type="image/x-icon" href="img/hotspot.png">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <!-- <link href="/css/bootstrap-theme.css" rel="stylesheet"> -->
+
+    <style>
+        .outer {
+            display: table;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+
+        .middle {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .inner {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <script language="JavaScript">
+        <!--
+        function startClock() {
+            // Trial cuma untuk keperluan beli voucher -- kalau ada sesi trial
+            // yang sampai ke halaman ini di luar alur beli-voucher kita,
+            // langsung kembalikan ke login. Login biasa (voucher/mac) diarahkan
+            // ke halaman status seperti biasa.
+            $(if login-by == 'trial')
+            location.href = '$(link-login)';
+            $(else)
+            location.href = '$(link-status)';
+            $(endif)
+        }
+        //-->
+    </script>
+
+</head>
+
+<body class="body-status" role="document" onLoad="startClock()">
+
+    <div class="outer middle inner">
+        <table width="100%" height="100%">
+            <tr>
+                <td align="center" valign="middle">
+                    <div class="form-caption">Anda berhasil login</div>
+                    <p><i class="fa fa-spinner fa-spin fa-4x"></i> </p>
+                    <button type="button" class="button-alogin" onclick="$(if login-by == 'trial')location.href='$(link-login)'$(else)location.href='$(link-status)'$(endif)">Jika tidak terjadi apa-apa, klik disini</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-1.12.2.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>')
+    </script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>

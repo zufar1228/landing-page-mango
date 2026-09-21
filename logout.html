@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>MangoSphere | Logout</title>
+    <link rel="icon" type="image/x-icon" href="img/hotspot.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script language="JavaScript">
+	<!--
+	$(if advert-pending == 'yes')
+	var popup = '';
+
+	function focusAdvert() {
+		if (window.focus) popup.focus();
+	}
+
+	function openAdvert() {
+		popup = open('$(link-advert)', 'hotspot_advert', '');
+		setTimeout("focusAdvert()", 1000);
+	}
+	$(endif)
+
+	function byte_nice(bytes = 0) {
+		var s = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+		if(bytes == 0){
+			return 0+" "+s[0];
+		}
+		var e = Math.floor(Math.log(bytes)/Math.log(1024));
+		return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
+	}
+
+	function bit_nice(bytes = 0) {
+		var s = ['bit', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb'];
+		if(bytes == 0){
+			return 0+" "+s[0];
+		}
+		var e = Math.floor(Math.log(bytes)/Math.log(1024));
+		return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
+	}
+
+	function secondsToTime(e){
+		const h = Math.floor(e / 3600).toString().padStart(2,'0'),
+			  m = Math.floor(e % 3600 / 60).toString().padStart(2,'0'),
+			  s = Math.floor(e % 60).toString().padStart(2,'0');
+
+		return h + ':' + m + ':' + s;
+		//return `${h}:${m}:${s}`;
+	}
+
+	// MikroTik Hotspot bisa menyimpan cookie login (login-by "cookie") agar user
+	// otomatis ter-autentikasi lagi tanpa masukin voucher. Setelah logout (manual
+	// atau otomatis saat batal beli voucher), cookie ini harus dihapus supaya
+	// sesi tidak tersambung sendiri lewat cookie yang masih tersisa.
+	function clearHotspotCookies() {
+		var cookies = document.cookie.split(';');
+		for (var i = 0; i < cookies.length; i++) {
+			var eqPos = cookies[i].indexOf('=');
+			var name = (eqPos > -1 ? cookies[i].substr(0, eqPos) : cookies[i]).trim();
+			if (!name) continue;
+			document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+		}
+	}
+	//-->
+    </script>
+</head>
+
+<body class="body-status" role="document" onLoad="clearHotspotCookies(); location.href='$(link-login)'">
+    <div id="pageTelkomsat" class="Telkomsat">
+        <a href="https://www.telkomsat.co.id/" class="Telkomsat-logo"></a>
+    </div>
+
+    <div id="pageStatus" class="Status">
+        <div class="mangosphere-logo"></div>
+
+        <!-- <div class="status-caption">
+            $(if login-by == 'trial')
+            <br> Selamat Tinggal pengguna trial! <br> 
+            $(elif login-by != 'mac')
+            <br> Selamat Tinggal $(username)! <br> 
+            $(endif)
+        </div> -->
+
+        <div class="logout-form form">
+            <div class="form-caption">Status Koneksi Anda</div>
+
+            <table class="status-table">
+                <tbody>
+                    <tr>
+                        <td align="right" class="input-data">Alamat MAC</td>
+                        <td>$(mac)</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Alamat IP</td>
+                        <td>$(ip)</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Download / Upload</td>
+                        <td><script>
+                        document.write(byte_nice($(bytes-out)) + ' / ' + byte_nice($(bytes-in)));
+                        </script></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Durasi Sesi</td>
+                        <td><script>
+                        document.write(secondsToTime($(uptime-secs)));
+                        </script></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Sisa Waktu</td>
+                        <td><script>
+                        document.write(secondsToTime($(session-time-left-secs)));
+                        </script></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Halaman ini muncul SETELAH logout berhasil diproses router,
+                 jadi langsung sediakan jalan kembali ke login, bukan tombol Logout lagi. -->
+            <a href="$(link-login)" class="buttonStatus" style="display:inline-block; text-decoration:none; text-align:center;">Kembali ke Halaman Login</a>
+            <!-- <p>Dibuat oleh <a href="https://www.telkomsat.co.id/">Telkomsat</a></p> -->
+        </div>
+    </div>
+    <footer id="pageFooter" class="Footer-slr">
+		<section class="footer-header" id="footer-header" role="button" tabindex="0" aria-controls="footer-content" aria-label="Buka informasi kontak">
+			<div class="footer-caption">Hubungi Kami</div>
+		</section>
+		<section class="footer-row" id="footer-content">
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 100px;">
+					<img src="img/phone.png" alt="" class="footer-subcaption-img">
+					<h2>Call Center</h2>
+				</div>
+				<div>
+					<ul class="footer-ul" style="padding-right: 172px;">
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">1500832</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 68px;">
+					<img src="img/send.png" alt="" class="footer-subcaption-img">
+					<h2>Layanan SMS</h2>
+				</div>
+				<div>
+					<ul class="footer-ul"style="padding-right: 127px;">
+						<li>
+							<img src="img/arah.png" alt="" class="footer-arrow">
+							<a href="#">0811-1666-727</a>
+						</li>
+						<li>
+							<img src="img/arah.png" alt="" class="footer-arrow">
+							<a href="#">0812-2220-9977</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 99px;">
+					<img src="img/whatsapp.png" alt="" class="footer-subcaption-img">
+					<h2>WhatsApp</h2>
+				</div>
+				<div>
+					<ul class="footer-ul">
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 813-9991-2407 (Business Inquiry)</a></li>
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 811-974-9971 (Sales)</a></li>
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 811-9699-869 (Care Center)</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 144px;">
+					<img src="img/email.png" alt="" class="footer-subcaption-img">
+					<h2>Email</h2>
+				</div>
+				<div>
+					<ul class="footer-ul">
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">sales.mangoesphere@telkomsat.co.id</a></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-1.12.2.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>')
+    </script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/footer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1670 @@
+html {
+  display: flex;
+  justify-content: center;
+}
+
+.body-login {
+  display: grid;
+
+  grid-template-areas: "telkomsat coconnet" "hero login" "footer footer";
+  grid-template-rows: 100px 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  width: 100%;
+  max-width: 1920px;
+  max-height: 1200px;
+  background: url(/img/Ellipse15.png);
+  background-repeat: no-repeat;
+  background-size: 100% 150%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.body-login-slr {
+  /* display: grid; */
+  grid-template-areas: "telkomsat coconnet" "hero login" "footer footer";
+  grid-template-rows: 100px 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  width: 100%;
+  max-width: 1920px;
+  max-height: 1200px;
+  background: url(/img/Ellipse15.png);
+  background-repeat: no-repeat;
+  background-size: 100% 110%;
+  margin: 0px;
+  padding: 0px;
+}
+
+
+
+.body-status {
+  display: grid;
+  grid-template-areas: "telkomsat coconnet" "status status" "footer footer";
+  grid-template-rows: 100px 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 122vh;
+  background: linear-gradient(103.2deg, rgba(255, 231, 7, 0.5) 0%, rgba(251, 93, 43, 0.7) 100%);
+  background-repeat: no-repeat;
+  margin: 0px;
+  padding: 0px;
+}
+
+div,
+footer {
+  display: grid;
+}
+
+#pageCoconnet {
+  grid-area: coconnet;
+  /* background: white; */
+}
+
+#pageTelkomsat {
+  grid-area: telkomsat;
+}
+
+#pageLogin {
+  grid-area: login;
+}
+
+#pageStatus {
+  grid-area: status;
+}
+
+#pageHero {
+  grid-area: hero;
+}
+
+#pageFooter {
+  grid-area: footer;
+}
+
+
+/* ==============( All )=============== */
+
+p {
+  text-align: center;
+  font-family: Arial;
+  color: gray;
+  display: block;
+  margin: 15px auto;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 12px;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* ==============( Logo )=============== */
+
+/* .Coconnet {
+  display: flex;
+  justify-content: right;
+  padding: 20px 50px;
+} */
+
+.logo-mangosphere-login-page > img {
+  fill: 100%;
+  margin: 30px;
+}
+
+.Telkomsat {
+  justify-content: left;
+  padding: 20px 50px;
+}
+
+.mangosphere-logo {
+  background: url(/img/mangosphere-img.png);
+  background-repeat: no-repeat;
+  background-size: 380px;
+  height: 120px;
+  background-position-x: center;
+}
+.mangosphere-logo-status {
+  background: url(/img/mangosphere-img.png);
+  background-repeat: no-repeat;
+  background-size: 360px;
+  margin-left: 35px;
+  height: 120px;
+}
+
+.Telkomsat-logo {
+  background: url(/img/tsat.png);
+  background-repeat: no-repeat;
+  background-size: 200px;
+  width: 200px;
+  height: 50px ;
+}
+
+
+/* ==============( Login )=============== */
+
+.Login {
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin: 40px;
+  margin-bottom: 210px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.alert {
+  color: red;
+  text-align: center;
+}
+
+.login-form {
+  width: 320px;
+  height: 220px;
+  background: white;
+  border: 2px solid #fb521f47;
+  box-shadow: 4px 4px 2px #fb521f69;
+  margin: 0px auto;
+  padding: 20px 20px;
+  border-radius: 10px;
+}
+
+.login-form-slr {
+  width: 350px;
+  height: 270px;
+  background: white;
+  border: 2px solid #fb521f47;
+  box-shadow: 4px 4px 2px #fb521f69;
+  margin: 0px auto;
+  padding: 20px 20px;
+  border-radius: 10px;
+}
+
+.input-login {
+  text-align: center;
+  display: block;
+  width: 290px;
+  height: 25px;
+  margin-top: 10px;
+  background: #fff;
+  border: 0px;
+  padding: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: 12px;
+  border: 2px solid #0000002b;
+  /* transition: all 0.15s ease; */
+  border-radius: 6px;
+}
+
+#input-voucher {
+  display: block;
+  width: 100%;
+}
+
+.input-subcaption {
+  font-size: 17px;
+  font-style: bolder;
+  color: #ffb109c7;
+}
+
+.submit-login {
+  display: block;
+  background-image: linear-gradient(#FFB209, #FB541F);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.489);
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  color: #fff;
+  border: 0px;
+  margin: 25px auto;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.submit-voucher {
+  display: block;
+  background-image: linear-gradient(#FFB209, #FB541F);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.489);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  cursor: pointer;
+  color: #fff;
+  border: 0px;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  font-size: 10px;
+  transition: all 0.3s ease;
+}
+
+.submit-login:hover {
+  background: #FFB209;
+}
+.submit-voucher:hover {
+  background: #FFB209;
+}
+
+.button-refresh {
+  display: flex;
+  background-image: linear-gradient(#FFB209, #FB541F);
+  box-shadow: 2px 2px 4px black;
+  width: 100px;
+  padding: 3px;
+  cursor: pointer;
+  color: #fff;
+  border: 0px;
+  border-radius: 3px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.button-refresh:hover {
+  background: #FFB209;
+}
+
+.button-alogin {
+  display: block;
+  background-image: linear-gradient(#FFB209, #FB541F);
+  box-shadow: 2px 2px 4px black;
+  width: 290px;
+  padding: 6px;
+  cursor: pointer;
+  color: #fff;
+  border: 0px;
+  margin: 5px auto;
+  border-radius: 3px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  font-size: 16px;
+  transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.button-alogin:hover,
+.button-alogin:focus-visible {
+  background-image: linear-gradient(#FFB209, #FB541F);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.button-alogin:active {
+  filter: brightness(0.98);
+  transform: translateY(0);
+}
+
+.powered {
+  margin-top: 40px;
+}
+
+.form p a {
+  color: gray;
+}
+
+.form p a:hover {
+  color: #1ab822;
+}
+
+
+/* ===========( Table Status )=========== */
+
+.Status {
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.status-form {
+  width: 400px;
+  height: 350px;
+  background: white;
+  box-shadow: 4px 4px 10px #FB541F;
+  margin: 0px auto;
+  padding-top: 15px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+}
+
+.logout-form {
+  width: 400px;
+  height: 345px;
+  background: white;
+  box-shadow: 4px 4px 10px #FB541F;
+  margin: 0px auto;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+}
+
+.form-caption {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  background: linear-gradient(#FFB209, #FB541F);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.remaining {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 5px;
+}
+
+.status-table td {
+  padding: 5px 5px;
+  border: 1px solid #FB541F;
+  border-radius: 6px;
+}
+
+.status-table-description {
+  width: 100px;
+  text-align: center;
+  border-radius: 6px;
+  background-color: #FB541F;
+  color: white;
+}
+
+.status-table-data {
+  width: 150px;
+}
+
+table {
+  margin: 10px 0px;
+}
+
+.param-name {
+  text-align: right;
+}
+
+.buttonStatus {
+  display: block;
+  box-shadow: 2px 2px 4px black;
+  width: 316px;
+  padding: 12px;
+  cursor: pointer;
+  color: #fff;
+  background-image: linear-gradient(180deg, red, #880000);
+  border: 0px;
+  margin: 15px auto;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  font-size: 17px;
+  transition: all 0.3s ease;
+}
+
+.buttonStatus:hover {
+  background: #FFB209;
+}
+
+.buttonLogout {
+  display: block;
+  box-shadow: 2px 2px 4px black;
+  width: 316px;
+  padding: 12px;
+  cursor: pointer;
+  color: #fff;
+  background-image: linear-gradient(#FFB209, #FB541F);
+  border: 0px;
+  margin: 15px auto;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  font-size: 17px;
+  transition: all 0.3s ease;
+}
+
+.buttonLogout:hover {
+  background: #FFB209;
+}
+
+.submit-voucher {
+  text-align: center;
+}
+
+.input-data {
+  text-align: center;
+  background: linear-gradient(94.01deg, #FC6B38 0%, #E3B131 100%);
+  /* width: 180px; */
+  color: white;
+}
+
+
+/* ==============( Hero )=============== */
+
+.Hero {
+  justify-content: center;
+  padding-left: 100px;
+  padding-top: 60px;
+}
+
+.Hero-slr {
+  justify-content: center;
+  padding-top: 180px;
+  padding-left: 80px;
+}
+
+.hero-image {
+  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/img/mangostar-human.jpg");
+  padding: 0px;
+  width: 560px;
+  height: 150px; 
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40px;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.hero-image-slr {
+  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/img/mangostar-human.jpg");
+  padding: 0px;
+  width: 560px;
+  height: 180px; 
+  background-position: center;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 40px;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* ==============( wrapper )=============== */
+#wrapper {
+  position: relative;
+  margin-top: 20px;
+}
+
+#wrapper h4{
+  top: 50%;
+  margin: 0px;
+  padding: 6px;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+  cursor: pointer;
+  position: absolute;
+  font-style: bold;
+  font-size: 1.5rem;
+  line-height: 26px;
+  background: orange;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transition-duration: 0.15s;
+}
+
+#wrapper h4:hover {
+  background:red;
+}
+
+#wrapper h4:first-child{
+  left: -23px;
+}
+
+#wrapper h4:last-child{
+  right: -23px;
+}
+
+
+#carousel {
+  border-radius: 6px;
+  margin: 0px;
+  padding: 0px;
+  background-color: white;
+  justify-items: center;
+  
+}
+
+#carousel h3 {
+  text-align: center;
+  font-size: 20px;
+
+}
+
+#list-paket{
+  display: flex;
+  width: 540px;
+  height: 240px;
+  overflow: hidden;
+  align-items: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+
+.list-paket-items {
+  justify-items: center;
+  object-fit: cover;
+  width: calc(100% / 3x);
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;  
+}
+
+.list-paket-items img {
+  width: 140px;
+}
+
+.list-paket-items {
+  background: rgb(255, 255, 255);
+}
+
+.des-paket {
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  padding: 2px;
+}
+
+.timid {
+  text-align: center;
+  font-size: 18px;
+  margin: 2px;
+  padding: 4px;
+  border-bottom: 2px solid black;
+}
+
+.price-paket {
+  color: black;
+  font-size: 15px;
+  padding: 4px;
+  font-style: bold;
+}
+
+.submit-paket {
+  display: block;
+  background-image: linear-gradient(#FFB209, #FB541F);
+  width: 60px;
+  padding: 8px;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  border: 0px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.submit-paket:hover {
+  background: #FFB209;
+}
+
+
+/* ==============( Footer )=============== */
+
+
+.Footer {
+  margin-top: 100px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.Footer-slr {
+  font-family: 'Poppins', sans-serif;
+  margin-top: 285px;
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  height: 130%;
+}
+
+.footer-col {
+  flex-grow: 1;
+  width: 300px;
+  padding: 0px 0px;
+  float: left;
+  border-right: 2px solid red;
+}
+
+.footer-col > div {
+  height: 60px;
+}
+
+.footer-header {
+  display: flex;
+  background: #FB541F;
+  justify-content: center;
+  height: 40px;
+}
+
+.footer-caption {
+  /* float: left; */
+  justify-content: center;
+  align-items: center;
+  width: 55%;
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+}
+
+.footer-logo {
+  display: flex;
+  float: right;
+  width: 45%;
+  justify-content: right;
+  padding: 10px 20px;
+}
+
+.footer-subcaption {
+  justify-content: left;
+  align-items: center;
+  height: 20px;
+  padding: 0 40px;
+  padding-top: 20px;
+  font-size: 18px;
+  color: black;
+  display: flex;
+}
+
+.footer-arrow {
+  width: 20px;
+  height: 20px;
+  padding-top: 2px;
+  padding-right: 2px;
+
+}
+
+.footer-subcaption > h2 {
+  color: #FB541F;
+  font-size: 20px;
+  margin: 0px;
+}
+
+
+.footer-subcaption-img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.footer-ul {
+  list-style: none;
+  font-size: 16px;
+  height: 40px;
+}
+
+.footer-ul li {
+  margin-left: 0px;
+  padding-bottom: 5px;
+  text-decoration: none;
+  display: flex;
+}
+
+.footer-ul li a {
+  color: black;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.footer-ul li a:hover {
+  color: #FB541F;
+}
+
+
+
+
+/* ========( Footer Responsive )======== */
+
+@media(max-width: 1075px) {
+  .footer-col {
+    width: 47%;
+    float: left;
+    margin-bottom: 30px;
+  }
+}
+
+@media(max-width: 775px) {
+  .footer-col {
+    width: 100%;
+    height: 100px;
+  }
+}
+
+
+/* ========( Header & Body Responsive )======== */
+
+
+/* Stack the layout on small devices/viewports. */
+
+@media screen and (max-width: 1400px) {
+
+
+  .Login {
+    margin-bottom: 170px;
+    padding-top: 0px;
+  }
+}
+@media screen and (max-width: 1300px) {
+
+
+  .Login {
+    margin-bottom: 75px;
+    padding-top: 0px;
+  }
+  .Footer {
+    margin-top: 75px;
+  }
+}
+@media screen and (max-width: 1200px) {
+
+    .body-login-slr {
+      background-size: 100% 120%;
+    }
+}
+  
+
+@media all and (max-width: 925px) {
+  .body-login {
+    grid-template-areas: "telkomsat coconnet" "login login" "hero hero" "footer footer";
+    grid-template-rows: 100px 2fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr;
+    background: url(/img/Ellipse15.png);
+    background-repeat: no-repeat;
+    background-size: 100% 160%;
+    }
+
+  .body-login-slr {
+    grid-template-areas: "telkomsat coconnet" "hero hero" "login login" "footer footer";
+    grid-template-rows: 100px 2fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr;
+    background: linear-gradient(164.3deg, rgba(255, 236, 64, 0.5) 0%, rgba(199, 48, 0, 0.5) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 200%;
+    }
+  .body-status {
+    grid-template-areas: "telkomsat coconnet" "status status" "footer footer";
+    grid-template-rows: 100px 2fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr;
+  }
+
+  .Status {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .form-caption {
+    font-size: 20px;
+  }
+
+  .status-form {
+    width: 340px;
+    height: 350px;
+  }
+  .logout-form {
+    width: 340px;
+    /*345px*/
+    height: 350px;
+  }
+
+  .buttonStatus {
+    width: 200px;
+    height: 40px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .status-table-data  {
+    width: 170px;
+    height: 18px;
+  }
+
+  .status-table-description {
+    width: 100px;
+    height: 18px;
+    font-size: 11px;
+  }
+
+  div {
+    display: grid;
+    justify-items: center;
+  }
+    /* .Coconnet {
+      justify-content: left;
+      padding: 20px 30px;
+    } */
+  .Telkomsat {
+    justify-content: left;
+    padding: 20px 30px;
+  }
+  .Login {
+    justify-content: center;
+    padding-top: 0px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .Status {
+    justify-content: center;
+  }
+  .Hero {
+    justify-content: center;
+    padding-top: 0px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .Hero-slr {
+    justify-content: center;
+    padding-top: 0px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #wrapper {
+    width: 420px;
+  }
+
+  #carousel {
+    width: 420px;
+
+  }
+
+  #list-paket{
+    display: flex;
+    width: 360px;
+    height: 240px;
+    overflow: hidden;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  
+   .list-paket-items {
+    justify-items: center;
+    object-fit: cover;
+    width: calc(100% / 2x);
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;  
+  }
+
+  .mangosphere-logo {
+    width: 320px;
+    background-size: 320px;
+    height: 100px;
+  }
+  .mangosphere-logo-status {
+    width: 280px;
+    background-size: 280px;
+    margin: 0px;
+  }
+
+  .Telkomsat-logo {
+    background-size: 150px;
+    margin-left: 15px;
+
+  }
+
+  .hero-image {
+    width: 450px;
+  }
+
+  .hero-image-slr {
+    width: 450px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .body-login {
+    grid-template-areas: "telkomsat coconnet" "login login" "hero hero" "footer footer";
+    grid-template-rows: 100px 2fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr;
+    background: url(/img/Ellipse15.png);
+    background-repeat: no-repeat;
+    background-size: 100% 160%;
+  }
+  .body-status {
+    grid-template-areas: "telkomsat coconnet" "status status" "footer footer";
+    grid-template-rows: 80px 2fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr;
+  }
+
+  .body-login-slr {
+    grid-template-areas: "telkomsat coconnet" "hero hero" "login login" "footer footer";
+    grid-template-rows: 100px 2fr 2fr 1fr;
+    grid-template-columns: 2fr 2fr;
+    background: linear-gradient(164.3deg, rgba(255, 236, 64, 0.5) 0%, rgba(199, 48, 0, 0.5) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 200%;
+  }
+
+  .form-caption {
+    font-size: 20px;
+  }
+
+  .buttonStatus {
+    width: 200px;
+    height: 40px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .status-table-data  {
+    width: 100px;
+    height: 18px;
+  }
+
+  .status-table-description {
+    width: 100px;
+    height: 18px;
+    font-size: 11px;
+  }
+  /*.Coconnet {
+        justify-content: left;
+        padding: 20px 20px;
+		border: solid 1px red;
+    }
+		
+    .Telkomsat {
+        justify-content: right;
+        padding: 20px 20px;
+		border: solid 1px red;
+    }*/
+  .Login {
+    justify-content: center;
+    padding-top: 0px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .login-form {
+    width: 240px;
+  }
+
+  .login-form-slr {
+    width: 240px;
+  transition: all 0.15s ease;
+
+  }
+  .input-login {
+    width: 180px;
+  }
+  .Status {
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .status-caption {
+    font-size: 30px;
+  }
+  .status-form {
+    width: 280px;
+    height: 350px;
+  }
+  .logout-form {
+    width: 280px;
+    /*345px*/
+    height: 340px;
+  }
+  .status-table {
+    font-size: 14px;
+  }
+  .remaining {
+    font-size: 14px;
+  }
+  #pageLogin {
+    background: none;
+  }
+  .Hero {
+    justify-content: center;
+    padding-top: 0px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #wrapper {
+    width: 220px;
+  }
+
+  #carousel {
+    width: 220px;
+
+  }
+
+  #list-paket{
+    display: flex;
+    width: 180px;
+    height: 240px;
+    overflow: hidden;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  
+  .list-paket-items {
+    justify-items: center;
+    object-fit: cover;
+    width: calc(100% / 1x);
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;  
+  }
+
+  .mangosphere-logo {
+    width: 270px;
+    background-size: 270px;
+    height: 90px;
+  }
+  .mangosphere-logo-status {
+    width: 250px;
+    background-size: 250px;
+  }
+
+  .Telkomsat-logo {
+    width: 100px;
+    background-size: 100px;
+    margin-left: 15px;
+  }
+
+  .hero-image {
+    width: 280px;
+  }
+
+  .hero-image-slr {
+    width: 350px;
+  }
+}
+
+/* ===========================================================
+   RESPONSIVE & VISUAL REFINEMENTS
+   Ported from /preview (fluid sizing, hover/active states,
+   status toolbar and error page layout). Rules are scoped with
+   parent-class selectors so they take precedence over the
+   fixed-size rules above regardless of source order.
+   =========================================================== */
+
+html,
+body {
+	width: 100%;
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+.body-status {
+	display: block;
+	height: auto;
+	min-height: 100vh;
+	overflow-y: hidden;
+}
+
+.body-status .Status {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 12px;
+	padding: 24px 20px;
+	min-height: calc(100vh - 144px);
+	box-sizing: border-box;
+}
+
+.body-status .Status .mangosphere-logo,
+.body-status .Status .status-form,
+.body-status .Status .logout-form {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.body-status .Status .status-form,
+.body-status .Status .logout-form {
+	width: min(394px, 100%);
+	max-width: 100%;
+	height: auto;
+	min-height: 0;
+	padding: 15px 20px 30px;
+	box-sizing: border-box;
+}
+
+.body-status .Status .mangosphere-logo {
+	width: min(380px, 100%);
+	max-width: 100%;
+	flex: 0 0 auto;
+	box-sizing: border-box;
+}
+
+.error-page {
+	display: block;
+	min-height: 100vh;
+	font-family: 'Poppins', sans-serif;
+	background: linear-gradient(103.2deg, rgba(255, 231, 7, 0.5) 0%, rgba(251, 93, 43, 0.7) 100%);
+}
+
+.error-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 12px;
+	width: 100%;
+	min-height: calc(100vh - 144px);
+	padding: 24px 20px;
+	box-sizing: border-box;
+}
+
+.error-content .mangosphere-logo {
+	width: min(380px, 100%);
+	flex: 0 0 auto;
+}
+
+.error-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: min(394px, 100%);
+	padding: 28px 30px 30px;
+	border: 2px solid #fb521f47;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 4px 4px 2px #fb521f69;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.error-icon {
+	display: grid;
+	place-items: center;
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	background: #FB541F;
+	color: #fff;
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.error-label {
+	margin: 16px 0 6px;
+	color: #FFB209;
+	font-size: 11px;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+}
+
+.error-card h1 {
+	margin: 0;
+	font-family: inherit;
+	font-size: 24px;
+}
+
+.error-message {
+	max-width: 290px;
+	margin: 12px auto 22px;
+	line-height: 1.5;
+}
+
+.error-button {
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 48px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.body-status .Footer-slr {
+	width: 100%;
+	margin-top: 0;
+	padding-bottom: 0;
+	background: #fff;
+	box-sizing: border-box;
+}
+
+.body-status .Footer-slr .footer-header {
+	height: 54px;
+	min-height: 54px;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+.body-status .Footer-slr .footer-header:focus-visible {
+	outline: 3px solid #FFB209;
+	outline-offset: -3px;
+}
+
+.body-status .Footer-slr .footer-caption {
+	width: 100%;
+	font-size: 18px;
+}
+
+.body-status .Footer-slr .footer-row {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	align-items: start;
+	gap: 0;
+	height: auto;
+	min-height: 0;
+		padding: 30px 0;
+	box-sizing: border-box;
+}
+
+.body-status .Footer-slr .footer-col {
+	width: auto;
+	min-width: 0;
+	min-height: 0;
+	float: none;
+	margin: 0;
+	padding: 0 30px;
+	border-right: 2px solid #FB541F;
+	box-sizing: border-box;
+}
+
+.body-status .Footer-slr .footer-col:last-child {
+	border-right: 0;
+}
+
+.body-status .Footer-slr .footer-col > div {
+	height: auto;
+}
+
+.body-status .Footer-slr .footer-subcaption {
+	align-items: center;
+	min-height: 48px;
+	height: auto;
+	padding: 0 !important;
+}
+
+.body-status .Footer-slr .footer-subcaption > h2 {
+	font-size: 20px;
+	line-height: 1.25;
+}
+
+.body-status .Footer-slr .footer-ul {
+	height: auto;
+	min-height: 0;
+	margin: 22px 0 0;
+	padding: 0 !important;
+}
+
+.body-status .Footer-slr .footer-ul li {
+	align-items: flex-start;
+	margin: 0 0 10px;
+	padding: 0;
+	line-height: 1.35;
+}
+
+.body-status .Footer-slr .footer-ul li:last-child {
+	margin-bottom: 0;
+}
+
+.body-status .Footer-slr .footer-ul li a {
+	margin-top: 1px;
+	line-height: 1.35;
+}
+
+.body-login-slr {
+	min-height: 100vh;
+	overflow-x: hidden;
+	box-sizing: border-box;
+}
+
+.body-login-slr .Telkomsat {
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	padding: 24px 40px;
+}
+
+.body-login-slr .Login {
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 24px 20px 56px;
+	box-sizing: border-box;
+	transform: translateY(clamp(32px, 6vh, 52px));
+}
+
+.body-login-slr .mangosphere-logo {
+	width: min(380px, 100%);
+	margin: 0 auto;
+}
+
+.body-login-slr .login-form-slr {
+	width: min(394px, 100%);
+	max-width: 100%;
+	height: auto;
+	min-height: 304px;
+	margin: 0 auto;
+	padding: 28px 30px 30px;
+	box-sizing: border-box;
+}
+
+.body-login-slr .form-caption {
+	font-size: 24px;
+}
+
+.body-login-slr .input-subcaption {
+	max-width: 300px;
+	margin: 16px auto;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+#formLogin .input-subcaption {
+  color: #D98200;
+  font-size: 16px;
+}
+
+.body-login-slr .input-login {
+	width: 100%;
+	height: 38px;
+	margin: 12px 0 0;
+	box-sizing: border-box;
+	font-size: 14px;
+}
+
+.body-login-slr .submit-login {
+	margin: 22px auto;
+	font-size: 14px;
+	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.body-login-slr .submit-login:hover {
+  background-image: linear-gradient(#FFB209, #FB541F);
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.body-login-slr .submit-voucher:hover {
+  background-image: linear-gradient(#F6A32F 0%, #E35D20 100%);
+	filter: brightness(1.06);
+	transform: translateY(-1px);
+}
+
+.body-login-slr .submit-login:active,
+.body-login-slr .submit-voucher:active {
+	filter: brightness(0.98);
+	transform: translateY(0);
+
+#pageWebviewEscape .form-caption {
+  font-size: 28px;
+}
+
+#pageWebviewEscape .input-subcaption {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+#pageWebviewEscape .submit-login {
+  font-size: 16px;
+}
+
+@media all and (max-width: 500px) {
+  #pageWebviewEscape .form-caption {
+    font-size: 24px;
+  }
+
+  #pageWebviewEscape .input-subcaption {
+    font-size: 14px;
+  }
+
+  #pageWebviewEscape .submit-login {
+    font-size: 15px;
+  }
+}
+}
+
+.body-status .status-toolbar {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 18px;
+	width: 100%;
+	min-height: 48px;
+	margin: 4px 0 18px;
+	padding: 0 2px;
+	box-sizing: border-box;
+}
+
+.body-status .status-quota {
+	min-width: 0;
+	justify-self: start;
+	color: #737373;
+	font-size: 13px;
+	line-height: 1.4;
+	text-align: left;
+	white-space: nowrap;
+}
+
+.body-status .status-refresh {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	flex: 0 0 auto;
+	justify-self: end;
+	width: 126px;
+	min-width: 0;
+	padding: 10px 14px;
+	margin: 0;
+	box-sizing: border-box;
+	font-size: 11px;
+	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.body-status .status-refresh img {
+	width: 16px;
+	height: 16px;
+}
+
+.body-status .status-refresh:hover {
+	background-image: linear-gradient(#FFB209, #FB541F);
+	filter: brightness(1.06);
+	transform: translateY(-1px);
+}
+
+.body-status .status-refresh:active {
+	filter: brightness(0.98);
+	transform: translateY(0);
+}
+
+.body-status .buttonStatus,
+.body-status .buttonLogout {
+	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.body-status .buttonStatus:hover,
+.body-status .buttonLogout:hover {
+	background-image: linear-gradient(180deg, red, #880000);
+	filter: brightness(1.06);
+	transform: translateY(-1px);
+}
+
+.body-status .buttonStatus:active,
+.body-status .buttonLogout:active {
+	filter: brightness(0.98);
+	transform: translateY(0);
+}
+
+.body-status .logout-form .buttonStatus {
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 48px;
+	min-height: 48px;
+	margin: 15px auto;
+	padding: 12px 16px;
+	box-sizing: border-box;
+	line-height: 1.2;
+}
+
+.body-login-slr .submit-voucher {
+  width: 100%;
+  min-width: 0;
+	margin: 0 auto;
+	padding: 10px 12px;
+	box-sizing: border-box;
+  font-size: 14px;
+  background-image: linear-gradient(#F6A32F 0%, #E35D20 100%);
+	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.body-login-slr .submit-voucher:hover {
+  background-image: linear-gradient(#F59E0B, #F97316);
+}
+
+@media all and (max-width: 925px) {
+	.body-login-slr .Telkomsat {
+		padding: 20px 30px;
+	}
+
+	.body-login-slr .Login {
+		padding: 12px 20px 48px;
+	}
+}
+
+@media all and (max-width: 500px) {
+	.body-login-slr .Telkomsat {
+		padding: 16px 20px;
+	}
+
+	.body-login-slr .Login {
+		padding: 8px 16px 40px;
+		transform: translateY(36px);
+	}
+
+	.body-login-slr .mangosphere-logo {
+		width: 100%;
+		background-size: min(270px, 100%);
+	}
+
+	.body-login-slr .login-form-slr {
+		min-height: 286px;
+		padding: 24px 22px 26px;
+	}
+
+	.body-login-slr .form-caption {
+		font-size: 22px;
+	}
+
+	.body-login-slr .input-subcaption {
+		margin: 14px auto;
+		font-size: 13px;
+	}
+
+  #formLogin .input-subcaption {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+	.body-login-slr .submit-login {
+		margin: 18px auto;
+	}
+
+	.body-status .status-toolbar {
+		display: flex;
+		align-items: stretch;
+		flex-direction: column;
+		gap: 10px;
+		margin: 4px 0 14px;
+		padding: 0;
+	}
+
+	.body-status .Status {
+		gap: 8px;
+		padding: 22px 20px;
+		min-height: calc(100vh - 138px);
+	}
+
+	.body-status .Footer-slr {
+		margin-top: 0;
+		padding-bottom: 0;
+	}
+
+	.body-status .Footer-slr .footer-header {
+		height: 48px;
+		min-height: 48px;
+	}
+
+	.body-status .Footer-slr .footer-row {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0;
+		padding: 24px 0;
+	}
+
+	.body-status .Footer-slr .footer-col {
+		width: 100%;
+		height: auto !important;
+		min-height: 0;
+		padding: 0 20px 24px;
+		border-right: 0;
+		border-bottom: 2px solid #FB541F;
+	}
+
+	.body-status .Footer-slr .footer-col:not(:first-child) {
+		padding-top: 24px;
+	}
+
+	.body-status .Footer-slr .footer-col:last-child {
+		padding-bottom: 0;
+		border-bottom: 0;
+	}
+
+	.body-status .Footer-slr .footer-subcaption {
+		justify-content: flex-start;
+	}
+
+	.error-content {
+		min-height: calc(100vh - 138px);
+		padding: 22px 20px;
+	}
+
+	.error-content .mangosphere-logo {
+		width: 100%;
+		background-size: min(270px, 100%);
+	}
+
+	.error-card {
+		width: 100%;
+		padding: 24px 22px 26px;
+	}
+
+	.body-status .status-quota {
+		align-self: center;
+		justify-self: auto;
+		text-align: center;
+		white-space: normal;
+	}
+
+	.body-status .status-refresh {
+		justify-self: auto;
+		width: 100%;
+	}
+}

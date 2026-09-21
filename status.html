@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- Akses trial cuma untuk beli voucher -- kalau user trial buka halaman
+         status ini secara manual, langsung logout & kembalikan ke login,
+         supaya tidak sempat melihat detail sesi/statusnya. -->
+    $(if login-by == 'trial')<meta http-equiv="refresh" content="0;url=$(link-logout)?erase-cookie=on">$(endif)
+    $(if refresh-timeout)<meta http-equiv="refresh" content="$(refresh-timeout-secs)">$(endif)
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>MangoSphere | Status</title>
+    <link rel="icon" type="image/x-icon" href="img/hotspot.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script language="JavaScript">
+	<!--
+	$(if advert-pending == 'yes')
+	var popup = '';
+
+	function focusAdvert() {
+		if (window.focus) popup.focus();
+	}
+
+	function openAdvert() {
+		popup = open('$(link-advert)', 'hotspot_advert', '');
+		setTimeout("focusAdvert()", 1000);
+	}
+	$(endif)
+
+	function openLogout() {
+		// Submit form logout secara normal (1 klik langsung terkirim ke router).
+		// Pola popup-dari-popup lama dihapus karena kerap diblokir browser modern,
+		// membuat request logout tidak pernah benar-benar terkirim.
+		return true;
+	}
+
+	function byte_nice(bytes = 0) {
+		var s = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+		if(bytes == 0){
+			return 0+" "+s[0];
+		}
+		var e = Math.floor(Math.log(bytes)/Math.log(1024));
+		return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
+	}
+
+	function bit_nice(bytes = 0) {
+		var s = ['bit', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb'];
+		if(bytes == 0){
+			return 0+" "+s[0];
+		}
+		var e = Math.floor(Math.log(bytes)/Math.log(1024));
+		return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
+	}
+
+	function secondsToTime(e){
+		const h = Math.floor(e / 3600).toString().padStart(2,'0'),
+			  m = Math.floor(e % 3600 / 60).toString().padStart(2,'0'),
+			  s = Math.floor(e % 60).toString().padStart(2,'0');
+
+		return h + ':' + m + ':' + s;
+		//return `${h}:${m}:${s}`;
+	}
+	//-->
+    </script>
+</head>
+
+<body class="body-status" role="document" $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+$(if login-by == 'trial')
+    <!-- Sesi trial: konten status sengaja TIDAK dikirim sama sekali oleh router
+         (dievaluasi server-side), supaya tidak ada apa pun yang bisa sempat
+         tampil walau sesaat. Navigasi ke logout sudah dipicu oleh meta refresh
+         di <head>. -->
+$(else)
+    <div id="pageTelkomsat" class="Telkomsat">
+        <a href="https://www.telkomsat.co.id/" class="Telkomsat-logo"></a>
+    </div>
+    <div id="pageStatus" class="Status">
+        <div class="mangosphere-logo"></div>
+        <!-- <div class="status-caption">
+            $(if login-by == 'trial')
+            <br> Selamat Datang pengguna trial! <br> 
+            $(elif login-by != 'mac')
+            <br> Selamat Datang $(username)! <br> 
+            $(endif)
+        </div> -->
+        <div class="status-form form">
+            <div class="form-caption">Status Koneksi Anda</div>
+            <div class="status-toolbar">
+                $(if remain-bytes-total)
+                <div class="status-quota">
+                    <script>
+                        document.write('Sisa Kuota : ' + byte_nice($(remain-bytes-total)));
+                    </script>
+                </div>
+                $(endif)
+                <button type="button" class="button-refresh status-refresh" onclick="location.reload();">
+                    <span>Muat Ulang</span><img src="img/refresh.png" alt="" aria-hidden="true">
+                </button>
+            </div>
+            <table class="status-table">
+                <tbody>
+                    <tr>
+                        <td align="right" class="input-data">Alamat MAC</td>
+                        <td>$(mac)</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Alamat IP</td>
+                        <td>$(ip)</td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Download / Upload</td>
+                        <td><script>
+                        document.write(byte_nice($(bytes-out)) + ' / ' + byte_nice($(bytes-in)));
+                        </script></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Durasi Sesi</td>
+                        <td><script>
+                        document.write(secondsToTime($(uptime-secs)));
+                        </script></td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="input-data">Sisa Waktu</td>
+                        <td><script>
+                        document.write(secondsToTime($(session-time-left-secs)));
+                        </script></td>
+                    </tr>
+                    <!-- $(if blocked == 'yes')
+                    <tr>
+                        <td align="right">Status :</td>
+                        <td>
+                            <div style="color: #FF8080"><a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div>
+                        </td>
+                    </tr>
+                    $(endif) -->
+                </tbody>
+            </table>
+            <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+                <input type="hidden" name="erase-cookie" value="on">
+                <input type="submit" value="Logout" class="buttonStatus">
+            </form>
+        </div>
+    </div>
+	<footer id="pageFooter" class="Footer-slr">
+		<section class="footer-header" id="footer-header" role="button" tabindex="0" aria-controls="footer-content" aria-label="Buka informasi kontak">
+			<div class="footer-caption">Hubungi Kami</div>
+		</section>
+		<section class="footer-row" id="footer-content">
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 100px;">
+					<img src="img/phone.png" alt="" class="footer-subcaption-img">
+					<h2>Call Center</h2>
+				</div>
+				<div>
+					<ul class="footer-ul" style="padding-right: 172px;">
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">1500832</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 68px;">
+					<img src="img/send.png" alt="" class="footer-subcaption-img">
+					<h2>Layanan SMS</h2>
+				</div>
+				<div>
+					<ul class="footer-ul"style="padding-right: 127px;">
+						<li>
+							<img src="img/arah.png" alt="" class="footer-arrow">
+							<a href="#">0811-1666-727</a>
+						</li>
+						<li>
+							<img src="img/arah.png" alt="" class="footer-arrow">
+							<a href="#">0812-2220-9977</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 99px;">
+					<img src="img/whatsapp.png" alt="" class="footer-subcaption-img">
+					<h2>WhatsApp</h2>
+				</div>
+				<div>
+					<ul class="footer-ul">
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 813-9991-2407 (Business Inquiry)</a></li>
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 811-974-9971 (Sales)</a></li>
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 811-9699-869 (Care Center)</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-subcaption" style="padding-right: 144px;">
+					<img src="img/email.png" alt="" class="footer-subcaption-img">
+					<h2>Email</h2>
+				</div>
+				<div>
+					<ul class="footer-ul">
+						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">sales.mangoesphere@telkomsat.co.id</a></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/js/jquery-1.12.2.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>')
+    </script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/footer.js"></script>
+$(endif)
+</body>
+
+</html>
