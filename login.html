@@ -10,6 +10,11 @@
     <title>MangoSphere | Login</title>
     <link rel="icon" type="image/x-icon" href="img/hotspot.png">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Modal tetap ada di HTML, tetapi benar-benar tersembunyi di browser biasa. */
+        #browser-hint-modal { display: none !important; }
+        #browser-hint-modal.is-open { display: flex !important; }
+    </style>
 </head>
 
 <body class="body-login-slr" role="document">
@@ -234,25 +239,59 @@
             function bhNeedsHint() {
                 var ua = navigator.userAgent || '';
 
-                // WebView Android (termasuk CaptivePortalLogin) menandai diri "; wv)".
-                if (/;\s?wv\)/i.test(ua)) {
+                // Android captive portal biasanya dibuka oleh WebView / CaptivePortalLogin
+                // dan UA-nya mengandung token "; wv)".
+                if (/;\s?wv\)/i.test(ua) || /CaptivePortalLogin/i.test(ua)) {
                     return true;
                 }
 
-                // Captive Network Assistant iOS tidak menyertakan token Safari.
+                // iOS Captive Network Assistant (CNA) bukan Safari biasa.
+                // Browser iOS seperti Chrome/Firefox/Edge tetap membawa token Safari,
+                // sehingga tidak memunculkan modal.
                 if (/iPhone|iPad|iPod/i.test(ua)) {
                     return !/Safari/i.test(ua);
                 }
 
-                if (/Android/i.test(ua)) {
-                    return !/Chrome|Firefox|SamsungBrowser|EdgA|OPR/i.test(ua);
-                }
+                // Browser desktop/Chrome/Firefox/Samsung/Edge biasa tidak menampilkan modal.
+                return false;
+            }
 
-                // Kalau ragu, tampilkan -- lebih aman daripada pembayaran gagal.
-                return !/Chrome|Safari|Firefox|Edg|OPR/i.test(ua);
+            // Tombol "Lanjutkan di sini" dikunci beberapa detik supaya
+            // peringatannya sempat terbaca. Tombol "Buka di Browser" sengaja
+            // tidak ikut dikunci -- itu jalur yang memang kita anjurkan.
+            var BH_STAY_DELAY = 5;
+            var bhStayLeft = BH_STAY_DELAY;
+
+            function bhRenderStayButton() {
+                var $stay = $('#bh-stay, #bh-stay-2');
+
+                if (bhStayLeft > 0) {
+                    $stay.prop('disabled', true).text('Lanjutkan di sini (' + bhStayLeft + ')');
+                } else {
+                    $stay.prop('disabled', false).text('Lanjutkan di sini');
+                }
+            }
+
+            function bhStartStayCountdown() {
+                bhStayLeft = BH_STAY_DELAY;
+                bhRenderStayButton();
+
+                var timer = setInterval(function () {
+                    bhStayLeft--;
+                    bhRenderStayButton();
+
+                    if (bhStayLeft <= 0) {
+                        clearInterval(timer);
+                    }
+                }, 1000);
             }
 
             function bhClose() {
+                // Jaga-jaga kalau penutupan dipicu dari jalur lain.
+                if (bhStayLeft > 0) {
+                    return;
+                }
+
                 bhRemember();
                 $('#browser-hint-modal').removeClass('is-open');
             }
@@ -308,6 +347,7 @@
                 $('#bh-url').text(loginUrl);
                 $('#bh-choice').addClass('is-open');
                 $('#browser-hint-modal').addClass('is-open');
+                bhStartStayCountdown();
             }
 
             $('#bh-stay, #bh-stay-2').click(bhClose);

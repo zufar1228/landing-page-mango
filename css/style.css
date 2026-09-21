@@ -1777,6 +1777,18 @@ body {
 	transform: translateY(0);
 }
 
+/* Tombol "Lanjutkan di sini" dikunci beberapa detik supaya peringatannya
+   sempat terbaca. Hover/active sengaja dimatikan agar tidak terlihat
+   seperti bisa ditekan. */
+.bh-btn:disabled,
+.bh-btn:disabled:hover,
+.bh-btn:disabled:active {
+	opacity: 0.5;
+	cursor: not-allowed;
+	filter: none;
+	transform: none;
+}
+
 /* Link ditampilkan sebagai teks yang bisa diseleksi manual, sebagai
    cadangan kalau penyalinan otomatis diblokir. */
 .bh-url {
