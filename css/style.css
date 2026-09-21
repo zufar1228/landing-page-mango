@@ -1668,3 +1668,173 @@ body {
 		width: 100%;
 	}
 }
+
+/* ===========================================================
+   MODAL "BUKA DI BROWSER"
+   Ditawarkan saat portal dibuka di jendela captive portal
+   (WebView Android / Captive Network Assistant iOS), tempat
+   deeplink e-wallet kerap gagal terbuka.
+
+   Semua nilai display ditulis eksplisit karena stylesheet ini
+   memasang `div { display: grid }` secara global di atas.
+   =========================================================== */
+
+.bh-backdrop {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	background: rgba(0, 0, 0, 0.55);
+	box-sizing: border-box;
+	overflow-y: auto;
+	z-index: 100000;
+	font-family: 'Poppins', sans-serif;
+}
+
+.bh-backdrop.is-open {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.bh-card {
+	display: block;
+	width: 100%;
+	max-width: 380px;
+	margin: auto;
+	padding: 24px 22px;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.bh-title {
+	display: block;
+	margin-bottom: 12px;
+	color: #FB541F;
+	font-size: 19px;
+	font-weight: bold;
+}
+
+.bh-text {
+	margin: 0 0 16px;
+	color: #555;
+	font-size: 13px;
+	line-height: 1.55;
+	text-align: center;
+}
+
+.bh-step {
+	display: none;
+}
+
+.bh-step.is-open {
+	display: block;
+}
+
+.bh-btn {
+	display: block;
+	width: 100%;
+	margin: 0 0 10px;
+	padding: 12px 14px;
+	border: 0;
+	border-radius: 30px;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: 14px;
+	cursor: pointer;
+	transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.bh-btn:last-child {
+	margin-bottom: 0;
+}
+
+.bh-btn-primary {
+	background-image: linear-gradient(#FFB209, #FB541F);
+	color: #fff;
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.bh-btn-secondary {
+	background: #fff;
+	border: 2px solid #ddd;
+	color: #777;
+}
+
+.bh-btn:hover {
+	filter: brightness(1.06);
+	transform: translateY(-1px);
+}
+
+.bh-btn:active {
+	filter: brightness(0.98);
+	transform: translateY(0);
+}
+
+/* Link ditampilkan sebagai teks yang bisa diseleksi manual, sebagai
+   cadangan kalau penyalinan otomatis diblokir. */
+.bh-url {
+	display: block;
+	margin: 0 0 12px;
+	padding: 10px 12px;
+	background: #f6f6f6;
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	color: #333;
+	font-family: monospace;
+	font-size: 13px;
+	word-break: break-all;
+	-webkit-user-select: all;
+	-moz-user-select: all;
+	user-select: all;
+}
+
+.bh-status {
+	display: block;
+	min-height: 18px;
+	margin: 8px 0 4px;
+	color: #1a9c3c;
+	font-size: 12px;
+}
+
+.bh-steps {
+	margin: 4px 0 16px;
+	padding-left: 20px;
+	color: #555;
+	font-size: 13px;
+	line-height: 1.6;
+	text-align: left;
+}
+
+.bh-steps li {
+	margin-bottom: 4px;
+}
+
+.bh-note {
+	margin: 10px auto 0;
+	max-width: 280px;
+	color: #8a8a8a;
+	font-size: 11px;
+	line-height: 1.5;
+	text-align: center;
+}
+
+@media all and (max-width: 500px) {
+	.bh-backdrop {
+		padding: 14px;
+	}
+
+	.bh-card {
+		padding: 20px 18px;
+	}
+
+	.bh-title {
+		font-size: 17px;
+	}
+}

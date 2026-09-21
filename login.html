@@ -15,6 +15,46 @@
 <body class="body-login-slr" role="document">
 
     <!-- =====================================================
+         MODAL "BUKA DI BROWSER"
+         =====================================================
+         Hanya muncul kalau halaman terdeteksi dibuka di jendela
+         captive portal. Pilihan "Lanjutkan di sini" selalu tersedia
+         di setiap langkah supaya pengguna yang cuma mau memasukkan
+         kode voucher tidak pernah terkunci. -->
+    <div id="browser-hint-modal" class="bh-backdrop" role="dialog" aria-modal="true" aria-labelledby="bh-title">
+        <div class="bh-card">
+            <div class="bh-title" id="bh-title">Buka di Browser</div>
+
+            <!-- Langkah 1: pilihan -->
+            <div class="bh-step" id="bh-choice">
+                <p class="bh-text">
+                    Pembayaran dengan GoPay, ShopeePay, dan aplikasi bank lebih
+                    lancar jika halaman ini dibuka di Chrome atau Safari.
+                </p>
+                <button type="button" id="bh-open-browser" class="bh-btn bh-btn-primary">Buka di Browser (disarankan)</button>
+                <button type="button" id="bh-stay" class="bh-btn bh-btn-secondary">Lanjutkan di sini</button>
+            </div>
+
+            <!-- Langkah 2: panduan manual, dipakai kalau pembukaan otomatis gagal -->
+            <div class="bh-step" id="bh-manual">
+                <p class="bh-text">
+                    Salin link di bawah ini, lalu buka di Chrome atau Safari.
+                </p>
+                <div class="bh-url" id="bh-url"></div>
+                <button type="button" id="bh-copy" class="bh-btn bh-btn-primary">Salin Link</button>
+                <div class="bh-status" id="bh-copy-status" aria-live="polite"></div>
+                <ol class="bh-steps">
+                    <li>Tutup jendela ini.</li>
+                    <li>Jika ditanya, pilih "Tetap gunakan jaringan ini".</li>
+                    <li>Buka Chrome atau Safari.</li>
+                    <li>Tempel link tadi, lalu buka.</li>
+                </ol>
+                <button type="button" id="bh-stay-2" class="bh-btn bh-btn-secondary">Lanjutkan di sini</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
          LOADING OVERLAY
          ===================================================== -->
     <div id="loading-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.98); z-index:99999; text-align:center; padding-top:35vh;">
@@ -145,6 +185,10 @@
                 <a href="#" id="btn-buy-vchr" class="submit-voucher">Beli Voucher Disini</a>
             </div>
 
+            <p class="bh-note">
+                Jika tombol bayar tidak membuka aplikasi e-wallet, gunakan metode QRIS.
+            </p>
+
         </form>
     </div>
 
@@ -159,6 +203,136 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            // Alamat halaman login portal, dirender oleh router.
+            var loginUrl = "$(link-login-only)";
+
+            // =====================================================
+            // MODAL "BUKA DI BROWSER"
+            // =====================================================
+            // Jendela captive portal (WebView Android / CNA iOS) sering gagal
+            // membuka aplikasi e-wallet lewat deeplink. Tawarkan pindah ke
+            // browser asli lebih dulu, tanpa pernah mengunci pengguna yang
+            // hanya ingin memasukkan kode voucher.
+
+            function bhDismissed() {
+                // sessionStorage bisa tidak tersedia di jendela captive portal.
+                try {
+                    return sessionStorage.getItem('bh-dismissed') === '1';
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            function bhRemember() {
+                try {
+                    sessionStorage.setItem('bh-dismissed', '1');
+                } catch (e) {
+                    // Diabaikan: modal cuma akan muncul lagi setelah refresh.
+                }
+            }
+
+            function bhNeedsHint() {
+                var ua = navigator.userAgent || '';
+
+                // WebView Android (termasuk CaptivePortalLogin) menandai diri "; wv)".
+                if (/;\s?wv\)/i.test(ua)) {
+                    return true;
+                }
+
+                // Captive Network Assistant iOS tidak menyertakan token Safari.
+                if (/iPhone|iPad|iPod/i.test(ua)) {
+                    return !/Safari/i.test(ua);
+                }
+
+                if (/Android/i.test(ua)) {
+                    return !/Chrome|Firefox|SamsungBrowser|EdgA|OPR/i.test(ua);
+                }
+
+                // Kalau ragu, tampilkan -- lebih aman daripada pembayaran gagal.
+                return !/Chrome|Safari|Firefox|Edg|OPR/i.test(ua);
+            }
+
+            function bhClose() {
+                bhRemember();
+                $('#browser-hint-modal').removeClass('is-open');
+            }
+
+            function bhShowManual() {
+                $('#bh-choice').removeClass('is-open');
+                $('#bh-manual').addClass('is-open');
+            }
+
+            function bhCopyLink() {
+                var $status = $('#bh-copy-status');
+
+                function done() {
+                    $status.css('color', '#1a9c3c').text('Link berhasil disalin.');
+                }
+
+                function failed() {
+                    $status.css('color', '#c0392b')
+                        .text('Penyalinan otomatis gagal. Tekan lama teks link di atas untuk menyalin manual.');
+                }
+
+                function copyViaExecCommand() {
+                    var $tmp = $('<textarea>')
+                        .val(loginUrl)
+                        .css({ position: 'fixed', top: '-1000px', opacity: 0 })
+                        .appendTo('body');
+
+                    $tmp[0].focus();
+                    $tmp[0].select();
+
+                    var ok = false;
+                    try {
+                        ok = document.execCommand('copy');
+                    } catch (e) {
+                        ok = false;
+                    }
+
+                    $tmp.remove();
+                    ok ? done() : failed();
+                }
+
+                // Clipboard API hanya ada di konteks aman; portal ini diakses
+                // lewat HTTP, jadi execCommand yang biasanya terpakai.
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(loginUrl).then(done, copyViaExecCommand);
+                    return;
+                }
+
+                copyViaExecCommand();
+            }
+
+            if (bhNeedsHint() && !bhDismissed()) {
+                $('#bh-url').text(loginUrl);
+                $('#bh-choice').addClass('is-open');
+                $('#browser-hint-modal').addClass('is-open');
+            }
+
+            $('#bh-stay, #bh-stay-2').click(bhClose);
+            $('#bh-copy').click(bhCopyLink);
+
+            $('#bh-open-browser').click(function () {
+                if (/Android/i.test(navigator.userAgent || '')) {
+                    // Intent hanya dipahami Android, dan di jendela captive portal
+                    // sering gagal tanpa pesan apa pun -- jadi panduan manual tetap
+                    // dimunculkan setelah jeda singkat.
+                    var cleanUrl = loginUrl.replace(/^https?:\/\//, '');
+                    window.location.href = 'intent://' + cleanUrl + '#Intent;scheme=http;package=com.android.chrome;end;';
+                    setTimeout(bhShowManual, 1500);
+                } else {
+                    // iOS tidak punya cara membuka Safari dari CNA sebelum login.
+                    bhShowManual();
+                }
+            });
+
+            $(document).keyup(function (e) {
+                if (e.which === 27 && $('#browser-hint-modal').hasClass('is-open')) {
+                    bhClose();
+                }
+            });
+
             // =====================================================
             // PEMBELIAN VOUCHER -- NAVIGASI TOP-LEVEL (BUKAN IFRAME)
             // =====================================================
@@ -176,15 +350,13 @@
                 var mac = "$(mac-esc)";
                 var locationId = "$(location-id)";
 
-                // Alamat halaman login portal, dikirim supaya aplikasi
-                // pembelian bisa menyediakan tombol kembali ke portal dan
-                // memakainya sebagai callback URL pembayaran.
-                var returnUrl = "$(link-login-only)";
-
+                // loginUrl dikirim supaya aplikasi pembelian bisa menyediakan
+                // tombol kembali ke portal dan memakainya sebagai callback URL
+                // pembayaran.
                 var targetBuyUrl = "http://172.22.230.118:8080/hotspot/embed/voucher/buy/" +
                     encodeURIComponent(locationId) +
                     "?cmac=" + encodeURIComponent(mac) +
-                    "&return_url=" + encodeURIComponent(returnUrl);
+                    "&return_url=" + encodeURIComponent(loginUrl);
 
                 window.location.href = targetBuyUrl;
             });
