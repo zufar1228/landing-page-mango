@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="MangoSphere Hotspot Login">
+    <meta name="description" content="Login WiFi BRITE by Telkomsat">
     <meta name="author" content="Telkomsat">
-    <title>MangoSphere | Login</title>
+    <title>WiFi BRITE | Login</title>
     <link rel="icon" type="image/x-icon" href="img/hotspot.png">
     <link rel="stylesheet" href="css/style.css">
     <style>
@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<body class="body-login-slr" role="document">
+<body role="document">
 
     <!-- =====================================================
          MODAL "BUKA DI BROWSER"
@@ -28,50 +28,53 @@
          kode voucher tidak pernah terkunci. -->
     <div id="browser-hint-modal" class="bh-backdrop" role="dialog" aria-modal="true" aria-labelledby="bh-title">
         <div class="bh-card">
-            <div class="bh-title" id="bh-title">Buka di Browser</div>
 
             <!-- Langkah 1: pilihan -->
             <div class="bh-step" id="bh-choice">
+                <div class="bh-icon" aria-hidden="true"><span class="bh-icon-ring"></span><span class="bh-icon-dot"></span></div>
+                <h2 class="bh-title" id="bh-title">Bayar lebih lancar lewat browser</h2>
                 <p class="bh-text">
                     Pembayaran dengan GoPay, ShopeePay, dan aplikasi bank lebih
                     lancar jika halaman ini dibuka di Chrome atau Safari.
                 </p>
-                <button type="button" id="bh-open-browser" class="bh-btn bh-btn-primary">Buka di Browser (disarankan)</button>
-                <button type="button" id="bh-stay" class="bh-btn bh-btn-secondary">Lanjutkan di sini</button>
+                <button type="button" id="bh-open-browser" class="bh-btn btn btn-primary btn-small-text">Buka di Browser (disarankan)</button>
+                <button type="button" id="bh-stay" class="bh-btn btn btn-neutral">Lanjutkan di sini</button>
+                <p class="bh-hint">Hanya ingin memasukkan kode voucher? Pilih &ldquo;Lanjutkan di sini&rdquo;.</p>
             </div>
 
             <!-- Langkah 2: panduan manual, dipakai kalau pembukaan otomatis gagal -->
             <div class="bh-step" id="bh-manual">
+                <h2 class="bh-title">Buka manual di browser</h2>
                 <p class="bh-text">
-                    Salin link di bawah ini, lalu buka di Chrome atau Safari.
+                    Browser tidak terbuka otomatis. Ikuti 3 langkah berikut:
                 </p>
-                <div class="bh-url" id="bh-url"></div>
-                <button type="button" id="bh-copy" class="bh-btn bh-btn-primary">Salin Link</button>
-                <div class="bh-status" id="bh-copy-status" aria-live="polite"></div>
                 <ol class="bh-steps">
-                    <li>Tutup jendela ini.</li>
-                    <li>Jika ditanya, pilih "Tetap gunakan jaringan ini".</li>
-                    <li>Buka Chrome atau Safari.</li>
-                    <li>Tempel link tadi, lalu buka.</li>
+                    <li>Salin link di bawah ini.</li>
+                    <li>Tutup jendela ini. Jika ditanya, pilih <strong>&ldquo;Tetap gunakan jaringan ini&rdquo;</strong>.</li>
+                    <li>Buka Chrome atau Safari, lalu tempel link.</li>
                 </ol>
-                <button type="button" id="bh-stay-2" class="bh-btn bh-btn-secondary">Lanjutkan di sini</button>
+                <div class="bh-url" id="bh-url"></div>
+                <button type="button" id="bh-copy" class="bh-btn btn btn-primary btn-small-text">Salin Link</button>
+                <div class="bh-status" id="bh-copy-status" aria-live="polite"></div>
+                <button type="button" id="bh-stay-2" class="bh-btn btn btn-neutral">Lanjutkan di sini</button>
             </div>
         </div>
     </div>
 
     <!-- =====================================================
          LOADING OVERLAY
-         ===================================================== -->
-    <div id="loading-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.98); z-index:99999; text-align:center; padding-top:35vh;">
-        <div style="font-size: 18px; font-weight: bold; color: #333; margin-bottom: 10px; font-family: sans-serif;">
-            Menyiapkan Koneksi...
-        </div>
-        <div style="font-size: 14px; color: #666; font-family: sans-serif; padding: 0 20px;">
-            Membuka halaman pembelian voucher...
-        </div>
-        <div style="font-size: 13px; color: #999; font-family: sans-serif; padding: 16px 24px 0; max-width: 420px; margin: 0 auto; line-height: 1.5;">
-            Jika membayar dengan GoPay dan aplikasinya tidak terbuka,
-            pilih metode <strong>QRIS</strong> pada halaman pembayaran.
+         =====================================================
+         display:none inline wajib dipertahankan: overlay dimunculkan
+         oleh jQuery fadeIn() saat tombol Beli Voucher ditekan. -->
+    <div id="loading-overlay" class="loading-overlay" style="display:none;">
+        <div class="loading-inner">
+            <span class="spinner" aria-hidden="true"><span class="spinner-track"></span><span class="spinner-arc"></span><span class="spinner-orbit"></span></span>
+            <h2 class="loading-title">Menyiapkan koneksi&hellip;</h2>
+            <p class="loading-text">Membuka halaman pembelian voucher. Mohon tunggu sebentar.</p>
+            <p class="loading-tip">
+                Membayar dengan GoPay dan aplikasinya tidak terbuka?
+                Pilih metode <strong>QRIS</strong> di halaman pembayaran.
+            </p>
         </div>
     </div>
 
@@ -120,15 +123,15 @@
         var matched;
 
         if ((matched = error_msg.match(/Sorry... you have used all your data allowance/))) {
-            error_msg = "Maaf kuota Anda sudah habis";
+            error_msg = "Maaf, kuota Anda sudah habis";
         } else if ((matched = error_msg.match(/Sorry... you have used your (.*?) data allowance/))) {
-            error_msg = "Maaf kuota Anda sudah habis";
+            error_msg = "Maaf, kuota Anda sudah habis";
         } else if ((matched = error_msg.match(/Maximum usage exceeded/))) {
-            error_msg = "Maaf waktu Anda sudah habis";
+            error_msg = "Maaf, waktu Anda sudah habis";
         } else if ((matched = error_msg.match(/Maximum (.*?) usage exceeded/))) {
-            error_msg = "Maaf waktu Anda sudah habis";
+            error_msg = "Maaf, waktu Anda sudah habis";
         } else if ((matched = error_msg.match(/The time for voucher (.*?) is depleted/))) {
-            error_msg = "Maaf waktu Anda sudah habis";
+            error_msg = "Maaf, waktu Anda sudah habis";
         } else if ((matched = error_msg.match(/You are already logged in/))) {
             error_msg = "Anda sudah login";
         } else if ((matched = error_msg.match(/Account disabled/))) {
@@ -142,59 +145,89 @@
         }
     </script>
 
-    <!-- =====================================================
-         TELKOMSAT LOGO
-         ===================================================== -->
-    <div id="pageTelkomsat" class="Telkomsat">
-        <a href="https://www.telkomsat.co.id/" class="Telkomsat-logo"></a>
-    </div>
+    <div class="page page-login">
+        <!-- Dekorasi orbit BRITE (murni CSS, boleh dihapus). -->
+        <div class="orbit" aria-hidden="true">
+            <span class="orbit-ring orbit-ring-lg"></span>
+            <span class="orbit-ring orbit-ring-sm"></span>
+            <span class="orbit-dot"></span>
+        </div>
 
-    <!-- =====================================================
-         LOGIN PAGE / CARD
-         ===================================================== -->
-    <div id="pageLogin" class="Login">
-        <div class="mangosphere-logo"></div>
+        <!-- =====================================================
+             HEADER: LOGO BRITE & TELKOMSAT
+             ===================================================== -->
+        <header class="site-header">
+            <img src="img/brite-logo.png" alt="BRITE by Telkomsat" class="brand-logo">
+            <a href="https://www.telkomsat.co.id/" class="tsat-link only-wide"><img src="img/tsat.png" alt="Telkomsat" class="tsat-logo"></a>
+        </header>
 
-        <form name="login" id="formLogin" class="login-form-slr form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+        <!-- =====================================================
+             LOGIN PAGE / CARD
+             ===================================================== -->
+        <main id="pageLogin" class="page-main">
 
-            <div class="form-caption">
-                Login
+            <!-- Teks pembuka, hanya tampil di layar lebar -->
+            <section class="login-hero">
+                <span class="eyebrow-bar" aria-hidden="true"></span>
+                <p class="login-hero-title">Internet satelit yang cepat dan stabil, sampai ke pelosok Indonesia.</p>
+                <p class="login-hero-lead">Masukkan kode voucher untuk mulai terhubung, atau beli voucher baru dalam beberapa langkah.</p>
+            </section>
+
+            <div class="login-card">
+                <form name="login" id="formLogin" class="login-form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+
+                    <h1 class="page-title">Masuk ke WiFi BRITE</h1>
+                    <p class="page-lead">Masukkan kode voucher untuk mulai terhubung ke internet.</p>
+
+                    <script type="text/javascript">
+                        if (error_msg) {
+                            document.write(
+                                '<div class="alert-error" role="alert">' +
+                                '<span class="alert-icon" aria-hidden="true">!</span>' +
+                                '<span class="alert-text">' + error_msg + '</span>' +
+                                '</div>'
+                            );
+                        }
+                    </script>
+
+                    <input type="hidden" name="dst" value="$(link-orig)">
+                    <input type="hidden" name="popup" value="true">
+
+                    <div class="login-fields">
+                        <label for="username" class="field-label">Kode Voucher</label>
+
+                        <input type="text" id="username" class="input-voucher" name="username" placeholder="Masukkan kode voucher" aria-describedby="username-field" value="$(username)">
+
+                        <input type="hidden" class="input-login" name="password">
+
+                        <input type="submit" class="btn btn-primary" value="Login">
+                    </div>
+
+                    <div class="divider">Belum punya voucher?</div>
+
+                    <div id="input-voucher">
+                        <a href="#" id="btn-buy-vchr" class="btn btn-secondary">Beli Voucher Disini</a>
+                    </div>
+
+                    <p class="pay-note">
+                        Jika aplikasi e-wallet tidak terbuka saat membayar, pilih metode QRIS.
+                    </p>
+
+                </form>
             </div>
+        </main>
 
-            <script type="text/javascript">
-                if (error_msg) {
-                    document.write(
-                        '<div class="alert alert-danger">' +
-                        error_msg +
-                        '</div>'
-                    );
-                }
-            </script>
-
-            <input type="hidden" name="dst" value="$(link-orig)">
-            <input type="hidden" name="popup" value="true">
-
-            <label for="username"></label>
-
-            <p class="input-subcaption">
-                Silahkan masukan kode voucher agar dapat menikmati akses internet.
-            </p>
-
-            <input type="text" class="input-login" name="username" placeholder="Kode Voucher" aria-describedby="username-field" value="$(username)">
-
-            <input type="hidden" class="input-login" name="password">
-
-            <input type="submit" class="submit-login" value="Login">
-
-            <div id="input-voucher">
-                <a href="#" id="btn-buy-vchr" class="submit-voucher">Beli Voucher Disini</a>
+        <!-- =====================================================
+             FOOTER: TELKOMSAT & BANTUAN
+             ===================================================== -->
+        <footer class="site-footer">
+            <div class="site-footer-inner">
+                <a href="https://www.telkomsat.co.id/" class="tsat-link only-narrow"><img src="img/tsat.png" alt="Telkomsat" class="tsat-logo"></a>
+                <span class="only-narrow">Bantuan <strong>1500832</strong></span>
+                <span class="only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
+                <span class="only-wide">Call Center <strong>1500832</strong> &middot; WhatsApp <strong>+62 811-9699-869</strong></span>
             </div>
-
-            <p class="bh-note">
-                Jika tombol bayar tidak membuka aplikasi e-wallet, gunakan metode QRIS.
-            </p>
-
-        </form>
+        </footer>
     </div>
 
     <!-- =====================================================
