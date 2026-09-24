@@ -1,1852 +1,1273 @@
-html {
-  display: flex;
-  justify-content: center;
-}
-
-.body-login {
-  display: grid;
-
-  grid-template-areas: "telkomsat coconnet" "hero login" "footer footer";
-  grid-template-rows: 100px 2fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  height: 100vh;
-  width: 100%;
-  max-width: 1920px;
-  max-height: 1200px;
-  background: url(/img/Ellipse15.png);
-  background-repeat: no-repeat;
-  background-size: 100% 150%;
-  margin: 0px;
-  padding: 0px;
-}
-
-.body-login-slr {
-  /* display: grid; */
-  grid-template-areas: "telkomsat coconnet" "hero login" "footer footer";
-  grid-template-rows: 100px 2fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  height: 100vh;
-  width: 100%;
-  max-width: 1920px;
-  max-height: 1200px;
-  background: url(/img/Ellipse15.png);
-  background-repeat: no-repeat;
-  background-size: 100% 110%;
-  margin: 0px;
-  padding: 0px;
-}
-
-
-
-.body-status {
-  display: grid;
-  grid-template-areas: "telkomsat coconnet" "status status" "footer footer";
-  grid-template-rows: 100px 2fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  height: 122vh;
-  background: linear-gradient(103.2deg, rgba(255, 231, 7, 0.5) 0%, rgba(251, 93, 43, 0.7) 100%);
-  background-repeat: no-repeat;
-  margin: 0px;
-  padding: 0px;
-}
-
-div,
-footer {
-  display: grid;
-}
-
-#pageCoconnet {
-  grid-area: coconnet;
-  /* background: white; */
-}
-
-#pageTelkomsat {
-  grid-area: telkomsat;
-}
-
-#pageLogin {
-  grid-area: login;
-}
-
-#pageStatus {
-  grid-area: status;
-}
-
-#pageHero {
-  grid-area: hero;
-}
-
-#pageFooter {
-  grid-area: footer;
-}
-
-
-/* ==============( All )=============== */
-
-p {
-  text-align: center;
-  font-family: Arial;
-  color: gray;
-  display: block;
-  margin: 15px auto;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 12px;
-}
-
-a {
-  text-decoration: none;
-}
-
-
-/* ==============( Logo )=============== */
-
-/* .Coconnet {
-  display: flex;
-  justify-content: right;
-  padding: 20px 50px;
-} */
-
-.logo-mangosphere-login-page > img {
-  fill: 100%;
-  margin: 30px;
-}
-
-.Telkomsat {
-  justify-content: left;
-  padding: 20px 50px;
-}
-
-.mangosphere-logo {
-  background: url(/img/mangosphere-img.png);
-  background-repeat: no-repeat;
-  background-size: 380px;
-  height: 120px;
-  background-position-x: center;
-}
-.mangosphere-logo-status {
-  background: url(/img/mangosphere-img.png);
-  background-repeat: no-repeat;
-  background-size: 360px;
-  margin-left: 35px;
-  height: 120px;
-}
-
-.Telkomsat-logo {
-  background: url(/img/tsat.png);
-  background-repeat: no-repeat;
-  background-size: 200px;
-  width: 200px;
-  height: 50px ;
-}
-
-
-/* ==============( Login )=============== */
-
-.Login {
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  margin: 40px;
-  margin-bottom: 210px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.alert {
-  color: red;
-  text-align: center;
-}
-
-.login-form {
-  width: 320px;
-  height: 220px;
-  background: white;
-  border: 2px solid #fb521f47;
-  box-shadow: 4px 4px 2px #fb521f69;
-  margin: 0px auto;
-  padding: 20px 20px;
-  border-radius: 10px;
-}
-
-.login-form-slr {
-  width: 350px;
-  height: 270px;
-  background: white;
-  border: 2px solid #fb521f47;
-  box-shadow: 4px 4px 2px #fb521f69;
-  margin: 0px auto;
-  padding: 20px 20px;
-  border-radius: 10px;
-}
-
-.input-login {
-  text-align: center;
-  display: block;
-  width: 290px;
-  height: 25px;
-  margin-top: 10px;
-  background: #fff;
-  border: 0px;
-  padding: 5px;
-  padding-left: 30px;
-  padding-right: 30px;
-  font-size: 12px;
-  border: 2px solid #0000002b;
-  /* transition: all 0.15s ease; */
-  border-radius: 6px;
-}
-
-#input-voucher {
-  display: block;
-  width: 100%;
-}
-
-.input-subcaption {
-  font-size: 17px;
-  font-style: bolder;
-  color: #ffb109c7;
-}
-
-.submit-login {
-  display: block;
-  background-image: linear-gradient(#FFB209, #FB541F);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.489);
-  width: 100%;
-  padding: 10px;
-  cursor: pointer;
-  color: #fff;
-  border: 0px;
-  margin: 25px auto;
-  border-radius: 30px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.submit-voucher {
-  display: block;
-  background-image: linear-gradient(#FFB209, #FB541F);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.489);
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px;
-  cursor: pointer;
-  color: #fff;
-  border: 0px;
-  border-radius: 30px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  font-size: 10px;
-  transition: all 0.3s ease;
-}
-
-.submit-login:hover {
-  background: #FFB209;
-}
-.submit-voucher:hover {
-  background: #FFB209;
-}
-
-.button-refresh {
-  display: flex;
-  background-image: linear-gradient(#FFB209, #FB541F);
-  box-shadow: 2px 2px 4px black;
-  width: 100px;
-  padding: 3px;
-  cursor: pointer;
-  color: #fff;
-  border: 0px;
-  border-radius: 3px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.button-refresh:hover {
-  background: #FFB209;
-}
-
-.button-alogin {
-  display: block;
-  background-image: linear-gradient(#FFB209, #FB541F);
-  box-shadow: 2px 2px 4px black;
-  width: 290px;
-  padding: 6px;
-  cursor: pointer;
-  color: #fff;
-  border: 0px;
-  margin: 5px auto;
-  border-radius: 3px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  font-size: 16px;
-  transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.button-alogin:hover,
-.button-alogin:focus-visible {
-  background-image: linear-gradient(#FFB209, #FB541F);
-  filter: brightness(1.06);
-  transform: translateY(-1px);
-}
-
-.button-alogin:active {
-  filter: brightness(0.98);
-  transform: translateY(0);
-}
-
-.powered {
-  margin-top: 40px;
-}
-
-.form p a {
-  color: gray;
-}
-
-.form p a:hover {
-  color: #1ab822;
-}
-
-
-/* ===========( Table Status )=========== */
-
-.Status {
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.status-form {
-  width: 400px;
-  height: 350px;
-  background: white;
-  box-shadow: 4px 4px 10px #FB541F;
-  margin: 0px auto;
-  padding-top: 15px;
-  padding-bottom: 30px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 20px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-}
-
-.logout-form {
-  width: 400px;
-  height: 345px;
-  background: white;
-  box-shadow: 4px 4px 10px #FB541F;
-  margin: 0px auto;
-  padding-top: 15px;
-  padding-bottom: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 20px;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-}
-
-.form-caption {
-  display: flex;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  padding-bottom: 10px;
-  background: linear-gradient(#FFB209, #FB541F);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: rgba(0, 0, 0, 0.2);
-}
-
-.remaining {
-  font-size: 18px;
-  font-weight: 400;
-  margin-top: 5px;
-}
-
-.status-table td {
-  padding: 5px 5px;
-  border: 1px solid #FB541F;
-  border-radius: 6px;
-}
-
-.status-table-description {
-  width: 100px;
-  text-align: center;
-  border-radius: 6px;
-  background-color: #FB541F;
-  color: white;
-}
-
-.status-table-data {
-  width: 150px;
-}
-
-table {
-  margin: 10px 0px;
-}
-
-.param-name {
-  text-align: right;
-}
-
-.buttonStatus {
-  display: block;
-  box-shadow: 2px 2px 4px black;
-  width: 316px;
-  padding: 12px;
-  cursor: pointer;
-  color: #fff;
-  background-image: linear-gradient(180deg, red, #880000);
-  border: 0px;
-  margin: 15px auto;
-  border-radius: 30px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  font-size: 17px;
-  transition: all 0.3s ease;
-}
-
-.buttonStatus:hover {
-  background: #FFB209;
-}
-
-.buttonLogout {
-  display: block;
-  box-shadow: 2px 2px 4px black;
-  width: 316px;
-  padding: 12px;
-  cursor: pointer;
-  color: #fff;
-  background-image: linear-gradient(#FFB209, #FB541F);
-  border: 0px;
-  margin: 15px auto;
-  border-radius: 30px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  font-size: 17px;
-  transition: all 0.3s ease;
-}
-
-.buttonLogout:hover {
-  background: #FFB209;
-}
-
-.submit-voucher {
-  text-align: center;
-}
-
-.input-data {
-  text-align: center;
-  background: linear-gradient(94.01deg, #FC6B38 0%, #E3B131 100%);
-  /* width: 180px; */
-  color: white;
-}
-
-
-/* ==============( Hero )=============== */
-
-.Hero {
-  justify-content: center;
-  padding-left: 100px;
-  padding-top: 60px;
-}
-
-.Hero-slr {
-  justify-content: center;
-  padding-top: 180px;
-  padding-left: 80px;
-}
-
-.hero-image {
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/img/mangostar-human.jpg");
-  padding: 0px;
-  width: 560px;
-  height: 150px; 
-  background-position: center;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 40px;
-  border-radius: 10px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-.hero-image-slr {
-  background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/img/mangostar-human.jpg");
-  padding: 0px;
-  width: 560px;
-  height: 180px; 
-  background-position: center;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 40px;
-  border-radius: 10px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-
-/* ==============( wrapper )=============== */
-#wrapper {
-  position: relative;
-  margin-top: 20px;
-}
-
-#wrapper h4{
-  top: 50%;
-  margin: 0px;
-  padding: 6px;
-  height: 24px;
-  width: 24px;
-  text-align: center;
-  cursor: pointer;
-  position: absolute;
-  font-style: bold;
-  font-size: 1.5rem;
-  line-height: 26px;
-  background: orange;
-  border-radius: 50%;
-  transform: translateY(-50%);
-  transition-duration: 0.15s;
-}
-
-#wrapper h4:hover {
-  background:red;
-}
-
-#wrapper h4:first-child{
-  left: -23px;
-}
-
-#wrapper h4:last-child{
-  right: -23px;
-}
-
-
-#carousel {
-  border-radius: 6px;
-  margin: 0px;
-  padding: 0px;
-  background-color: white;
-  justify-items: center;
-  
-}
-
-#carousel h3 {
-  text-align: center;
-  font-size: 20px;
-
-}
-
-#list-paket{
-  display: flex;
-  width: 540px;
-  height: 240px;
-  overflow: hidden;
-  align-items: center;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-
-.list-paket-items {
-  justify-items: center;
-  object-fit: cover;
-  width: calc(100% / 3x);
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 10px;  
-}
-
-.list-paket-items img {
-  width: 140px;
-}
-
-.list-paket-items {
-  background: rgb(255, 255, 255);
-}
-
-.des-paket {
-  justify-content: center;
-  text-align: center;
-  font-size: 12px;
-  padding: 2px;
-}
-
-.timid {
-  text-align: center;
-  font-size: 18px;
-  margin: 2px;
-  padding: 4px;
-  border-bottom: 2px solid black;
-}
-
-.price-paket {
-  color: black;
-  font-size: 15px;
-  padding: 4px;
-  font-style: bold;
-}
-
-.submit-paket {
-  display: block;
-  background-image: linear-gradient(#FFB209, #FB541F);
-  width: 60px;
-  padding: 8px;
-  cursor: pointer;
-  color: #fff;
-  text-align: center;
-  border: 0px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  border-radius: 30px;
-  -moz-border-radius: 30px;
-  -webkit-border-radius: 30px;
-  font-size: 12px;
-  transition: all 0.3s ease;
-}
-
-.submit-paket:hover {
-  background: #FFB209;
-}
-
-
-/* ==============( Footer )=============== */
-
-
-.Footer {
-  margin-top: 100px;
-  font-family: 'Poppins', sans-serif;
-}
-
-.Footer-slr {
-  font-family: 'Poppins', sans-serif;
-  margin-top: 285px;
-}
-
-.footer-row {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: white;
-  height: 130%;
-}
-
-.footer-col {
-  flex-grow: 1;
-  width: 300px;
-  padding: 0px 0px;
-  float: left;
-  border-right: 2px solid red;
-}
-
-.footer-col > div {
-  height: 60px;
-}
-
-.footer-header {
-  display: flex;
-  background: #FB541F;
-  justify-content: center;
-  height: 40px;
-}
-
-.footer-caption {
-  /* float: left; */
-  justify-content: center;
-  align-items: center;
-  width: 55%;
-  font-size: 15px;
-  color: rgb(255, 255, 255);
-}
-
-.footer-logo {
-  display: flex;
-  float: right;
-  width: 45%;
-  justify-content: right;
-  padding: 10px 20px;
-}
-
-.footer-subcaption {
-  justify-content: left;
-  align-items: center;
-  height: 20px;
-  padding: 0 40px;
-  padding-top: 20px;
-  font-size: 18px;
-  color: black;
-  display: flex;
-}
-
-.footer-arrow {
-  width: 20px;
-  height: 20px;
-  padding-top: 2px;
-  padding-right: 2px;
-
-}
-
-.footer-subcaption > h2 {
-  color: #FB541F;
-  font-size: 20px;
-  margin: 0px;
-}
-
-
-.footer-subcaption-img {
-  width: 40px;
-  margin-right: 10px;
-}
-
-.footer-ul {
-  list-style: none;
-  font-size: 16px;
-  height: 40px;
-}
-
-.footer-ul li {
-  margin-left: 0px;
-  padding-bottom: 5px;
-  text-decoration: none;
-  display: flex;
-}
-
-.footer-ul li a {
-  color: black;
-  margin-top: 5px;
-  font-size: 13px;
-}
-
-.footer-ul li a:hover {
-  color: #FB541F;
-}
-
-
-
-
-/* ========( Footer Responsive )======== */
-
-@media(max-width: 1075px) {
-  .footer-col {
-    width: 47%;
-    float: left;
-    margin-bottom: 30px;
-  }
-}
-
-@media(max-width: 775px) {
-  .footer-col {
-    width: 100%;
-    height: 100px;
-  }
-}
-
-
-/* ========( Header & Body Responsive )======== */
-
-
-/* Stack the layout on small devices/viewports. */
-
-@media screen and (max-width: 1400px) {
-
-
-  .Login {
-    margin-bottom: 170px;
-    padding-top: 0px;
-  }
-}
-@media screen and (max-width: 1300px) {
-
-
-  .Login {
-    margin-bottom: 75px;
-    padding-top: 0px;
-  }
-  .Footer {
-    margin-top: 75px;
-  }
-}
-@media screen and (max-width: 1200px) {
-
-    .body-login-slr {
-      background-size: 100% 120%;
-    }
-}
-  
-
-@media all and (max-width: 925px) {
-  .body-login {
-    grid-template-areas: "telkomsat coconnet" "login login" "hero hero" "footer footer";
-    grid-template-rows: 100px 2fr 2fr 1fr;
-    grid-template-columns: 2fr 2fr;
-    background: url(/img/Ellipse15.png);
-    background-repeat: no-repeat;
-    background-size: 100% 160%;
-    }
-
-  .body-login-slr {
-    grid-template-areas: "telkomsat coconnet" "hero hero" "login login" "footer footer";
-    grid-template-rows: 100px 2fr 2fr 1fr;
-    grid-template-columns: 2fr 2fr;
-    background: linear-gradient(164.3deg, rgba(255, 236, 64, 0.5) 0%, rgba(199, 48, 0, 0.5) 100%);
-    background-repeat: no-repeat;
-    background-size: 100% 200%;
-    }
-  .body-status {
-    grid-template-areas: "telkomsat coconnet" "status status" "footer footer";
-    grid-template-rows: 100px 2fr 2fr 1fr;
-    grid-template-columns: 2fr 2fr;
-  }
-
-  .Status {
-    margin: 0px;
-    padding: 0px;
-  }
-
-  .form-caption {
-    font-size: 20px;
-  }
-
-  .status-form {
-    width: 340px;
-    height: 350px;
-  }
-  .logout-form {
-    width: 340px;
-    /*345px*/
-    height: 350px;
-  }
-
-  .buttonStatus {
-    width: 200px;
-    height: 40px;
-    font-size: 15px;
-    text-align: center;
-  }
-
-  .status-table-data  {
-    width: 170px;
-    height: 18px;
-  }
-
-  .status-table-description {
-    width: 100px;
-    height: 18px;
-    font-size: 11px;
-  }
-
-  div {
-    display: grid;
-    justify-items: center;
-  }
-    /* .Coconnet {
-      justify-content: left;
-      padding: 20px 30px;
-    } */
-  .Telkomsat {
-    justify-content: left;
-    padding: 20px 30px;
-  }
-  .Login {
-    justify-content: center;
-    padding-top: 0px;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  .Status {
-    justify-content: center;
-  }
-  .Hero {
-    justify-content: center;
-    padding-top: 0px;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .Hero-slr {
-    justify-content: center;
-    padding-top: 0px;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  #wrapper {
-    width: 420px;
-  }
-
-  #carousel {
-    width: 420px;
-
-  }
-
-  #list-paket{
-    display: flex;
-    width: 360px;
-    height: 240px;
-    overflow: hidden;
-    align-items: center;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  
-  
-   .list-paket-items {
-    justify-items: center;
-    object-fit: cover;
-    width: calc(100% / 2x);
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 10px;  
-  }
-
-  .mangosphere-logo {
-    width: 320px;
-    background-size: 320px;
-    height: 100px;
-  }
-  .mangosphere-logo-status {
-    width: 280px;
-    background-size: 280px;
-    margin: 0px;
-  }
-
-  .Telkomsat-logo {
-    background-size: 150px;
-    margin-left: 15px;
-
-  }
-
-  .hero-image {
-    width: 450px;
-  }
-
-  .hero-image-slr {
-    width: 450px;
-  }
-}
-
-@media all and (max-width: 500px) {
-  .body-login {
-    grid-template-areas: "telkomsat coconnet" "login login" "hero hero" "footer footer";
-    grid-template-rows: 100px 2fr 2fr 1fr;
-    grid-template-columns: 2fr 2fr;
-    background: url(/img/Ellipse15.png);
-    background-repeat: no-repeat;
-    background-size: 100% 160%;
-  }
-  .body-status {
-    grid-template-areas: "telkomsat coconnet" "status status" "footer footer";
-    grid-template-rows: 80px 2fr 2fr 1fr;
-    grid-template-columns: 2fr 2fr;
-  }
-
-  .body-login-slr {
-    grid-template-areas: "telkomsat coconnet" "hero hero" "login login" "footer footer";
-    grid-template-rows: 100px 2fr 2fr 1fr;
-    grid-template-columns: 2fr 2fr;
-    background: linear-gradient(164.3deg, rgba(255, 236, 64, 0.5) 0%, rgba(199, 48, 0, 0.5) 100%);
-    background-repeat: no-repeat;
-    background-size: 100% 200%;
-  }
-
-  .form-caption {
-    font-size: 20px;
-  }
-
-  .buttonStatus {
-    width: 200px;
-    height: 40px;
-    font-size: 15px;
-    text-align: center;
-  }
-
-  .status-table-data  {
-    width: 100px;
-    height: 18px;
-  }
-
-  .status-table-description {
-    width: 100px;
-    height: 18px;
-    font-size: 11px;
-  }
-  /*.Coconnet {
-        justify-content: left;
-        padding: 20px 20px;
-		border: solid 1px red;
-    }
-		
-    .Telkomsat {
-        justify-content: right;
-        padding: 20px 20px;
-		border: solid 1px red;
-    }*/
-  .Login {
-    justify-content: center;
-    padding-top: 0px;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .login-form {
-    width: 240px;
-  }
-
-  .login-form-slr {
-    width: 240px;
-  transition: all 0.15s ease;
-
-  }
-  .input-login {
-    width: 180px;
-  }
-  .Status {
-    justify-content: center;
-    padding: 40px 20px;
-  }
-  .status-caption {
-    font-size: 30px;
-  }
-  .status-form {
-    width: 280px;
-    height: 350px;
-  }
-  .logout-form {
-    width: 280px;
-    /*345px*/
-    height: 340px;
-  }
-  .status-table {
-    font-size: 14px;
-  }
-  .remaining {
-    font-size: 14px;
-  }
-  #pageLogin {
-    background: none;
-  }
-  .Hero {
-    justify-content: center;
-    padding-top: 0px;
-    padding-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  #wrapper {
-    width: 220px;
-  }
-
-  #carousel {
-    width: 220px;
-
-  }
-
-  #list-paket{
-    display: flex;
-    width: 180px;
-    height: 240px;
-    overflow: hidden;
-    align-items: center;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  
-  
-  .list-paket-items {
-    justify-items: center;
-    object-fit: cover;
-    width: calc(100% / 1x);
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 10px;  
-  }
-
-  .mangosphere-logo {
-    width: 270px;
-    background-size: 270px;
-    height: 90px;
-  }
-  .mangosphere-logo-status {
-    width: 250px;
-    background-size: 250px;
-  }
-
-  .Telkomsat-logo {
-    width: 100px;
-    background-size: 100px;
-    margin-left: 15px;
-  }
-
-  .hero-image {
-    width: 280px;
-  }
-
-  .hero-image-slr {
-    width: 350px;
-  }
-}
-
 /* ===========================================================
-   RESPONSIVE & VISUAL REFINEMENTS
-   Ported from /preview (fluid sizing, hover/active states,
-   status toolbar and error page layout). Rules are scoped with
-   parent-class selectors so they take precedence over the
-   fixed-size rules above regardless of source order.
+   BRITE by Telkomsat -- Captive Portal MikroTik
+   -----------------------------------------------------------
+   Satu stylesheet lokal untuk login, alogin, status, logout,
+   dan error. Tanpa font eksternal, tanpa gambar latar: semua
+   dekorasi (orbit, ikon, spinner) dibuat dengan CSS.
+
+   Catatan kompatibilitas jendela captive portal (WebView lama,
+   iOS CNA):
+   - Jarak antar-elemen flex memakai margin, bukan `gap`
+     (flex gap belum didukung Safari < 14.1).
+   - Tidak memakai `inset`, `:has()`, atau `100vh` untuk layout.
    =========================================================== */
+
+/* ==============( Token warna & ukuran )=============== */
+
+:root {
+  /* Warna brand BRITE */
+  --brite-blue: #3468C0;   /* warna utama, tombol aksi */
+  --brite-red: #EE3124;    /* aksen saja, jangan untuk teks kecil */
+  --brite-gray: #9C9C9D;   /* garis dekoratif, elemen netral */
+  --brite-white: #FFFFFF;  /* latar */
+
+  /* Turunan biru */
+  --blue-hover: #2C5CAE;
+  --blue-dark: #24509C;
+  --blue-light: #EAF1FB;
+  --blue-tint: #E4EDFA;
+  --blue-ring: rgba(52, 104, 192, 0.18);
+
+  /* Status error (teks merah pakai versi gelap agar kontrasnya cukup) */
+  --red-text: #C8261B;
+  --red-text-dark: #9E1C13;
+  --red-light: #FDECEA;
+  --red-border: #F5C6C1;
+
+  /* Netral */
+  --ink: #16233A;
+  --text-2: #4E5A6E;
+  --placeholder: #8A94A6;
+  --line: #C5D0E0;
+  --line-soft: #E3E8F0;
+  --line-faint: #EEF1F6;
+  --bg-soft: #F4F6F9;
+  --bg-page: #F7F9FC;
+  --disabled-bg: #D3DBE8;
+  --disabled-text: #6B7688;
+  --success: #1B7F3B;
+
+  --radius-box: 10px;
+  --radius-btn: 12px;
+  --radius-card: 18px;
+  --radius-sheet: 22px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, Menlo, Consolas, "Courier New", monospace;
+}
+
+/* ==============( Dasar )=============== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 html,
 body {
-	width: 100%;
-	max-width: 100%;
-	overflow-x: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.body-status {
-	display: block;
-	height: auto;
-	min-height: 100vh;
-	overflow-y: hidden;
+body {
+  background: var(--brite-white);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
-.body-status .Status {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 12px;
-	padding: 24px 20px;
-	min-height: calc(100vh - 144px);
-	box-sizing: border-box;
+img {
+  border: 0;
+  max-width: 100%;
 }
 
-.body-status .Status .mangosphere-logo,
-.body-status .Status .status-form,
-.body-status .Status .logout-form {
-	margin-top: 0;
-	margin-bottom: 0;
+a {
+  color: var(--brite-blue);
+  text-decoration: none;
 }
 
-.body-status .Status .status-form,
-.body-status .Status .logout-form {
-	width: min(394px, 100%);
-	max-width: 100%;
-	height: auto;
-	min-height: 0;
-	padding: 15px 20px 30px;
-	box-sizing: border-box;
+h1,
+h2,
+p {
+  margin: 0;
 }
 
-.body-status .Status .mangosphere-logo {
-	width: min(380px, 100%);
-	max-width: 100%;
-	flex: 0 0 auto;
-	box-sizing: border-box;
+strong {
+  color: var(--ink);
 }
 
-.error-page {
-	display: block;
-	min-height: 100vh;
-	font-family: 'Poppins', sans-serif;
-	background: linear-gradient(103.2deg, rgba(255, 231, 7, 0.5) 0%, rgba(251, 93, 43, 0.7) 100%);
+/* Tampil hanya di layar lebar / hanya di layar sempit. */
+@media (max-width: 959px) {
+  .only-wide { display: none !important; }
 }
 
-.error-content {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 12px;
-	width: 100%;
-	min-height: calc(100vh - 144px);
-	padding: 24px 20px;
-	box-sizing: border-box;
+@media (min-width: 960px) {
+  .only-narrow { display: none !important; }
 }
 
-.error-content .mangosphere-logo {
-	width: min(380px, 100%);
-	flex: 0 0 auto;
+/* ==============( Kerangka halaman )=============== */
+
+.page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  overflow: hidden;
+  background: var(--brite-white);
+  background: radial-gradient(120% 55% at 50% -8%, var(--blue-tint) 0%, var(--brite-white) 62%);
 }
 
-.error-card {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: min(394px, 100%);
-	padding: 28px 30px 30px;
-	border: 2px solid #fb521f47;
-	border-radius: 10px;
-	background: #fff;
-	box-shadow: 4px 4px 2px #fb521f69;
-	box-sizing: border-box;
-	text-align: center;
+.page-soft {
+  background: var(--bg-page);
 }
 
-.error-icon {
-	display: grid;
-	place-items: center;
-	width: 42px;
-	height: 42px;
-	border-radius: 50%;
-	background: #FB541F;
-	color: #fff;
-	font-size: 26px;
-	font-weight: bold;
+.page > * {
+  position: relative;
+  z-index: 1;
 }
 
-.error-label {
-	margin: 16px 0 6px;
-	color: #FFB209;
-	font-size: 11px;
-	letter-spacing: .08em;
-	text-transform: uppercase;
+/* Dekorasi orbit: hanya garis lingkaran + titik merah. Bisa dihapus
+   tanpa memengaruhi tata letak. */
+.page > .orbit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.error-card h1 {
-	margin: 0;
-	font-family: inherit;
-	font-size: 24px;
+.orbit-ring,
+.orbit-dot {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
 }
 
-.error-message {
-	max-width: 290px;
-	margin: 12px auto 22px;
-	line-height: 1.5;
+.orbit-ring {
+  border: 1px solid #D9E3F3;
 }
 
-.error-button {
-	display: flex !important;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	min-height: 48px;
-	box-sizing: border-box;
-	text-align: center;
+.orbit-ring-lg {
+  width: 440px;
+  height: 440px;
+  top: -270px;
+  right: -190px;
 }
 
-.body-status .Footer-slr {
-	width: 100%;
-	margin-top: 0;
-	padding-bottom: 0;
-	background: #fff;
-	box-sizing: border-box;
+.orbit-ring-sm {
+  width: 300px;
+  height: 300px;
+  top: -200px;
+  right: -120px;
+  border-color: #E6ECF7;
 }
 
-.body-status .Footer-slr .footer-header {
-	height: 54px;
-	min-height: 54px;
-	cursor: pointer;
-	box-sizing: border-box;
+.orbit-dot {
+  width: 8px;
+  height: 8px;
+  top: 100px;
+  right: 32px;
+  background: var(--brite-red);
 }
 
-.body-status .Footer-slr .footer-header:focus-visible {
-	outline: 3px solid #FFB209;
-	outline-offset: -3px;
-}
-
-.body-status .Footer-slr .footer-caption {
-	width: 100%;
-	font-size: 18px;
-}
-
-.body-status .Footer-slr .footer-row {
-	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	align-items: start;
-	gap: 0;
-	height: auto;
-	min-height: 0;
-		padding: 30px 0;
-	box-sizing: border-box;
-}
-
-.body-status .Footer-slr .footer-col {
-	width: auto;
-	min-width: 0;
-	min-height: 0;
-	float: none;
-	margin: 0;
-	padding: 0 30px;
-	border-right: 2px solid #FB541F;
-	box-sizing: border-box;
-}
-
-.body-status .Footer-slr .footer-col:last-child {
-	border-right: 0;
-}
-
-.body-status .Footer-slr .footer-col > div {
-	height: auto;
-}
-
-.body-status .Footer-slr .footer-subcaption {
-	align-items: center;
-	min-height: 48px;
-	height: auto;
-	padding: 0 !important;
-}
-
-.body-status .Footer-slr .footer-subcaption > h2 {
-	font-size: 20px;
-	line-height: 1.25;
-}
-
-.body-status .Footer-slr .footer-ul {
-	height: auto;
-	min-height: 0;
-	margin: 22px 0 0;
-	padding: 0 !important;
-}
-
-.body-status .Footer-slr .footer-ul li {
-	align-items: flex-start;
-	margin: 0 0 10px;
-	padding: 0;
-	line-height: 1.35;
-}
-
-.body-status .Footer-slr .footer-ul li:last-child {
-	margin-bottom: 0;
-}
-
-.body-status .Footer-slr .footer-ul li a {
-	margin-top: 1px;
-	line-height: 1.35;
-}
-
-.body-login-slr {
-	min-height: 100vh;
-	overflow-x: hidden;
-	box-sizing: border-box;
-}
-
-.body-login-slr .Telkomsat {
-	width: 100%;
-	max-width: 100%;
-	box-sizing: border-box;
-	padding: 24px 40px;
-}
-
-.body-login-slr .Login {
-	width: 100%;
-	max-width: 100%;
-	margin: 0 auto;
-	padding: 24px 20px 56px;
-	box-sizing: border-box;
-	transform: translateY(clamp(32px, 6vh, 52px));
-}
-
-.body-login-slr .mangosphere-logo {
-	width: min(380px, 100%);
-	margin: 0 auto;
-}
-
-.body-login-slr .login-form-slr {
-	width: min(394px, 100%);
-	max-width: 100%;
-	height: auto;
-	min-height: 304px;
-	margin: 0 auto;
-	padding: 28px 30px 30px;
-	box-sizing: border-box;
-}
-
-.body-login-slr .form-caption {
-	font-size: 24px;
-}
-
-.body-login-slr .input-subcaption {
-	max-width: 300px;
-	margin: 16px auto;
-	font-size: 14px;
-	line-height: 1.5;
-}
-
-#formLogin .input-subcaption {
-  color: #D98200;
-  font-size: 16px;
-}
-
-.body-login-slr .input-login {
-	width: 100%;
-	height: 38px;
-	margin: 12px 0 0;
-	box-sizing: border-box;
-	font-size: 14px;
-}
-
-.body-login-slr .submit-login {
-	margin: 22px auto;
-	font-size: 14px;
-	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.body-login-slr .submit-login:hover {
-  background-image: linear-gradient(#FFB209, #FB541F);
-  filter: brightness(1.06);
-  transform: translateY(-1px);
-}
-
-.body-login-slr .submit-voucher:hover {
-  background-image: linear-gradient(#F6A32F 0%, #E35D20 100%);
-	filter: brightness(1.06);
-	transform: translateY(-1px);
-}
-
-.body-login-slr .submit-login:active,
-.body-login-slr .submit-voucher:active {
-	filter: brightness(0.98);
-	transform: translateY(0);
-
-#pageWebviewEscape .form-caption {
-  font-size: 28px;
-}
-
-#pageWebviewEscape .input-subcaption {
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-#pageWebviewEscape .submit-login {
-  font-size: 16px;
-}
-
-@media all and (max-width: 500px) {
-  #pageWebviewEscape .form-caption {
-    font-size: 24px;
-  }
-
-  #pageWebviewEscape .input-subcaption {
-    font-size: 14px;
-  }
-
-  #pageWebviewEscape .submit-login {
-    font-size: 15px;
-  }
-}
-}
-
-.body-status .status-toolbar {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr) auto;
-	align-items: center;
-	gap: 18px;
-	width: 100%;
-	min-height: 48px;
-	margin: 4px 0 18px;
-	padding: 0 2px;
-	box-sizing: border-box;
-}
-
-.body-status .status-quota {
-	min-width: 0;
-	justify-self: start;
-	color: #737373;
-	font-size: 13px;
-	line-height: 1.4;
-	text-align: left;
-	white-space: nowrap;
-}
-
-.body-status .status-refresh {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
-	flex: 0 0 auto;
-	justify-self: end;
-	width: 126px;
-	min-width: 0;
-	padding: 10px 14px;
-	margin: 0;
-	box-sizing: border-box;
-	font-size: 11px;
-	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.body-status .status-refresh img {
-	width: 16px;
-	height: 16px;
-}
-
-.body-status .status-refresh:hover {
-	background-image: linear-gradient(#FFB209, #FB541F);
-	filter: brightness(1.06);
-	transform: translateY(-1px);
-}
-
-.body-status .status-refresh:active {
-	filter: brightness(0.98);
-	transform: translateY(0);
-}
-
-.body-status .buttonStatus,
-.body-status .buttonLogout {
-	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.body-status .buttonStatus:hover,
-.body-status .buttonLogout:hover {
-	background-image: linear-gradient(180deg, red, #880000);
-	filter: brightness(1.06);
-	transform: translateY(-1px);
-}
-
-.body-status .buttonStatus:active,
-.body-status .buttonLogout:active {
-	filter: brightness(0.98);
-	transform: translateY(0);
-}
-
-.body-status .logout-form .buttonStatus {
-	display: flex !important;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 48px;
-	min-height: 48px;
-	margin: 15px auto;
-	padding: 12px 16px;
-	box-sizing: border-box;
-	line-height: 1.2;
-}
-
-.body-login-slr .submit-voucher {
+/* Header: logo BRITE; logo Telkomsat ikut tampil di layar lebar. */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  min-width: 0;
-	margin: 0 auto;
-	padding: 10px 12px;
-	box-sizing: border-box;
-  font-size: 14px;
-  background-image: linear-gradient(#F6A32F 0%, #E35D20 100%);
-	transition: filter 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 28px 24px 0;
+  padding-top: max(28px, env(safe-area-inset-top));
 }
 
-.body-login-slr .submit-voucher:hover {
-  background-image: linear-gradient(#F59E0B, #F97316);
+.brand-logo {
+  display: block;
+  width: 148px;
+  height: auto;
 }
 
-@media all and (max-width: 925px) {
-	.body-login-slr .Telkomsat {
-		padding: 20px 30px;
-	}
-
-	.body-login-slr .Login {
-		padding: 12px 20px 48px;
-	}
+.tsat-link {
+  display: block;
 }
 
-@media all and (max-width: 500px) {
-	.body-login-slr .Telkomsat {
-		padding: 16px 20px;
-	}
+.tsat-logo {
+  display: block;
+  width: 100px;
+  height: auto;
+}
 
-	.body-login-slr .Login {
-		padding: 8px 16px 40px;
-		transform: translateY(36px);
-	}
+.page-main {
+  -webkit-box-flex: 1;
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 28px 24px 20px;
+}
 
-	.body-login-slr .mangosphere-logo {
-		width: 100%;
-		background-size: min(270px, 100%);
-	}
+/* Footer: logo Telkomsat + bantuan (layar sempit), hak cipta +
+   kontak (layar lebar). */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 14px 24px 18px;
+  padding-bottom: max(18px, env(safe-area-inset-bottom));
+  color: var(--text-2);
+  font-size: 12px;
+}
 
-	.body-login-slr .login-form-slr {
-		min-height: 286px;
-		padding: 24px 22px 26px;
-	}
+.site-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-faint);
+}
 
-	.body-login-slr .form-caption {
-		font-size: 22px;
-	}
+.site-footer .footer-note {
+  width: 100%;
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+}
 
-	.body-login-slr .input-subcaption {
-		margin: 14px auto;
-		font-size: 13px;
-	}
-
-  #formLogin .input-subcaption {
-    font-size: 15px;
-    line-height: 1.6;
+@media (min-width: 960px) {
+  .site-header {
+    max-width: none;
+    height: 80px;
+    padding: 0 64px;
+    border-bottom: 1px solid rgba(211, 219, 232, 0.7);
   }
 
-	.body-login-slr .submit-login {
-		margin: 18px auto;
-	}
+  .site-header .brand-logo {
+    width: 128px;
+  }
 
-	.body-status .status-toolbar {
-		display: flex;
-		align-items: stretch;
-		flex-direction: column;
-		gap: 10px;
-		margin: 4px 0 14px;
-		padding: 0;
-	}
+  .site-header .tsat-logo {
+    width: 120px;
+  }
 
-	.body-status .Status {
-		gap: 8px;
-		padding: 22px 20px;
-		min-height: calc(100vh - 138px);
-	}
+  .site-footer {
+    max-width: none;
+    padding: 0 64px;
+    border-top: 1px solid rgba(211, 219, 232, 0.7);
+    font-size: 13px;
+  }
 
-	.body-status .Footer-slr {
-		margin-top: 0;
-		padding-bottom: 0;
-	}
+  .site-footer-inner {
+    min-height: 56px;
+    padding-top: 0;
+    border-top: 0;
+  }
 
-	.body-status .Footer-slr .footer-header {
-		height: 48px;
-		min-height: 48px;
-	}
-
-	.body-status .Footer-slr .footer-row {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0;
-		padding: 24px 0;
-	}
-
-	.body-status .Footer-slr .footer-col {
-		width: 100%;
-		height: auto !important;
-		min-height: 0;
-		padding: 0 20px 24px;
-		border-right: 0;
-		border-bottom: 2px solid #FB541F;
-	}
-
-	.body-status .Footer-slr .footer-col:not(:first-child) {
-		padding-top: 24px;
-	}
-
-	.body-status .Footer-slr .footer-col:last-child {
-		padding-bottom: 0;
-		border-bottom: 0;
-	}
-
-	.body-status .Footer-slr .footer-subcaption {
-		justify-content: flex-start;
-	}
-
-	.error-content {
-		min-height: calc(100vh - 138px);
-		padding: 22px 20px;
-	}
-
-	.error-content .mangosphere-logo {
-		width: 100%;
-		background-size: min(270px, 100%);
-	}
-
-	.error-card {
-		width: 100%;
-		padding: 24px 22px 26px;
-	}
-
-	.body-status .status-quota {
-		align-self: center;
-		justify-self: auto;
-		text-align: center;
-		white-space: normal;
-	}
-
-	.body-status .status-refresh {
-		justify-self: auto;
-		width: 100%;
-	}
+  .page-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 24px;
+  }
 }
 
-/* ===========================================================
-   MODAL "BUKA DI BROWSER"
-   Ditawarkan saat portal dibuka di jendela captive portal
-   (WebView Android / Captive Network Assistant iOS), tempat
-   deeplink e-wallet kerap gagal terbuka.
+/* ==============( Tipografi )=============== */
 
-   Semua nilai display ditulis eksplisit karena stylesheet ini
-   memasang `div { display: grid }` secara global di atas.
-   =========================================================== */
+.page-title {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.page-lead {
+  margin-top: 8px;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.eyebrow-bar {
+  display: block;
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--brite-red);
+}
+
+/* ==============( Tombol )=============== */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 52px;
+  margin: 0;
+  padding: 0 16px;
+  border: 0;
+  border-radius: var(--radius-btn);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 4px var(--blue-ring);
+}
+
+.btn-primary {
+  background: var(--brite-blue);
+  color: var(--brite-white);
+}
+
+.btn-primary:hover {
+  background: var(--blue-hover);
+  color: var(--brite-white);
+}
+
+.btn-primary:active {
+  background: var(--blue-dark);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.btn-primary:disabled {
+  background: var(--disabled-bg);
+  color: var(--disabled-text);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  border: 1.5px solid var(--brite-blue);
+  background: var(--brite-white);
+  color: var(--brite-blue);
+}
+
+.btn-secondary:hover {
+  background: #F3F7FD;
+  color: var(--brite-blue);
+}
+
+.btn-secondary:active {
+  border-color: var(--blue-dark);
+  background: var(--blue-light);
+  color: var(--blue-dark);
+}
+
+.btn-neutral {
+  border: 1.5px solid var(--line);
+  background: var(--brite-white);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn-neutral:active {
+  border-color: var(--brite-gray);
+  background: var(--bg-soft);
+}
+
+.btn-neutral:disabled,
+.btn-neutral:disabled:active {
+  border-color: var(--line-soft);
+  background: var(--brite-white);
+  color: var(--placeholder);
+  cursor: not-allowed;
+}
+
+.btn-logout {
+  border: 1.5px solid var(--line);
+  background: var(--brite-white);
+  color: var(--red-text);
+  font-size: 16px;
+}
+
+.btn-logout:active {
+  border-color: var(--red-text);
+  background: var(--red-light);
+}
+
+.btn-small-text {
+  font-size: 16px;
+}
+
+/* ==============( Halaman login )=============== */
+
+.login-hero {
+  display: none;
+}
+
+.login-card .page-title,
+.login-card .page-lead {
+  text-align: left;
+}
+
+/* Kotak pesan error, dibuat oleh skrip di login.html dari $(error). */
+.alert-error {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+  padding: 12px 14px;
+  border: 1px solid var(--red-border);
+  border-radius: var(--radius-btn);
+  background: var(--red-light);
+}
+
+.alert-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-right: 12px;
+  border-radius: 50%;
+  background: var(--red-text);
+  color: var(--brite-white);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.alert-text {
+  padding-top: 1px;
+  color: var(--red-text-dark);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.login-fields {
+  margin-top: 24px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input-voucher {
+  display: block;
+  width: 100%;
+  height: 56px;
+  margin: 0;
+  padding: 0 16px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--brite-white);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-voucher::-webkit-input-placeholder {
+  color: var(--placeholder);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.input-voucher::placeholder {
+  color: var(--placeholder);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 1;
+}
+
+.input-voucher:focus {
+  border-color: var(--brite-blue);
+  box-shadow: 0 0 0 4px var(--blue-ring);
+}
+
+.login-fields .btn-primary {
+  margin-top: 14px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 14px;
+  color: var(--text-2);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line-soft);
+}
+
+.divider::before {
+  margin-right: 12px;
+}
+
+.divider::after {
+  margin-left: 12px;
+}
+
+.pay-note {
+  margin-top: 12px;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 19px;
+  text-align: center;
+}
+
+@media (min-width: 960px) {
+  .page-login {
+    background: var(--brite-white);
+    background: radial-gradient(90% 70% at 20% 0%, var(--blue-tint) 0%, var(--bg-page) 55%, var(--brite-white) 100%);
+  }
+
+  .page-login > .orbit {
+    left: 0;
+    right: auto;
+  }
+
+  .page-login .orbit-ring-lg {
+    width: 980px;
+    height: 980px;
+    top: -420px;
+    left: -360px;
+    right: auto;
+  }
+
+  .page-login .orbit-ring-sm {
+    width: 700px;
+    height: 700px;
+    top: -290px;
+    left: -220px;
+    right: auto;
+  }
+
+  .page-login .orbit-dot {
+    width: 10px;
+    height: 10px;
+    top: 396px;
+    left: 442px;
+    right: auto;
+  }
+
+  .page-login .page-main {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 440px;
+    grid-column-gap: 64px;
+    column-gap: 64px;
+    align-items: center;
+    max-width: 1280px;
+    padding: 48px 64px;
+  }
+
+  .login-hero {
+    display: block;
+  }
+
+  .login-hero-title {
+    margin-top: 18px;
+    font-size: 44px;
+    line-height: 52px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+  }
+
+  .login-hero-lead {
+    max-width: 480px;
+    margin-top: 18px;
+    color: var(--text-2);
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .login-card {
+    padding: 36px 36px 28px;
+    border-radius: 20px;
+    background: var(--brite-white);
+    box-shadow: 0 1px 2px rgba(22, 35, 58, 0.06), 0 20px 50px rgba(22, 35, 58, 0.12);
+  }
+
+  .login-card .page-title {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .login-card .page-lead {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-login .page-main {
+    grid-column-gap: 96px;
+    column-gap: 96px;
+    padding: 48px 112px;
+  }
+}
+
+/* ==============( Overlay "Menyiapkan koneksi" )=============== */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  background: var(--brite-white);
+  background: radial-gradient(90% 50% at 50% 42%, #E9F0FB 0%, var(--brite-white) 70%);
+}
+
+.loading-inner {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 32px;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.loading-title {
+  margin-top: 32px;
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+}
+
+.loading-text {
+  margin-top: 8px;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.loading-tip {
+  margin-top: 28px;
+  padding: 14px 16px;
+  border-radius: var(--radius-btn);
+  background: var(--bg-soft);
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 19px;
+  text-align: left;
+}
+
+@-webkit-keyframes brite-spin {
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@keyframes brite-spin {
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+.spinner {
+  position: relative;
+  display: block;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto;
+}
+
+.spinner-track,
+.spinner-arc,
+.spinner-orbit {
+  position: absolute;
+  display: block;
+}
+
+.spinner-track,
+.spinner-arc {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #DCE5F3;
+}
+
+.spinner-arc {
+  border-color: transparent;
+  border-top-color: var(--brite-blue);
+  -webkit-animation: brite-spin 1s linear infinite;
+  animation: brite-spin 1s linear infinite;
+}
+
+.spinner-orbit {
+  top: -10px;
+  left: -10px;
+  width: 96px;
+  height: 96px;
+  -webkit-animation: brite-spin 2.6s linear infinite;
+  animation: brite-spin 2.6s linear infinite;
+}
+
+.spinner-orbit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--brite-red);
+}
+
+/* ==============( Modal "Buka di Browser" )===============
+   Bottom sheet di layar sempit, kartu di tengah di layar lebar.
+   Display dikendalikan oleh <style> di login.html + kelas .is-open. */
 
 .bh-backdrop {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	padding: 20px;
-	background: rgba(0, 0, 0, 0.55);
-	box-sizing: border-box;
-	overflow-y: auto;
-	z-index: 100000;
-	font-family: 'Poppins', sans-serif;
-}
-
-.bh-backdrop.is-open {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(16, 28, 52, 0.55);
 }
 
 .bh-card {
-	display: block;
-	width: 100%;
-	max-width: 380px;
-	margin: auto;
-	padding: 24px 22px;
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-	box-sizing: border-box;
-	text-align: center;
+  width: 100%;
+  max-width: 480px;
+  margin-top: auto;
+  padding: 12px 24px 28px;
+  padding-bottom: max(28px, env(safe-area-inset-bottom));
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  background: var(--brite-white);
 }
 
-.bh-title {
-	display: block;
-	margin-bottom: 12px;
-	color: #FB541F;
-	font-size: 19px;
-	font-weight: bold;
+.bh-card::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 4px;
+  margin: 0 auto;
+  border-radius: 2px;
+  background: var(--disabled-bg);
 }
 
-.bh-text {
-	margin: 0 0 16px;
-	color: #555;
-	font-size: 13px;
-	line-height: 1.55;
-	text-align: center;
+@media (min-width: 600px) {
+  .bh-backdrop {
+    padding: 24px;
+  }
+
+  .bh-card {
+    margin-bottom: auto;
+    padding: 12px 28px 28px;
+    border-radius: var(--radius-sheet);
+  }
 }
 
 .bh-step {
-	display: none;
+  display: none;
 }
 
 .bh-step.is-open {
-	display: block;
+  display: block;
 }
 
-.bh-btn {
-	display: block;
-	width: 100%;
-	margin: 0 0 10px;
-	padding: 12px 14px;
-	border: 0;
-	border-radius: 30px;
-	box-sizing: border-box;
-	font-family: inherit;
-	font-size: 14px;
-	cursor: pointer;
-	transition: filter 0.2s ease, transform 0.2s ease;
+.bh-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-top: 20px;
+  border-radius: 50%;
+  background: var(--blue-light);
 }
 
-.bh-btn:last-child {
-	margin-bottom: 0;
+.bh-icon-ring {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid var(--brite-blue);
+  border-radius: 50%;
 }
 
-.bh-btn-primary {
-	background-image: linear-gradient(#FFB209, #FB541F);
-	color: #fff;
-	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+.bh-icon-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brite-red);
 }
 
-.bh-btn-secondary {
-	background: #fff;
-	border: 2px solid #ddd;
-	color: #777;
+.bh-title {
+  margin-top: 16px;
+  font-size: 21px;
+  line-height: 28px;
+  font-weight: 700;
 }
 
-.bh-btn:hover {
-	filter: brightness(1.06);
-	transform: translateY(-1px);
+.bh-text {
+  margin-top: 8px;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 22px;
 }
 
-.bh-btn:active {
-	filter: brightness(0.98);
-	transform: translateY(0);
+.bh-btn + .bh-btn {
+  margin-top: 10px;
 }
 
-/* Tombol "Lanjutkan di sini" dikunci beberapa detik supaya peringatannya
-   sempat terbaca. Hover/active sengaja dimatikan agar tidak terlihat
-   seperti bisa ditekan. */
-.bh-btn:disabled,
-.bh-btn:disabled:hover,
-.bh-btn:disabled:active {
-	opacity: 0.5;
-	cursor: not-allowed;
-	filter: none;
-	transform: none;
+.bh-text + .bh-btn {
+  margin-top: 22px;
+}
+
+.bh-hint {
+  margin-top: 14px;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.bh-steps {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: bh-step;
+}
+
+.bh-steps li {
+  position: relative;
+  min-height: 26px;
+  margin-top: 14px;
+  padding: 2px 0 0 38px;
+  font-size: 15px;
+  line-height: 22px;
+  counter-increment: bh-step;
+}
+
+.bh-steps li:first-child {
+  margin-top: 0;
+}
+
+.bh-steps li::before {
+  content: counter(bh-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brite-blue);
+  color: var(--brite-white);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 26px;
+  text-align: center;
 }
 
 /* Link ditampilkan sebagai teks yang bisa diseleksi manual, sebagai
    cadangan kalau penyalinan otomatis diblokir. */
 .bh-url {
-	display: block;
-	margin: 0 0 12px;
-	padding: 10px 12px;
-	background: #f6f6f6;
-	border: 1px solid #e0e0e0;
-	border-radius: 8px;
-	color: #333;
-	font-family: monospace;
-	font-size: 13px;
-	word-break: break-all;
-	-webkit-user-select: all;
-	-moz-user-select: all;
-	user-select: all;
+  margin-top: 18px;
+  padding: 13px 14px;
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--bg-soft);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  word-break: break-all;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  user-select: all;
 }
 
+.bh-url + .bh-btn {
+  margin-top: 10px;
+}
+
+/* Warna teks status diisi oleh skrip (berhasil/gagal). */
 .bh-status {
-	display: block;
-	min-height: 18px;
-	margin: 8px 0 4px;
-	color: #1a9c3c;
-	font-size: 12px;
+  min-height: 18px;
+  margin-top: 8px;
+  color: var(--success);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
 }
 
-.bh-steps {
-	margin: 4px 0 16px;
-	padding-left: 20px;
-	color: #555;
-	font-size: 13px;
-	line-height: 1.6;
-	text-align: left;
+.bh-status + .bh-btn {
+  margin-top: 12px;
 }
 
-.bh-steps li {
-	margin-bottom: 4px;
+/* ==============( Halaman status & logout )=============== */
+
+.status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.bh-note {
-	margin: 10px auto 0;
-	max-width: 280px;
-	color: #8a8a8a;
-	font-size: 11px;
-	line-height: 1.5;
-	text-align: center;
+.status-head .brand-logo {
+  width: 112px;
 }
 
-@media all and (max-width: 500px) {
-	.bh-backdrop {
-		padding: 14px;
-	}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--blue-light);
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
 
-	.bh-card {
-		padding: 20px 18px;
-	}
+.pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--brite-blue);
+}
 
-	.bh-title {
-		font-size: 17px;
-	}
+.pill-muted {
+  background: var(--bg-soft);
+  color: var(--text-2);
+}
+
+.pill-muted::before {
+  background: var(--brite-gray);
+}
+
+.status-card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: var(--radius-card);
+  background: var(--brite-blue);
+  color: var(--brite-white);
+}
+
+.status-card > * {
+  position: relative;
+}
+
+.status-card .orbit-ring {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  top: -120px;
+  right: -90px;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.status-card .orbit-dot {
+  position: absolute;
+  top: 98px;
+  right: 40px;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+}
+
+.status-card-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.92;
+}
+
+.status-card-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 42px;
+  line-height: 48px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.status-card-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-card-row strong {
+  color: var(--brite-white);
+  font-weight: 700;
+}
+
+.info-card {
+  margin-top: 16px;
+  padding: 4px 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  background: var(--brite-white);
+}
+
+.info-card-title {
+  padding: 12px 0 0;
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.info-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.info-table td {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line-faint);
+  vertical-align: top;
+}
+
+.info-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.info-table td:first-child {
+  padding-right: 12px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.info-table td:last-child {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  word-break: break-all;
+}
+
+.status-actions {
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  column-gap: 10px;
+  margin-top: 16px;
+}
+
+.status-actions form {
+  margin: 0;
+}
+
+.logout-intro {
+  margin-top: 28px;
+}
+
+.logout-actions {
+  margin-top: 16px;
+}
+
+@media (min-width: 960px) {
+  .page-status .page-main,
+  .page-center .page-main {
+    max-width: 440px;
+  }
+}
+
+/* ==============( Halaman berhasil login / error )=============== */
+
+.page-center .page-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center-block {
+  text-align: center;
+}
+
+.success-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--brite-blue);
+  box-shadow: 0 0 0 10px rgba(52, 104, 192, 0.12);
+}
+
+.success-icon::after {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 28px;
+  border-right: 4px solid var(--brite-white);
+  border-bottom: 4px solid var(--brite-white);
+  -webkit-transform: translateY(-4px) rotate(45deg);
+  transform: translateY(-4px) rotate(45deg);
+}
+
+.success-title {
+  margin-top: 36px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.success-text {
+  margin-top: 8px;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+@-webkit-keyframes brite-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes brite-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.progress-bar {
+  width: 200px;
+  height: 4px;
+  margin: 24px auto 0;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line-soft);
+}
+
+.progress-bar::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--brite-blue);
+  -webkit-animation: brite-fill 3s linear infinite;
+  animation: brite-fill 3s linear infinite;
+}
+
+.success-actions {
+  margin-top: 36px;
+}
+
+.error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--red-light);
+  color: var(--red-text);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.error-title {
+  margin-top: 24px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.error-text {
+  margin-top: 10px;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.error-code {
+  margin-top: 18px;
+  padding: 10px 12px;
+  border-radius: var(--radius-box);
+  background: var(--bg-soft);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.error-actions {
+  margin-top: 28px;
+}
+
+/* ==============( Aksesibilitas )=============== */
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner-arc,
+  .spinner-orbit,
+  .progress-bar::before {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+  }
+
+  .btn,
+  .input-voucher {
+    transition: none;
+  }
 }
