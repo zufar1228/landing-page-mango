@@ -12,7 +12,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>MangoSphere | Status</title>
+    <title>WiFi BRITE | Status</title>
     <link rel="icon" type="image/x-icon" href="img/hotspot.png">
     <link rel="stylesheet" href="css/style.css">
 
@@ -68,143 +68,98 @@
     </script>
 </head>
 
-<body class="body-status" role="document" $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+<body role="document" $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
 $(if login-by == 'trial')
     <!-- Sesi trial: konten status sengaja TIDAK dikirim sama sekali oleh router
          (dievaluasi server-side), supaya tidak ada apa pun yang bisa sempat
          tampil walau sesaat. Navigasi ke logout sudah dipicu oleh meta refresh
          di <head>. -->
 $(else)
-    <div id="pageTelkomsat" class="Telkomsat">
-        <a href="https://www.telkomsat.co.id/" class="Telkomsat-logo"></a>
-    </div>
-    <div id="pageStatus" class="Status">
-        <div class="mangosphere-logo"></div>
-        <!-- <div class="status-caption">
-            $(if login-by == 'trial')
-            <br> Selamat Datang pengguna trial! <br> 
-            $(elif login-by != 'mac')
-            <br> Selamat Datang $(username)! <br> 
-            $(endif)
-        </div> -->
-        <div class="status-form form">
-            <div class="form-caption">Status Koneksi Anda</div>
-            <div class="status-toolbar">
+    <div class="page page-soft page-status">
+        <main id="pageStatus" class="page-main">
+            <div class="status-head">
+                <img src="img/brite-logo.png" alt="BRITE by Telkomsat" class="brand-logo">
+                <span class="pill">Terhubung</span>
+            </div>
+            <!-- <div class="status-caption">
+                $(if login-by == 'trial')
+                <br> Selamat Datang pengguna trial! <br>
+                $(elif login-by != 'mac')
+                <br> Selamat Datang $(username)! <br>
+                $(endif)
+            </div> -->
+
+            <!-- Kartu utama: sisa waktu & sisa kuota -->
+            <div class="status-card">
+                <span class="orbit-ring" aria-hidden="true"></span>
+                <span class="orbit-dot" aria-hidden="true"></span>
+                <span class="status-card-label">Sisa Waktu</span>
+                <span class="status-card-value"><script>
+                document.write(secondsToTime($(session-time-left-secs)));
+                </script></span>
                 $(if remain-bytes-total)
-                <div class="status-quota">
-                    <script>
-                        document.write('Sisa Kuota : ' + byte_nice($(remain-bytes-total)));
-                    </script>
+                <div class="status-card-row status-quota">
+                    <span>Sisa Kuota</span>
+                    <strong><script>
+                        document.write(byte_nice($(remain-bytes-total)));
+                    </script></strong>
                 </div>
                 $(endif)
-                <button type="button" class="button-refresh status-refresh" onclick="location.reload();">
-                    <span>Muat Ulang</span><img src="img/refresh.png" alt="" aria-hidden="true">
-                </button>
             </div>
-            <table class="status-table">
-                <tbody>
-                    <tr>
-                        <td align="right" class="input-data">Alamat MAC</td>
-                        <td>$(mac)</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="input-data">Alamat IP</td>
-                        <td>$(ip)</td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="input-data">Download / Upload</td>
-                        <td><script>
-                        document.write(byte_nice($(bytes-out)) + ' / ' + byte_nice($(bytes-in)));
-                        </script></td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="input-data">Durasi Sesi</td>
-                        <td><script>
-                        document.write(secondsToTime($(uptime-secs)));
-                        </script></td>
-                    </tr>
-                    <tr>
-                        <td align="right" class="input-data">Sisa Waktu</td>
-                        <td><script>
-                        document.write(secondsToTime($(session-time-left-secs)));
-                        </script></td>
-                    </tr>
-                    <!-- $(if blocked == 'yes')
-                    <tr>
-                        <td align="right">Status :</td>
-                        <td>
-                            <div style="color: #FF8080"><a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div>
-                        </td>
-                    </tr>
-                    $(endif) -->
-                </tbody>
-            </table>
-            <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
-                <input type="hidden" name="erase-cookie" value="on">
-                <input type="submit" value="Logout" class="buttonStatus">
-            </form>
-        </div>
+
+            <!-- Rincian sesi -->
+            <div class="info-card">
+                <table class="info-table">
+                    <tbody>
+                        <tr>
+                            <td>Unduh / Unggah</td>
+                            <td><script>
+                            document.write(byte_nice($(bytes-out)) + ' / ' + byte_nice($(bytes-in)));
+                            </script></td>
+                        </tr>
+                        <tr>
+                            <td>Durasi Sesi</td>
+                            <td><script>
+                            document.write(secondsToTime($(uptime-secs)));
+                            </script></td>
+                        </tr>
+                        <tr>
+                            <td>Alamat IP</td>
+                            <td>$(ip)</td>
+                        </tr>
+                        <tr>
+                            <td>Alamat MAC</td>
+                            <td>$(mac)</td>
+                        </tr>
+                        <!-- $(if blocked == 'yes')
+                        <tr>
+                            <td align="right">Status :</td>
+                            <td>
+                                <div style="color: #FF8080"><a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div>
+                            </td>
+                        </tr>
+                        $(endif) -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="status-actions">
+                <button type="button" class="btn btn-secondary btn-small-text" onclick="location.reload();">Muat Ulang</button>
+                <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+                    <input type="hidden" name="erase-cookie" value="on">
+                    <input type="submit" value="Logout" class="btn btn-logout">
+                </form>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <div class="site-footer-inner">
+                <a href="https://www.telkomsat.co.id/" class="tsat-link"><img src="img/tsat.png" alt="Telkomsat" class="tsat-logo"></a>
+                <span class="only-narrow">Bantuan <strong>1500832</strong></span>
+                <span class="only-wide">Call Center <strong>1500832</strong> &middot; WhatsApp <strong>+62 811-9699-869</strong></span>
+            </div>
+        </footer>
     </div>
-	<footer id="pageFooter" class="Footer-slr">
-		<section class="footer-header" id="footer-header" role="button" tabindex="0" aria-controls="footer-content" aria-label="Buka informasi kontak">
-			<div class="footer-caption">Hubungi Kami</div>
-		</section>
-		<section class="footer-row" id="footer-content">
-			<div class="footer-col">
-				<div class="footer-subcaption" style="padding-right: 100px;">
-					<img src="img/phone.png" alt="" class="footer-subcaption-img">
-					<h2>Call Center</h2>
-				</div>
-				<div>
-					<ul class="footer-ul" style="padding-right: 172px;">
-						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">1500832</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="footer-col">
-				<div class="footer-subcaption" style="padding-right: 68px;">
-					<img src="img/send.png" alt="" class="footer-subcaption-img">
-					<h2>Layanan SMS</h2>
-				</div>
-				<div>
-					<ul class="footer-ul"style="padding-right: 127px;">
-						<li>
-							<img src="img/arah.png" alt="" class="footer-arrow">
-							<a href="#">0811-1666-727</a>
-						</li>
-						<li>
-							<img src="img/arah.png" alt="" class="footer-arrow">
-							<a href="#">0812-2220-9977</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="footer-col">
-				<div class="footer-subcaption" style="padding-right: 99px;">
-					<img src="img/whatsapp.png" alt="" class="footer-subcaption-img">
-					<h2>WhatsApp</h2>
-				</div>
-				<div>
-					<ul class="footer-ul">
-						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 813-9991-2407 (Business Inquiry)</a></li>
-						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 811-974-9971 (Sales)</a></li>
-						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">+62 811-9699-869 (Care Center)</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="footer-col">
-				<div class="footer-subcaption" style="padding-right: 144px;">
-					<img src="img/email.png" alt="" class="footer-subcaption-img">
-					<h2>Email</h2>
-				</div>
-				<div>
-					<ul class="footer-ul">
-						<li><img src="img/arah.png" alt="" class="footer-arrow"><a href="#">sales.mangoesphere@telkomsat.co.id</a></li>
-					</ul>
-				</div>
-			</div>
-		</section>
-	</footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -214,7 +169,6 @@ $(else)
         window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>')
     </script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/footer.js"></script>
 $(endif)
 </body>
 
