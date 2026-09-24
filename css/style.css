@@ -312,76 +312,52 @@ strong {
 
 .contact-panel {
   clear: both;
-  margin-top: 4px;
-  overflow: hidden;
-  border: 1px solid var(--line-soft);
-  border-radius: 16px;
-  background: var(--line-soft);
-  box-shadow: 0 8px 24px rgba(22, 35, 58, 0.08);
+  margin-top: 8px;
 }
 
 .contact-head {
   display: none;
 }
 
-.contact-group {
-  padding: 10px 16px 4px;
-  background: var(--brite-white);
-}
-
+/* Kontak berupa teks biasa yang bisa diketuk: label abu kecil di atas,
+   nomor/email biru di bawah. Tanpa tombol dan tanpa garis pemisah. */
 .contact-group + .contact-group {
-  margin-top: 1px;
+  margin-top: 20px;
 }
 
 .contact-group-title {
   display: block;
-  color: var(--brite-blue);
-  font-size: 11px;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
 }
 
 .contact-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 48px;
-  padding: 4px 0;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 44px;
   color: var(--ink);
 }
 
-.contact-item-text {
-  min-width: 0;
-}
-
-.contact-value {
-  display: block;
-  font-size: 15px;
-  line-height: 20px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
+.contact-item:active {
+  opacity: 0.6;
 }
 
 .contact-label {
   display: block;
   color: var(--text-2);
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 13px;
+  line-height: 18px;
 }
 
-.contact-action {
-  display: inline-flex;
-  align-items: center;
-  flex: none;
-  height: 32px;
-  margin-left: 12px;
-  padding: 0 14px;
-  border-radius: 999px;
-  background: var(--blue-light);
-  color: var(--blue-dark);
-  font-size: 13px;
-  font-weight: 700;
+.contact-value {
+  display: block;
+  color: var(--brite-blue);
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 600;
 }
 
 @media (min-width: 960px) {
@@ -441,20 +417,19 @@ strong {
     right: 64px;
     bottom: 100%;
     z-index: 5;
-    width: 760px;
+    width: 520px;
     max-width: calc(100% - 128px);
     margin: 0 0 8px;
+    overflow: hidden;
+    border: 1px solid var(--line-soft);
     border-radius: 16px;
     background: var(--brite-white);
     box-shadow: 0 20px 50px rgba(22, 35, 58, 0.16);
   }
 
   .contact-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--line-faint);
+    display: block;
+    padding: 18px 24px 14px;
   }
 
   .contact-head-title {
@@ -463,47 +438,43 @@ strong {
     font-weight: 700;
   }
 
-  .contact-head-sub {
-    color: var(--text-2);
-    font-size: 13px;
-  }
-
   .contact-groups {
     display: -ms-grid;
     display: grid;
-    grid-template-columns: 0.8fr 1fr 1.2fr 1.25fr;
-    padding: 18px 0 20px;
-    background: var(--brite-white);
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 32px;
+    column-gap: 32px;
+    padding: 4px 24px 22px;
   }
 
-  .contact-group,
   .contact-group + .contact-group {
     margin-top: 0;
-    padding: 0 20px;
-    border-left: 1px solid var(--line-faint);
   }
 
-  .contact-group:first-child {
-    border-left: 0;
+  .contact-group-title {
+    margin-bottom: 0;
+    font-size: 14px;
   }
 
   .contact-item {
     display: block;
     min-height: 0;
     margin-top: 10px;
-    padding: 0;
+    color: var(--brite-blue);
   }
 
   .contact-item:hover {
-    color: var(--brite-blue);
+    text-decoration: underline;
+  }
+
+  .contact-label {
+    font-size: 12px;
+    line-height: 17px;
   }
 
   .contact-value {
     font-size: 14px;
-  }
-
-  .contact-action {
-    display: none;
+    line-height: 20px;
   }
 }
 
