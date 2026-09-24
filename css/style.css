@@ -216,36 +216,172 @@ strong {
   padding: 28px 24px 20px;
 }
 
-/* Footer: logo Telkomsat + bantuan (layar sempit), hak cipta +
-   kontak (layar lebar). */
+/* Footer: logo Telkomsat (layar sempit) atau hak cipta (layar lebar)
+   di kiri, tombol "Hubungi Kami" di kanan. */
 .site-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: block;
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  padding: 14px 24px 18px;
-  padding-bottom: max(18px, env(safe-area-inset-bottom));
+  padding: 0 24px 16px;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
   color: var(--text-2);
-  font-size: 12px;
+  font-size: 13px;
 }
 
+/* Di layar sempit elemen kiri di-float dan panel kontak memakai
+   clear, supaya panel bisa terbuka selebar footer di bawah barisnya. */
 .site-footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding-top: 14px;
+  display: block;
+  padding-top: 8px;
   border-top: 1px solid var(--line-faint);
 }
 
-.site-footer .footer-note {
-  width: 100%;
+.site-footer-inner::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.footer-start {
+  float: left;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.page-status .site-footer-inner {
+  padding-top: 6px;
+  border-top: 0;
+}
+
+/* ==============( Hubungi Kami: <details>, tanpa JavaScript )=============== */
+
+.contact-toggle {
+  display: block;
+  min-height: 44px;
+  color: var(--brite-blue);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 44px;
+  text-align: right;
+  list-style: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.contact-toggle::-webkit-details-marker {
+  display: none;
+}
+
+.contact-toggle::marker {
+  content: "";
+}
+
+.contact-toggle:focus {
+  outline: none;
+}
+
+.contact-toggle:focus-visible {
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px var(--blue-ring);
+}
+
+/* Panah: bawah saat tertutup, atas saat terbuka (layar sempit). */
+.chevron {
+  position: relative;
+  top: -3px;
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 10px;
+  border-right: 2px solid var(--brite-blue);
+  border-bottom: 2px solid var(--brite-blue);
+  vertical-align: middle;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.contact[open] .chevron {
+  top: 1px;
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+
+.contact-panel {
+  clear: both;
+  margin-top: 4px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: 16px;
+  background: var(--line-soft);
+  box-shadow: 0 8px 24px rgba(22, 35, 58, 0.08);
+}
+
+.contact-head {
+  display: none;
+}
+
+.contact-group {
+  padding: 10px 16px 4px;
+  background: var(--brite-white);
+}
+
+.contact-group + .contact-group {
+  margin-top: 1px;
+}
+
+.contact-group-title {
+  display: block;
+  color: var(--brite-blue);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 4px 0;
+  color: var(--ink);
+}
+
+.contact-item-text {
+  min-width: 0;
+}
+
+.contact-value {
+  display: block;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.contact-label {
+  display: block;
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.contact-action {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  height: 32px;
+  margin-left: 12px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--blue-light);
+  color: var(--blue-dark);
   font-size: 13px;
-  line-height: 19px;
-  text-align: center;
+  font-weight: 700;
 }
 
 @media (min-width: 960px) {
@@ -268,14 +404,108 @@ strong {
     max-width: none;
     padding: 0 64px;
     border-top: 1px solid rgba(211, 219, 232, 0.7);
-    font-size: 13px;
+    background: var(--brite-white);
   }
 
-  .site-footer-inner {
+  .site-footer-inner,
+  .page-status .site-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     min-height: 56px;
     padding-top: 0;
     border-top: 0;
   }
+
+  /* Clearfix hanya untuk layar sempit; di flexbox ia jadi item ketiga. */
+  .site-footer-inner::after {
+    display: none;
+  }
+
+  /* Layar lebar: panel terbuka ke atas, di kanan bawah di atas footer,
+     jadi panahnya kebalikan dari layar sempit. */
+  .chevron {
+    top: 1px;
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+  }
+
+  .contact[open] .chevron {
+    top: -3px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .contact-panel {
+    position: absolute;
+    right: 64px;
+    bottom: 100%;
+    z-index: 5;
+    width: 760px;
+    max-width: calc(100% - 128px);
+    margin: 0 0 8px;
+    border-radius: 16px;
+    background: var(--brite-white);
+    box-shadow: 0 20px 50px rgba(22, 35, 58, 0.16);
+  }
+
+  .contact-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--line-faint);
+  }
+
+  .contact-head-title {
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .contact-head-sub {
+    color: var(--text-2);
+    font-size: 13px;
+  }
+
+  .contact-groups {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: 0.8fr 1fr 1.2fr 1.25fr;
+    padding: 18px 0 20px;
+    background: var(--brite-white);
+  }
+
+  .contact-group,
+  .contact-group + .contact-group {
+    margin-top: 0;
+    padding: 0 20px;
+    border-left: 1px solid var(--line-faint);
+  }
+
+  .contact-group:first-child {
+    border-left: 0;
+  }
+
+  .contact-item {
+    display: block;
+    min-height: 0;
+    margin-top: 10px;
+    padding: 0;
+  }
+
+  .contact-item:hover {
+    color: var(--brite-blue);
+  }
+
+  .contact-value {
+    font-size: 14px;
+  }
+
+  .contact-action {
+    display: none;
+  }
+}
 
   .page-main {
     display: flex;
@@ -582,8 +812,8 @@ strong {
   .page-login .orbit-dot {
     width: 10px;
     height: 10px;
-    top: 396px;
-    left: 442px;
+    top: 35px;
+    left: 614px;
     right: auto;
   }
 
