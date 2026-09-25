@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<!-- Halaman masuk auto-login dari halaman invoice:
+       http://tsat.zone/connect.html?voucher=KODE
+     File statis (tanpa variabel MikroTik), jadi selalu dilayani router apa
+     pun status login perangkatnya, termasuk saat masih sesi trial. Kode
+     disimpan lalu diteruskan ke halaman login; logika ada di js/autologin.js. -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>WiFi BRITE | Menyambungkan</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="img/brite-favicon-32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="img/brite-favicon-48.png">
+    <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
+    <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+
+<body role="document">
+    <div class="page page-center">
+        <header class="site-header">
+            <img src="img/brite-logo.png" alt="BRITE by Telkomsat" class="brand-logo">
+        </header>
+
+        <main class="page-main">
+            <div class="center-block">
+                <span class="spinner" aria-hidden="true"><span class="spinner-track"></span><span class="spinner-arc"></span><span class="spinner-orbit"></span></span>
+                <h1 class="loading-title">Menyambungkan ke WiFi BRITE&hellip;</h1>
+                <p class="loading-text">Kode voucher Anda sedang diproses. Mohon tunggu sebentar.</p>
+                <noscript>
+                    <p class="loading-text">Halaman ini membutuhkan JavaScript.</p>
+                </noscript>
+                <div class="success-actions">
+                    <a href="/login" class="btn btn-secondary">Masuk manual</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="text/javascript" src="/js/autologin.js"></script>
+    <script type="text/javascript">
+        if (window.BriteAutoLogin) {
+            BriteAutoLogin.startFromEntry();
+        }
+    </script>
+</body>
+
+</html>
