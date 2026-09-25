@@ -13,6 +13,8 @@
     <link rel="icon" type="image/png" sizes="48x48" href="img/brite-favicon-48.png">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
     <link rel="stylesheet" href="css/style.css?v=3">
+    <!-- Membawa kode voucher (auto-login dari link invoice) ke halaman login. -->
+    <script type="text/javascript" src="/js/autologin.js"></script>
 
     <script language="JavaScript">
 	<!--
@@ -73,7 +75,7 @@
     </script>
 </head>
 
-<body role="document" onLoad="clearHotspotCookies(); location.href='$(link-login)'">
+<body role="document" onLoad="clearHotspotCookies(); location.href=(window.BriteAutoLogin ? BriteAutoLogin.loginUrlFor('$(link-login)') : '$(link-login)')">
     <div class="page page-soft page-status">
         <main id="pageStatus" class="page-main">
             <div class="status-head">
