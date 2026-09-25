@@ -17,9 +17,17 @@
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
     <link rel="stylesheet" href="css/style.css?v=3">
 
+    <script type="text/javascript" src="/js/autologin.js"></script>
     <script language="JavaScript">
         <!--
         function startClock() {
+            // Auto-login dari link invoice: kalau masih sesi trial, sesi trial
+            // diakhiri dulu lalu voucher dilogin-kan (lihat js/autologin.js).
+            if (window.BriteAutoLogin &&
+                BriteAutoLogin.onLoggedInPage($(if login-by == 'trial')true$(else)false$(endif))) {
+                return;
+            }
+
             // Trial cuma untuk keperluan beli voucher -- kalau ada sesi trial
             // yang sampai ke halaman ini di luar alur beli-voucher kita,
             // langsung kembalikan ke login. Login biasa (voucher/mac) diarahkan
