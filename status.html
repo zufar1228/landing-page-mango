@@ -18,6 +18,15 @@
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
     <link rel="stylesheet" href="css/style.css?v=3">
 
+    <!-- Auto-login dari link invoice: sesi trial -> logout (membawa kode
+         voucher) -> login otomatis; sesi voucher -> selesai. -->
+    <script type="text/javascript" src="/js/autologin.js"></script>
+    <script type="text/javascript">
+        if (window.BriteAutoLogin) {
+            BriteAutoLogin.onLoggedInPage($(if login-by == 'trial')true$(else)false$(endif));
+        }
+    </script>
+
     <script language="JavaScript">
 	<!--
 	$(if advert-pending == 'yes')
