@@ -253,50 +253,27 @@
     <!-- =====================================================
          AUTO-LOGIN DARI LINK: /login?voucher=KODE
          =====================================================
-         Dipakai tombol "kembali ke login" di halaman invoice pembayaran.
-         Kode diisikan ke form lalu dikirim lewat alur yang sama dengan
-         tombol Login (doLogin + CHAP), jadi tidak ada jalur login baru.
-         Parameter sengaja bernama "voucher", bukan "username": MikroTik
-         sendiri memproses /login?username=... sebelum halaman ini tampil. -->
+         Dipakai tombol "sambungkan" di halaman invoice pembayaran. Logika
+         lengkap (termasuk keluar dari sesi trial) ada di js/autologin.js.
+         Kode dikirim lewat alur yang sama dengan tombol Login (doLogin +
+         CHAP). Parameter sengaja bernama "voucher", bukan "username":
+         MikroTik sendiri memproses /login?username=... sebelum halaman ini. -->
+    <script type="text/javascript" src="/js/autologin.js"></script>
     <script type="text/javascript">
-        (function () {
-            var match = /[?&]voucher=([^&#]*)/.exec(window.location.search || '');
-            if (!match) {
-                return;
-            }
-
-            var code = '';
-            try {
-                code = decodeURIComponent(match[1].replace(/\+/g, ' '));
-            } catch (e) {
-                code = '';
-            }
-            code = code.replace(/^\s+|\s+$/g, '');
-
-            // Kode tidak dibiarkan tertinggal di address bar / riwayat.
-            try {
-                window.history.replaceState(null, '', window.location.pathname);
-            } catch (e) {
-                // Browser lama: dibiarkan, tidak memengaruhi login.
-            }
-
-            // Jangan login ulang otomatis kalau router baru saja menolak
-            // (mencegah loop), atau kalau kodenya tidak masuk akal.
-            if (error_msg || !/^[A-Za-z0-9_-]{1,64}$/.test(code)) {
-                if (!error_msg && code) {
-                    document.login.username.value = code;
-                }
-                return;
-            }
-
+        if (window.BriteAutoLogin && BriteAutoLogin.onLoginPage(error_msg, document.login)) {
             window.briteAutoLogin = true;
-            document.login.username.value = code;
 
-            var form = document.login;
-            if (!form.onsubmit || form.onsubmit() !== false) {
-                form.submit();
+            // Tampilkan status "Menyambungkan" selama router memproses.
+            var ov = document.getElementById('loading-overlay');
+            if (ov) {
+                var t = ov.getElementsByTagName('h2')[0];
+                var p = ov.getElementsByTagName('p');
+                if (t) { t.innerHTML = 'Menyambungkan ke WiFi BRITE&hellip;'; }
+                if (p[0]) { p[0].innerHTML = 'Kode voucher Anda sedang diproses. Mohon tunggu sebentar.'; }
+                if (p[1]) { p[1].style.display = 'none'; }
+                ov.style.display = 'block';
             }
-        })();
+        }
     </script>
 
     <!-- =====================================================
