@@ -251,6 +251,55 @@
     </div>
 
     <!-- =====================================================
+         AUTO-LOGIN DARI LINK: /login?voucher=KODE
+         =====================================================
+         Dipakai tombol "kembali ke login" di halaman invoice pembayaran.
+         Kode diisikan ke form lalu dikirim lewat alur yang sama dengan
+         tombol Login (doLogin + CHAP), jadi tidak ada jalur login baru.
+         Parameter sengaja bernama "voucher", bukan "username": MikroTik
+         sendiri memproses /login?username=... sebelum halaman ini tampil. -->
+    <script type="text/javascript">
+        (function () {
+            var match = /[?&]voucher=([^&#]*)/.exec(window.location.search || '');
+            if (!match) {
+                return;
+            }
+
+            var code = '';
+            try {
+                code = decodeURIComponent(match[1].replace(/\+/g, ' '));
+            } catch (e) {
+                code = '';
+            }
+            code = code.replace(/^\s+|\s+$/g, '');
+
+            // Kode tidak dibiarkan tertinggal di address bar / riwayat.
+            try {
+                window.history.replaceState(null, '', window.location.pathname);
+            } catch (e) {
+                // Browser lama: dibiarkan, tidak memengaruhi login.
+            }
+
+            // Jangan login ulang otomatis kalau router baru saja menolak
+            // (mencegah loop), atau kalau kodenya tidak masuk akal.
+            if (error_msg || !/^[A-Za-z0-9_-]{1,64}$/.test(code)) {
+                if (!error_msg && code) {
+                    document.login.username.value = code;
+                }
+                return;
+            }
+
+            window.briteAutoLogin = true;
+            document.login.username.value = code;
+
+            var form = document.login;
+            if (!form.onsubmit || form.onsubmit() !== false) {
+                form.submit();
+            }
+        })();
+    </script>
+
+    <!-- =====================================================
          JAVASCRIPT LIBRARIES & HANDLER
          ===================================================== -->
     <script src="/js/jquery-1.12.2.min.js"></script>
@@ -395,7 +444,8 @@
                 copyViaExecCommand();
             }
 
-            if (bhNeedsHint() && !bhDismissed()) {
+            // Saat auto-login dari link invoice, modal tidak perlu muncul.
+            if (bhNeedsHint() && !bhDismissed() && !window.briteAutoLogin) {
                 $('#bh-url').text(loginUrl);
                 $('#bh-choice').addClass('is-open');
                 $('#browser-hint-modal').addClass('is-open');
