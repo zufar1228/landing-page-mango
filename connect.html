@@ -17,28 +17,35 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 
 <body role="document">
     <div class="page page-center">
-        <header class="site-header">
-            <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="brand-logo">
-        </header>
+        <div class="shell">
+            <div class="shell-row">
+                <div class="shell-aside only-wide">
+                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
+                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
+                </div>
+                <div class="shell-divider only-wide" aria-hidden="true"></div>
+                <div class="shell-content">
+                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
 
-        <main class="page-main">
-            <div class="center-block">
-                <span class="spinner" aria-hidden="true"><span class="spinner-track"></span><span class="spinner-arc"></span><span class="spinner-orbit"></span></span>
-                <h1 class="loading-title">Menyambungkan ke WiFi BRITE&hellip;</h1>
-                <p class="loading-text">Kode voucher Anda sedang diproses. Mohon tunggu sebentar.</p>
-                <noscript>
-                    <p class="loading-text">Halaman ini membutuhkan JavaScript.</p>
-                </noscript>
-                <div class="success-actions">
-                    <a href="/login" class="btn btn-secondary">Masuk manual</a>
+                    <div class="content-block center-block">
+                        <h1 class="page-title">Menyambungkan ke WiFi BRITE&hellip;</h1>
+                        <p class="page-lead">Kode voucher Anda sedang diproses. Mohon tunggu sebentar.</p>
+                        <noscript>
+                            <p class="page-lead">Halaman ini membutuhkan JavaScript.</p>
+                        </noscript>
+                        <div class="progress-track" aria-hidden="true"><span class="progress-indeterminate"></span></div>
+                        <div class="success-actions">
+                            <a href="/login" class="btn btn-tinted">Masuk manual</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </main>
+        </div>
     </div>
 
     <script type="text/javascript" src="/js/autologin.js"></script>
