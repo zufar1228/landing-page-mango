@@ -221,6 +221,7 @@ strong {
 /* ==============( Footer: logo Telkomsat / hak cipta + Hubungi Kami )=============== */
 
 .site-footer {
+  position: relative;
   width: 100%;
   padding: 0 24px 16px;
   padding-bottom: max(16px, env(safe-area-inset-bottom));
@@ -262,9 +263,10 @@ strong {
   .site-footer {
     padding: 0 56px;
     height: 64px;
-    border-top: 1px solid var(--line);
   }
 
+  /* Garis border-top ada di sini (bukan di .site-footer) supaya inset
+     56px dari tepi layar, bukan selebar viewport. */
   .site-footer-inner {
     display: flex;
     align-items: center;
@@ -272,7 +274,7 @@ strong {
     height: 64px;
     min-height: 0;
     padding-top: 0;
-    border-top: 0;
+    border-top: 1px solid var(--line);
   }
 
   .site-footer-inner::after {
@@ -458,7 +460,7 @@ strong {
   color: var(--text-2);
 }
 
-.content-block > .page-title {
+.content-block .page-title {
   margin-top: 48px;
 }
 
@@ -1047,20 +1049,31 @@ strong {
 }
 
 .action-row {
-  display: -ms-grid;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
-  gap: 10px;
   margin-top: 24px;
 }
 
+/* Cadangan tanpa dukungan grid: kedua kontrol ditumpuk vertikal dengan
+   margin biasa. Di browser ber-grid, margin ini direset (spasi dari
+   grid-gap saja) supaya tidak dobel. */
 .action-row form {
-  margin: 0;
+  margin: 10px 0 0;
 }
 
 .action-row .btn {
   margin-top: 0;
+}
+
+@supports (display: grid) {
+  .action-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    gap: 10px;
+  }
+
+  .action-row form {
+    margin-top: 0;
+  }
 }
 
 /* ==============( Halaman berhasil login / logout / error / connect )=============== */
