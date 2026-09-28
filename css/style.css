@@ -696,7 +696,70 @@ strong {
   line-height: 19px;
 }
 
-/* Bar progres tak tentu (proses) & terisi (berhasil), menggantikan spinner lama. */
+/* Spinner loading (overlay login & connect). */
+
+@-webkit-keyframes brite-spin {
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+@keyframes brite-spin {
+  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+
+.spinner {
+  position: relative;
+  display: block;
+  width: 76px;
+  height: 76px;
+  margin: 24px auto 0;
+}
+
+.spinner-track,
+.spinner-arc,
+.spinner-orbit {
+  position: absolute;
+  display: block;
+}
+
+.spinner-track,
+.spinner-arc {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #DCE5F3;
+}
+
+.spinner-arc {
+  border-color: transparent;
+  border-top-color: var(--blue);
+  -webkit-animation: brite-spin 1s linear infinite;
+  animation: brite-spin 1s linear infinite;
+}
+
+.spinner-orbit {
+  top: -10px;
+  left: -10px;
+  width: 96px;
+  height: 96px;
+  -webkit-animation: brite-spin 2.6s linear infinite;
+  animation: brite-spin 2.6s linear infinite;
+}
+
+.spinner-orbit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--brite-red);
+}
+
+/* Bar progres tak tentu terisi (berhasil), dipakai alogin. */
 
 .progress-track {
   position: relative;
@@ -706,28 +769,6 @@ strong {
   overflow: hidden;
   border-radius: 2px;
   background: var(--line);
-}
-
-.progress-indeterminate {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 32%;
-  height: 100%;
-  border-radius: 2px;
-  background: var(--blue);
-  -webkit-animation: brite-indeterminate 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-  animation: brite-indeterminate 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-
-@-webkit-keyframes brite-indeterminate {
-  from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
-  to { -webkit-transform: translateX(320%); transform: translateX(320%); }
-}
-
-@keyframes brite-indeterminate {
-  from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
-  to { -webkit-transform: translateX(320%); transform: translateX(320%); }
 }
 
 .progress-fill {
@@ -1145,7 +1186,8 @@ strong {
 /* ==============( Aksesibilitas )=============== */
 
 @media (prefers-reduced-motion: reduce) {
-  .progress-indeterminate,
+  .spinner-arc,
+  .spinner-orbit,
   .progress-fill {
     -webkit-animation-duration: 3s;
     animation-duration: 3s;
