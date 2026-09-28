@@ -14,33 +14,40 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 
 <body role="document">
     <div class="page page-center page-error">
-        <header class="site-header">
-            <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="brand-logo">
-            <a href="https://www.telkomsat.co.id/" class="tsat-link only-wide"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
-        </header>
-
-        <main class="page-main">
-            <section class="error-card" aria-labelledby="error-title">
-                <div class="error-icon" aria-hidden="true">!</div>
-                <h1 class="error-title" id="error-title">Terjadi Kesalahan</h1>
-                <p class="error-text">Layanan sedang mengalami gangguan sementara. Tunggu sebentar, lalu coba lagi.</p>
-                <p class="error-code">Pesan sistem: $(error)</p>
-                <div class="error-actions">
-                    <a href="$(link-login)" class="btn btn-primary">Kembali ke Halaman Login</a>
+        <div class="shell">
+            <div class="shell-row">
+                <div class="shell-aside only-wide">
+                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
+                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
                 </div>
-            </section>
-        </main>
+                <div class="shell-divider only-wide" aria-hidden="true"></div>
+                <div class="shell-content">
+                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
+
+                    <div class="content-block center-block">
+                        <h1 class="page-title">Tidak dapat terhubung ke server</h1>
+                        <p class="page-lead">Layanan sedang mengalami gangguan sementara. Tunggu sebentar, lalu coba lagi.</p>
+                        <p class="error-code">Kode: $(error)</p>
+                        <div class="error-actions">
+                            <button type="button" class="btn btn-primary" onclick="location.reload()">Coba Lagi</button>
+                            <a href="$(link-login)" class="btn btn-tinted">Kembali ke Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <footer class="site-footer">
             <div class="site-footer-inner">
-                <span class="footer-start">Masih bermasalah?</span>
+                <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
+                <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
                 <details class="contact">
-                    <summary class="contact-toggle">Hubungi Kami<span class="chevron" aria-hidden="true"></span></summary>
+                    <summary class="contact-toggle">Hubungi Kami</summary>
                     <div class="contact-panel">
                         <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
                         <div class="contact-groups">
