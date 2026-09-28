@@ -11,7 +11,7 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <link rel="stylesheet" href="css/style.css?v=4">
     <style>
         /* Modal tetap ada di HTML, tetapi benar-benar tersembunyi di browser biasa. */
         #browser-hint-modal { display: none !important; }
@@ -39,7 +39,7 @@
                     Pembayaran dengan GoPay, ShopeePay, dan aplikasi bank lebih
                     lancar jika halaman ini dibuka di Chrome atau Safari.
                 </p>
-                <button type="button" id="bh-open-browser" class="bh-btn btn btn-primary btn-small-text">Buka di Browser (disarankan)</button>
+                <button type="button" id="bh-open-browser" class="bh-btn btn btn-primary">Buka di Browser (disarankan)</button>
                 <button type="button" id="bh-stay" class="bh-btn btn btn-neutral">Lanjutkan di sini</button>
                 <p class="bh-hint">Hanya ingin memasukkan kode voucher? Pilih &ldquo;Lanjutkan di sini&rdquo;.</p>
             </div>
@@ -56,7 +56,7 @@
                     <li>Buka Chrome atau Safari, lalu tempel link.</li>
                 </ol>
                 <div class="bh-url" id="bh-url"></div>
-                <button type="button" id="bh-copy" class="bh-btn btn btn-primary btn-small-text">Salin Link</button>
+                <button type="button" id="bh-copy" class="bh-btn btn btn-primary">Salin Link</button>
                 <div class="bh-status" id="bh-copy-status" aria-live="polite"></div>
                 <button type="button" id="bh-stay-2" class="bh-btn btn btn-neutral">Lanjutkan di sini</button>
             </div>
@@ -67,16 +67,55 @@
          LOADING OVERLAY
          =====================================================
          display:none inline wajib dipertahankan: overlay dimunculkan
-         oleh jQuery fadeIn() saat tombol Beli Voucher ditekan. -->
+         oleh jQuery fadeIn() saat tombol Beli Voucher ditekan. ID
+         loading-title/loading-text/loading-note dipakai oleh skrip
+         auto-login di bawah untuk mengganti teks overlay ini. -->
     <div id="loading-overlay" class="loading-overlay" style="display:none;">
-        <div class="loading-inner">
-            <span class="spinner" aria-hidden="true"><span class="spinner-track"></span><span class="spinner-arc"></span><span class="spinner-orbit"></span></span>
-            <h2 class="loading-title">Menyiapkan koneksi&hellip;</h2>
-            <p class="loading-text">Membuka halaman pembelian voucher. Mohon tunggu sebentar.</p>
-            <p class="loading-tip">
-                Membayar dengan GoPay dan aplikasinya tidak terbuka?
-                Pilih metode <strong>QRIS</strong> di halaman pembayaran.
-            </p>
+        <div class="page">
+            <div class="shell">
+                <div class="shell-row">
+                    <div class="shell-aside only-wide">
+                        <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
+                    </div>
+                    <div class="shell-divider only-wide" aria-hidden="true"></div>
+                    <div class="shell-content">
+                        <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
+                        <div class="content-block center-block">
+                            <h2 class="page-title" id="loading-title">Membuka halaman pembelian</h2>
+                            <p class="page-lead" id="loading-text">Mohon tunggu sebentar, jangan tutup halaman ini.</p>
+                            <div class="progress-track" aria-hidden="true"><span class="progress-indeterminate"></span></div>
+                            <p class="overlay-note" id="loading-note">Aplikasi e-wallet tidak terbuka saat membayar? Pilih metode <strong>QRIS</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="site-footer">
+                <div class="site-footer-inner">
+                    <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
+                    <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
+                    <details class="contact">
+                        <summary class="contact-toggle">Hubungi Kami</summary>
+                        <div class="contact-panel">
+                            <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
+                            <div class="contact-groups">
+                                <div class="contact-group">
+                                    <span class="contact-group-title">Telepon</span>
+                                    <a href="tel:+628111500831" class="contact-item"><span class="contact-label">CS 1 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-831</span></a>
+                                    <a href="tel:+628111500832" class="contact-item"><span class="contact-label">CS 2 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-832</span></a>
+                                    <a href="tel:+6281288883767" class="contact-item"><span class="contact-label">Marketing Telkomsat</span><span class="contact-value">+62 812-8888-3767</span></a>
+                                </div>
+                                <div class="contact-group">
+                                    <span class="contact-group-title">Email</span>
+                                    <a href="mailto:sales@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Produk</span><span class="contact-value">sales@telkomsat.co.id</span></a>
+                                    <a href="mailto:noc@telkomsat.co.id" class="contact-item"><span class="contact-label">Layanan Pelanggan</span><span class="contact-value">noc@telkomsat.co.id</span></a>
+                                    <a href="mailto:general@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Umum</span><span class="contact-value">general@telkomsat.co.id</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </footer>
         </div>
     </div>
 
@@ -148,76 +187,60 @@
     </script>
 
     <div class="page page-login">
-        <!-- Dekorasi orbit BRITE (murni CSS, boleh dihapus). -->
-        <div class="orbit" aria-hidden="true">
-            <span class="orbit-ring orbit-ring-lg"></span>
-            <span class="orbit-ring orbit-ring-sm"></span>
-            <span class="orbit-dot"></span>
-        </div>
-
-        <!-- =====================================================
-             HEADER: LOGO BRITE & TELKOMSAT
-             ===================================================== -->
-        <header class="site-header">
-            <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="brand-logo">
-            <a href="https://www.telkomsat.co.id/" class="tsat-link only-wide"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
-        </header>
 
         <!-- =====================================================
              LOGIN PAGE / CARD
              ===================================================== -->
-        <main id="pageLogin" class="page-main">
+        <div class="shell">
+            <div class="shell-row">
+                <div class="shell-aside only-wide">
+                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
+                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
+                </div>
+                <div class="shell-divider only-wide" aria-hidden="true"></div>
+                <div class="shell-content">
+                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
 
-            <!-- Teks pembuka, hanya tampil di layar lebar -->
-            <section class="login-hero">
-                <span class="eyebrow-bar" aria-hidden="true"></span>
-                <p class="login-hero-title">Internet satelit yang cepat dan stabil, sampai ke pelosok Indonesia.</p>
-                <p class="login-hero-lead">Masukkan kode voucher untuk mulai terhubung, atau beli voucher baru dalam beberapa langkah.</p>
-            </section>
+                    <div class="login-card content-block">
+                        <form name="login" id="formLogin" class="login-form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
 
-            <div class="login-card">
-                <form name="login" id="formLogin" class="login-form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+                            <h1 class="page-title">Masuk ke WiFi BRITE</h1>
+                            <p class="page-lead">Masukkan kode voucher Anda.</p>
 
-                    <h1 class="page-title">Masuk ke WiFi BRITE</h1>
-                    <p class="page-lead">Masukkan kode voucher untuk mulai terhubung ke internet.</p>
+                            <script type="text/javascript">
+                                if (error_msg) {
+                                    document.write(
+                                        '<div class="alert-error" role="alert">' +
+                                        '<span class="alert-text">' + error_msg + '</span>' +
+                                        '</div>'
+                                    );
+                                }
+                            </script>
 
-                    <script type="text/javascript">
-                        if (error_msg) {
-                            document.write(
-                                '<div class="alert-error" role="alert">' +
-                                '<span class="alert-icon" aria-hidden="true">!</span>' +
-                                '<span class="alert-text">' + error_msg + '</span>' +
-                                '</div>'
-                            );
-                        }
-                    </script>
+                            <input type="hidden" name="dst" value="$(link-orig)">
+                            <input type="hidden" name="popup" value="true">
 
-                    <input type="hidden" name="dst" value="$(link-orig)">
-                    <input type="hidden" name="popup" value="true">
+                            <div class="login-fields">
+                                <label for="username" class="field-label sr-only">Kode Voucher</label>
 
-                    <div class="login-fields">
-                        <label for="username" class="field-label">Kode Voucher</label>
+                                <input type="text" id="username" class="input-voucher" name="username" placeholder="Kode voucher" value="$(username)">
 
-                        <input type="text" id="username" class="input-voucher" name="username" placeholder="Masukkan kode voucher" aria-describedby="username-field" value="$(username)">
+                                <input type="hidden" class="input-login" name="password">
 
-                        <input type="hidden" class="input-login" name="password">
+                                <input type="submit" class="btn btn-primary" value="Masuk">
+                            </div>
 
-                        <input type="submit" class="btn btn-primary" value="Login">
+                            <div class="divider">Belum punya voucher?</div>
+
+                            <div id="input-voucher">
+                                <a href="#" id="btn-buy-vchr" class="btn btn-tinted">Beli Voucher</a>
+                            </div>
+
+                        </form>
                     </div>
-
-                    <div class="divider">Belum punya voucher?</div>
-
-                    <div id="input-voucher">
-                        <a href="#" id="btn-buy-vchr" class="btn btn-secondary">Beli Voucher Disini</a>
-                    </div>
-
-                    <p class="pay-note">
-                        Jika aplikasi e-wallet tidak terbuka saat membayar, pilih metode QRIS.
-                    </p>
-
-                </form>
+                </div>
             </div>
-        </main>
+        </div>
 
         <!-- =====================================================
              FOOTER: TELKOMSAT & BANTUAN
@@ -227,7 +250,7 @@
                 <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
                 <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
                 <details class="contact">
-                    <summary class="contact-toggle">Hubungi Kami<span class="chevron" aria-hidden="true"></span></summary>
+                    <summary class="contact-toggle">Hubungi Kami</summary>
                     <div class="contact-panel">
                         <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
                         <div class="contact-groups">
@@ -266,11 +289,12 @@
             // Tampilkan status "Menyambungkan" selama router memproses.
             var ov = document.getElementById('loading-overlay');
             if (ov) {
-                var t = ov.getElementsByTagName('h2')[0];
-                var p = ov.getElementsByTagName('p');
+                var t = document.getElementById('loading-title');
+                var p = document.getElementById('loading-text');
+                var note = document.getElementById('loading-note');
                 if (t) { t.innerHTML = 'Menyambungkan ke WiFi BRITE&hellip;'; }
-                if (p[0]) { p[0].innerHTML = 'Kode voucher Anda sedang diproses. Mohon tunggu sebentar.'; }
-                if (p[1]) { p[1].style.display = 'none'; }
+                if (p) { p.innerHTML = 'Kode voucher Anda sedang diproses. Mohon tunggu sebentar.'; }
+                if (note) { note.style.display = 'none'; }
                 ov.style.display = 'block';
             }
         }
