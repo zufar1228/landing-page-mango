@@ -1,56 +1,61 @@
 /* ===========================================================
-   BRITE by Telkomsat -- Captive Portal MikroTik
+   BRITE by Telkomsat -- Captive Portal MikroTik (v2)
    -----------------------------------------------------------
    Satu stylesheet lokal untuk login, alogin, status, logout,
-   dan error. Tanpa font eksternal, tanpa gambar latar: semua
-   dekorasi (orbit, ikon, spinner) dibuat dengan CSS.
+   error, dan connect. Tanpa font eksternal, tanpa gambar latar.
+   Putih bersih, logo sumber warna utama. Biru untuk aksi, merah
+   hanya untuk error, radius 12px di semua elemen.
 
    Catatan kompatibilitas jendela captive portal (WebView lama,
    iOS CNA):
    - Jarak antar-elemen flex memakai margin, bukan `gap`
-     (flex gap belum didukung Safari < 14.1).
+     (flex gap belum didukung Safari < 14.1). Grid-gap dipakai
+     bebas karena didukung sejak Safari 10.1.
    - Tidak memakai `inset`, `:has()`, atau `100vh` untuk layout.
    =========================================================== */
 
 /* ==============( Token warna & ukuran )=============== */
 
 :root {
-  /* Warna brand BRITE */
-  --brite-blue: #3468C0;   /* warna utama, tombol aksi */
-  --brite-red: #EE3124;    /* aksen saja, jangan untuk teks kecil */
-  --brite-gray: #9C9C9D;   /* garis dekoratif, elemen netral */
-  --brite-white: #FFFFFF;  /* latar */
+  /* Netral & teks */
+  --ink: #1F2329;
+  --text-2: #5E6166;
+  --line: #E6E6E7;
+  --input-border: #9C9C9D;
+  --bg-soft: #F5F6F7;
 
-  /* Turunan biru */
+  /* Biru -- warna aksi utama */
+  --blue: #3468C0;
   --blue-hover: #2C5CAE;
-  --blue-dark: #24509C;
-  --blue-light: #EAF1FB;
-  --blue-tint: #E4EDFA;
-  --blue-ring: rgba(52, 104, 192, 0.18);
+  --blue-active: #24509C;
+  --focus-ring: #DCE5F5;
 
-  /* Status error (teks merah pakai versi gelap agar kontrasnya cukup) */
-  --red-text: #C8261B;
-  --red-text-dark: #9E1C13;
-  --red-light: #FDECEA;
-  --red-border: #F5C6C1;
+  /* Tombol sekunder (tinted), tanpa border */
+  --tint-bg: #EDF2FA;
+  --tint-text: #24509C;
+  --tint-hover: #E2EAF7;
+  --tint-active: #D6E1F4;
 
-  /* Netral */
-  --ink: #16233A;
-  --text-2: #4E5A6E;
-  --placeholder: #8A94A6;
-  --line: #C5D0E0;
-  --line-soft: #E3E8F0;
-  --line-faint: #EEF1F6;
-  --bg-soft: #F4F6F9;
-  --bg-page: #F7F9FC;
-  --disabled-bg: #D3DBE8;
-  --disabled-text: #6B7688;
-  --success: #1B7F3B;
+  /* Tombol logout */
+  --logout-text: #B3241A;
+  --logout-hover-bg: #FDF1F0;
+  --logout-active-bg: #FBE3E1;
 
-  --radius-box: 10px;
-  --radius-btn: 12px;
-  --radius-card: 18px;
-  --radius-sheet: 22px;
+  /* Hijau "terhubung" */
+  --green: #1D7A43;
+  --green-bg: #EAF5EE;
+
+  /* Merah brand -- dipakai hanya untuk error */
+  --brite-red: #EE3124;
+  --red-text: #B3241A;
+  --red-bg: #FDECEA;
+  --red-border: #F6C6C2;
+
+  /* Tombol dinonaktifkan */
+  --disabled-bg: #E3E6EA;
+  --disabled-text: #9AA1AA;
+
+  --radius: 12px;
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, Menlo, Consolas, "Courier New", monospace;
@@ -72,7 +77,7 @@ body {
 }
 
 body {
-  background: var(--brite-white);
+  background: #fff;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 15px;
@@ -89,7 +94,7 @@ img {
 }
 
 a {
-  color: var(--brite-blue);
+  color: var(--blue);
   text-decoration: none;
 }
 
@@ -112,6 +117,19 @@ strong {
   .only-narrow { display: none !important; }
 }
 
+/* Tersembunyi secara visual, tetap terbaca pembaca layar. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ==============( Kerangka halaman )=============== */
 
 .page {
@@ -119,122 +137,102 @@ strong {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  overflow: hidden;
-  background: var(--brite-white);
-  background: radial-gradient(120% 55% at 50% -8%, var(--blue-tint) 0%, var(--brite-white) 62%);
+  background: #fff;
 }
 
-.page-soft {
-  background: var(--bg-page);
-}
-
-.page > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Dekorasi orbit: hanya garis lingkaran + titik merah. Bisa dihapus
-   tanpa memengaruhi tata letak. */
-.page > .orbit {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.orbit-ring,
-.orbit-dot {
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-}
-
-.orbit-ring {
-  border: 1px solid #D9E3F3;
-}
-
-.orbit-ring-lg {
-  width: 440px;
-  height: 440px;
-  top: -270px;
-  right: -190px;
-}
-
-.orbit-ring-sm {
-  width: 300px;
-  height: 300px;
-  top: -200px;
-  right: -120px;
-  border-color: #E6ECF7;
-}
-
-.orbit-dot {
-  width: 8px;
-  height: 8px;
-  top: 100px;
-  right: 32px;
-  background: var(--brite-red);
-}
-
-/* Header: logo BRITE; logo Telkomsat ikut tampil di layar lebar. */
-.site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 28px 24px 0;
-  padding-top: max(28px, env(safe-area-inset-top));
-}
-
-.brand-logo {
-  display: block;
-  width: 148px;
-  height: auto;
-}
-
-.tsat-link {
-  display: block;
-}
-
-.tsat-logo {
-  display: block;
-  width: 100px;
-  height: auto;
-}
-
-.page-main {
-  -webkit-box-flex: 1;
+.shell {
   flex: 1 0 auto;
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 28px 24px 20px;
 }
 
-/* Footer: logo Telkomsat (layar sempit) atau hak cipta (layar lebar)
-   di kiri, tombol "Hubungi Kami" di kanan. */
-.site-footer {
+.shell-content {
+  padding: 36px 24px 0;
+}
+
+.logo-top {
   display: block;
+  width: 120px;
+  height: auto;
+  margin: 0;
+}
+
+.aside-logo {
+  display: block;
+  width: 220px;
+  height: auto;
+}
+
+.aside-tagline {
+  max-width: 340px;
+  margin-top: 24px;
+  color: var(--text-2);
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.content-block {
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
+}
+
+@media (min-width: 960px) {
+  .shell {
+    display: flex;
+    align-items: center;
+  }
+
+  .shell-row {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+    align-items: center;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .shell-aside {
+    padding: 0 96px 0 120px;
+  }
+
+  .shell-divider {
+    width: 100%;
+    height: 420px;
+    background: var(--line);
+    justify-self: center;
+  }
+
+  .page-status .shell-divider {
+    height: 520px;
+  }
+
+  .shell-content {
+    padding: 0 120px 0 96px;
+  }
+
+  .content-block {
+    max-width: 380px;
+  }
+
+  .page-status .content-block {
+    max-width: 400px;
+  }
+}
+
+/* ==============( Footer: logo Telkomsat / hak cipta + Hubungi Kami )=============== */
+
+.site-footer {
+  width: 100%;
   padding: 0 24px 16px;
   padding-bottom: max(16px, env(safe-area-inset-bottom));
   color: var(--text-2);
   font-size: 13px;
 }
 
-/* Di layar sempit elemen kiri di-float dan panel kontak memakai
-   clear, supaya panel bisa terbuka selebar footer di bawah barisnya. */
 .site-footer-inner {
   display: block;
+  min-height: 56px;
   padding-top: 8px;
-  border-top: 1px solid var(--line-faint);
+  border-top: 1px solid var(--line);
 }
 
 .site-footer-inner::after {
@@ -250,9 +248,36 @@ strong {
   min-height: 44px;
 }
 
-.page-status .site-footer-inner {
-  padding-top: 6px;
-  border-top: 0;
+.tsat-link {
+  display: block;
+}
+
+.tsat-logo {
+  display: block;
+  width: 84px;
+  height: auto;
+}
+
+@media (min-width: 960px) {
+  .site-footer {
+    padding: 0 56px;
+    height: 64px;
+    border-top: 1px solid var(--line);
+  }
+
+  .site-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    min-height: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .site-footer-inner::after {
+    display: none;
+  }
 }
 
 /* ==============( Hubungi Kami: <details>, tanpa JavaScript )=============== */
@@ -260,9 +285,9 @@ strong {
 .contact-toggle {
   display: block;
   min-height: 44px;
-  color: var(--brite-blue);
+  color: var(--blue);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 44px;
   text-align: right;
   list-style: none;
@@ -286,28 +311,7 @@ strong {
 
 .contact-toggle:focus-visible {
   border-radius: 8px;
-  box-shadow: 0 0 0 4px var(--blue-ring);
-}
-
-/* Panah: bawah saat tertutup, atas saat terbuka (layar sempit). */
-.chevron {
-  position: relative;
-  top: -3px;
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-left: 10px;
-  border-right: 2px solid var(--brite-blue);
-  border-bottom: 2px solid var(--brite-blue);
-  vertical-align: middle;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.contact[open] .chevron {
-  top: 1px;
-  -webkit-transform: rotate(-135deg);
-  transform: rotate(-135deg);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .contact-panel {
@@ -319,8 +323,6 @@ strong {
   display: none;
 }
 
-/* Kontak berupa teks biasa yang bisa diketuk: label abu kecil di atas,
-   nomor/email biru di bawah. Tanpa tombol dan tanpa garis pemisah. */
 .contact-group + .contact-group {
   margin-top: 20px;
 }
@@ -354,77 +356,26 @@ strong {
 
 .contact-value {
   display: block;
-  color: var(--brite-blue);
+  color: var(--ink);
   font-size: 15px;
   line-height: 21px;
   font-weight: 600;
 }
 
 @media (min-width: 960px) {
-  .site-header {
-    max-width: none;
-    height: 80px;
-    padding: 0 64px;
-    border-bottom: 1px solid rgba(211, 219, 232, 0.7);
-  }
-
-  .site-header .brand-logo {
-    width: 128px;
-  }
-
-  .site-header .tsat-logo {
-    width: 120px;
-  }
-
-  .site-footer {
-    max-width: none;
-    padding: 0 64px;
-    border-top: 1px solid rgba(211, 219, 232, 0.7);
-    background: var(--brite-white);
-  }
-
-  .site-footer-inner,
-  .page-status .site-footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 56px;
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  /* Clearfix hanya untuk layar sempit; di flexbox ia jadi item ketiga. */
-  .site-footer-inner::after {
-    display: none;
-  }
-
-  /* Layar lebar: panel terbuka ke atas, di kanan bawah di atas footer,
-     jadi panahnya kebalikan dari layar sempit. */
-  .chevron {
-    top: 1px;
-    -webkit-transform: rotate(-135deg);
-    transform: rotate(-135deg);
-  }
-
-  .contact[open] .chevron {
-    top: -3px;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
   .contact-panel {
     position: absolute;
-    right: 64px;
+    right: 56px;
     bottom: 100%;
     z-index: 5;
     width: 520px;
-    max-width: calc(100% - 128px);
+    max-width: calc(100% - 112px);
     margin: 0 0 8px;
     overflow: hidden;
-    border: 1px solid var(--line-soft);
-    border-radius: 16px;
-    background: var(--brite-white);
-    box-shadow: 0 20px 50px rgba(22, 35, 58, 0.16);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(31, 35, 41, 0.14);
   }
 
   .contact-head {
@@ -460,10 +411,10 @@ strong {
     display: block;
     min-height: 0;
     margin-top: 10px;
-    color: var(--brite-blue);
+    color: var(--ink);
   }
 
-  .contact-item:hover {
+  .contact-item:hover .contact-value {
     text-decoration: underline;
   }
 
@@ -478,36 +429,37 @@ strong {
   }
 }
 
-  .page-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 48px 24px;
-  }
-}
-
 /* ==============( Tipografi )=============== */
 
 .page-title {
-  font-size: 26px;
-  line-height: 32px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+@media (min-width: 960px) {
+  .page-title {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.5px;
+  }
 }
 
 .page-lead {
-  margin-top: 8px;
+  margin-top: 6px;
   color: var(--text-2);
   font-size: 15px;
   line-height: 22px;
 }
 
-.eyebrow-bar {
-  display: block;
-  width: 40px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--brite-red);
+.field-label {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.content-block > .page-title {
+  margin-top: 48px;
 }
 
 /* ==============( Tombol )=============== */
@@ -521,10 +473,10 @@ strong {
   margin: 0;
   padding: 0 16px;
   border: 0;
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius);
   font-family: inherit;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
@@ -540,90 +492,79 @@ strong {
 }
 
 .btn:focus-visible {
-  box-shadow: 0 0 0 4px var(--blue-ring);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .btn-primary {
-  background: var(--brite-blue);
-  color: var(--brite-white);
+  background: var(--blue);
+  color: #fff;
 }
 
 .btn-primary:hover {
   background: var(--blue-hover);
-  color: var(--brite-white);
 }
 
 .btn-primary:active {
-  background: var(--blue-dark);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18);
+  background: var(--blue-active);
 }
 
 .btn-primary:disabled {
   background: var(--disabled-bg);
   color: var(--disabled-text);
-  box-shadow: none;
   cursor: not-allowed;
 }
 
-.btn-secondary {
-  border: 1.5px solid var(--brite-blue);
-  background: var(--brite-white);
-  color: var(--brite-blue);
+.btn-tinted {
+  border: 0;
+  background: var(--tint-bg);
+  color: var(--tint-text);
 }
 
-.btn-secondary:hover {
-  background: #F3F7FD;
-  color: var(--brite-blue);
+.btn-tinted:hover {
+  background: var(--tint-hover);
 }
 
-.btn-secondary:active {
-  border-color: var(--blue-dark);
-  background: var(--blue-light);
-  color: var(--blue-dark);
+.btn-tinted:active {
+  background: var(--tint-active);
 }
 
 .btn-neutral {
-  border: 1.5px solid var(--line);
-  background: var(--brite-white);
+  border: 1px solid var(--line);
+  background: #fff;
   color: var(--ink);
-  font-size: 16px;
-  font-weight: 600;
 }
 
 .btn-neutral:active {
-  border-color: var(--brite-gray);
   background: var(--bg-soft);
 }
 
-.btn-neutral:disabled,
-.btn-neutral:disabled:active {
-  border-color: var(--line-soft);
-  background: var(--brite-white);
-  color: var(--placeholder);
+.btn-neutral:disabled {
+  border-color: var(--line);
+  background: #fff;
+  color: var(--disabled-text);
   cursor: not-allowed;
 }
 
 .btn-logout {
-  border: 1.5px solid var(--line);
-  background: var(--brite-white);
-  color: var(--red-text);
-  font-size: 16px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--logout-text);
+}
+
+.btn-logout:hover {
+  border-color: var(--logout-hover-bg);
+  background: var(--logout-hover-bg);
 }
 
 .btn-logout:active {
-  border-color: var(--red-text);
-  background: var(--red-light);
+  background: var(--logout-active-bg);
 }
 
-.btn-small-text {
-  font-size: 16px;
+.btn + .btn {
+  margin-top: 10px;
 }
 
 /* ==============( Halaman login )=============== */
-
-.login-hero {
-  display: none;
-}
 
 .login-card .page-title,
 .login-card .page-lead {
@@ -632,64 +573,44 @@ strong {
 
 /* Kotak pesan error, dibuat oleh skrip di login.html dari $(error). */
 .alert-error {
-  display: flex;
-  align-items: flex-start;
   margin-top: 20px;
   padding: 12px 14px;
   border: 1px solid var(--red-border);
-  border-radius: var(--radius-btn);
-  background: var(--red-light);
-}
-
-.alert-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  width: 22px;
-  height: 22px;
-  margin-right: 12px;
-  border-radius: 50%;
-  background: var(--red-text);
-  color: var(--brite-white);
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1;
+  border-radius: var(--radius);
+  background: var(--red-bg);
 }
 
 .alert-text {
-  padding-top: 1px;
-  color: var(--red-text-dark);
+  color: var(--red-text);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 20px;
 }
 
 .login-fields {
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
-.field-label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 14px;
-  font-weight: 600;
+@media (min-width: 960px) {
+  .login-fields {
+    margin-top: 32px;
+  }
 }
 
 .input-voucher {
   display: block;
   width: 100%;
-  height: 56px;
+  height: 54px;
   margin: 0;
   padding: 0 16px;
-  border: 1.5px solid var(--line);
-  border-radius: var(--radius-btn);
-  background: var(--brite-white);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: #fff;
   color: var(--ink);
   font-family: inherit;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
@@ -697,14 +618,14 @@ strong {
 }
 
 .input-voucher::-webkit-input-placeholder {
-  color: var(--placeholder);
+  color: var(--text-2);
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0;
 }
 
 .input-voucher::placeholder {
-  color: var(--placeholder);
+  color: var(--text-2);
   font-size: 16px;
   font-weight: 400;
   letter-spacing: 0;
@@ -712,18 +633,18 @@ strong {
 }
 
 .input-voucher:focus {
-  border-color: var(--brite-blue);
-  box-shadow: 0 0 0 4px var(--blue-ring);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
-.login-fields .btn-primary {
-  margin-top: 14px;
+.login-fields .btn {
+  margin-top: 12px;
 }
 
 .divider {
   display: flex;
   align-items: center;
-  margin: 20px 0 14px;
+  margin: 20px 0;
   color: var(--text-2);
   font-size: 13px;
   white-space: nowrap;
@@ -734,117 +655,24 @@ strong {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--line-soft);
+  background: var(--line);
 }
 
 .divider::before {
-  margin-right: 12px;
+  margin-right: 14px;
 }
 
 .divider::after {
-  margin-left: 12px;
-}
-
-.pay-note {
-  margin-top: 12px;
-  color: var(--text-2);
-  font-size: 13px;
-  line-height: 19px;
-  text-align: center;
+  margin-left: 14px;
 }
 
 @media (min-width: 960px) {
-  .page-login {
-    background: var(--brite-white);
-    background: radial-gradient(90% 70% at 20% 0%, var(--blue-tint) 0%, var(--bg-page) 55%, var(--brite-white) 100%);
-  }
-
-  .page-login > .orbit {
-    left: 0;
-    right: auto;
-  }
-
-  .page-login .orbit-ring-lg {
-    width: 980px;
-    height: 980px;
-    top: -420px;
-    left: -360px;
-    right: auto;
-  }
-
-  .page-login .orbit-ring-sm {
-    width: 700px;
-    height: 700px;
-    top: -290px;
-    left: -220px;
-    right: auto;
-  }
-
-  .page-login .orbit-dot {
-    width: 10px;
-    height: 10px;
-    top: 35px;
-    left: 614px;
-    right: auto;
-  }
-
-  .page-login .page-main {
-    display: -ms-grid;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 440px;
-    grid-column-gap: 64px;
-    column-gap: 64px;
-    align-items: center;
-    max-width: 1280px;
-    padding: 48px 64px;
-  }
-
-  .login-hero {
-    display: block;
-  }
-
-  .login-hero-title {
-    margin-top: 18px;
-    font-size: 44px;
-    line-height: 52px;
-    font-weight: 700;
-    letter-spacing: -0.8px;
-  }
-
-  .login-hero-lead {
-    max-width: 480px;
-    margin-top: 18px;
-    color: var(--text-2);
-    font-size: 18px;
-    line-height: 28px;
-  }
-
-  .login-card {
-    padding: 36px 36px 28px;
-    border-radius: 20px;
-    background: var(--brite-white);
-    box-shadow: 0 1px 2px rgba(22, 35, 58, 0.06), 0 20px 50px rgba(22, 35, 58, 0.12);
-  }
-
-  .login-card .page-title {
-    font-size: 24px;
-    line-height: 30px;
-  }
-
-  .login-card .page-lead {
-    display: none;
+  .divider {
+    margin: 24px 0;
   }
 }
 
-@media (min-width: 1200px) {
-  .page-login .page-main {
-    grid-column-gap: 96px;
-    column-gap: 96px;
-    padding: 48px 112px;
-  }
-}
-
-/* ==============( Overlay "Menyiapkan koneksi" )=============== */
+/* ==============( Overlay "Membuka halaman pembelian" )=============== */
 
 .loading-overlay {
   position: fixed;
@@ -853,107 +681,75 @@ strong {
   width: 100%;
   height: 100%;
   z-index: 99999;
-  background: var(--brite-white);
-  background: radial-gradient(90% 50% at 50% 42%, #E9F0FB 0%, var(--brite-white) 70%);
+  overflow-y: auto;
+  background: #fff;
 }
 
-.loading-inner {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 0 32px;
-  text-align: center;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.loading-title {
+.overlay-note {
   margin-top: 32px;
-  font-size: 22px;
-  line-height: 28px;
-  font-weight: 700;
-}
-
-.loading-text {
-  margin-top: 8px;
-  color: var(--text-2);
-  font-size: 15px;
-  line-height: 22px;
-}
-
-.loading-tip {
-  margin-top: 28px;
-  padding: 14px 16px;
-  border-radius: var(--radius-btn);
-  background: var(--bg-soft);
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
   color: var(--text-2);
   font-size: 13px;
   line-height: 19px;
-  text-align: left;
 }
 
-@-webkit-keyframes brite-spin {
-  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
-}
+/* Bar progres tak tentu (proses) & terisi (berhasil), menggantikan spinner lama. */
 
-@keyframes brite-spin {
-  to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
-}
-
-.spinner {
+.progress-track {
   position: relative;
-  display: block;
-  width: 76px;
-  height: 76px;
-  margin: 0 auto;
+  width: 200px;
+  height: 2px;
+  margin: 24px auto 0;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--line);
 }
 
-.spinner-track,
-.spinner-arc,
-.spinner-orbit {
+.progress-indeterminate {
   position: absolute;
-  display: block;
+  top: 0;
+  left: 0;
+  width: 32%;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--blue);
+  -webkit-animation: brite-indeterminate 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  animation: brite-indeterminate 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
-.spinner-track,
-.spinner-arc {
+@-webkit-keyframes brite-indeterminate {
+  from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+  to { -webkit-transform: translateX(320%); transform: translateX(320%); }
+}
+
+@keyframes brite-indeterminate {
+  from { -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+  to { -webkit-transform: translateX(320%); transform: translateX(320%); }
+}
+
+.progress-fill {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  border: 3px solid #DCE5F3;
+  border-radius: 2px;
+  background: var(--blue);
+  -webkit-transform-origin: left;
+  transform-origin: left;
+  -webkit-animation: brite-fill 3s linear infinite;
+  animation: brite-fill 3s linear infinite;
 }
 
-.spinner-arc {
-  border-color: transparent;
-  border-top-color: var(--brite-blue);
-  -webkit-animation: brite-spin 1s linear infinite;
-  animation: brite-spin 1s linear infinite;
+@-webkit-keyframes brite-fill {
+  from { -webkit-transform: scaleX(0); transform: scaleX(0); }
+  to { -webkit-transform: scaleX(1); transform: scaleX(1); }
 }
 
-.spinner-orbit {
-  top: -10px;
-  left: -10px;
-  width: 96px;
-  height: 96px;
-  -webkit-animation: brite-spin 2.6s linear infinite;
-  animation: brite-spin 2.6s linear infinite;
-}
-
-.spinner-orbit::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  margin-left: -5px;
-  border-radius: 50%;
-  background: var(--brite-red);
+@keyframes brite-fill {
+  from { -webkit-transform: scaleX(0); transform: scaleX(0); }
+  to { -webkit-transform: scaleX(1); transform: scaleX(1); }
 }
 
 /* ==============( Modal "Buka di Browser" )===============
@@ -972,7 +768,7 @@ strong {
   align-items: center;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  background: rgba(16, 28, 52, 0.55);
+  background: rgba(31, 35, 41, 0.55);
 }
 
 .bh-card {
@@ -981,8 +777,8 @@ strong {
   margin-top: auto;
   padding: 12px 24px 28px;
   padding-bottom: max(28px, env(safe-area-inset-bottom));
-  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
-  background: var(--brite-white);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: #fff;
 }
 
 .bh-card::before {
@@ -992,7 +788,7 @@ strong {
   height: 4px;
   margin: 0 auto;
   border-radius: 2px;
-  background: var(--disabled-bg);
+  background: var(--line);
 }
 
 @media (min-width: 600px) {
@@ -1003,7 +799,7 @@ strong {
   .bh-card {
     margin-bottom: auto;
     padding: 12px 28px 28px;
-    border-radius: var(--radius-sheet);
+    border-radius: var(--radius);
   }
 }
 
@@ -1024,14 +820,14 @@ strong {
   height: 48px;
   margin-top: 20px;
   border-radius: 50%;
-  background: var(--blue-light);
+  background: var(--tint-bg);
 }
 
 .bh-icon-ring {
   display: block;
   width: 22px;
   height: 22px;
-  border: 2.5px solid var(--brite-blue);
+  border: 2.5px solid var(--blue);
   border-radius: 50%;
 }
 
@@ -1043,7 +839,7 @@ strong {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--brite-red);
+  background: var(--blue);
 }
 
 .bh-title {
@@ -1105,8 +901,8 @@ strong {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: var(--brite-blue);
-  color: var(--brite-white);
+  background: var(--blue);
+  color: #fff;
   font-size: 13px;
   font-weight: 700;
   line-height: 26px;
@@ -1118,8 +914,8 @@ strong {
 .bh-url {
   margin-top: 18px;
   padding: 13px 14px;
-  border: 1.5px dashed var(--line);
-  border-radius: var(--radius-btn);
+  border: 1px dashed var(--input-border);
+  border-radius: var(--radius);
   background: var(--bg-soft);
   color: var(--ink);
   font-family: var(--font-mono);
@@ -1138,7 +934,6 @@ strong {
 .bh-status {
   min-height: 18px;
   margin-top: 8px;
-  color: var(--success);
   font-size: 13px;
   font-weight: 600;
   line-height: 18px;
@@ -1149,192 +944,126 @@ strong {
   margin-top: 12px;
 }
 
-/* ==============( Halaman status & logout )=============== */
+/* ==============( Halaman status )=============== */
 
-.status-head {
+.status-connected {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.status-head .brand-logo {
-  width: 112px;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: var(--blue-light);
-  color: var(--blue-dark);
-  font-size: 13px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.pill::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  margin-right: 6px;
-  border-radius: 50%;
-  background: var(--brite-blue);
-}
-
-.pill-muted {
-  background: var(--bg-soft);
-  color: var(--text-2);
-}
-
-.pill-muted::before {
-  background: var(--brite-gray);
-}
-
-.status-card {
-  position: relative;
-  overflow: hidden;
-  margin-top: 22px;
-  padding: 20px;
-  border-radius: var(--radius-card);
-  background: var(--brite-blue);
-  color: var(--brite-white);
-}
-
-.status-card > * {
-  position: relative;
-}
-
-.status-card .orbit-ring {
-  position: absolute;
-  width: 240px;
-  height: 240px;
-  top: -120px;
-  right: -90px;
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-.status-card .orbit-dot {
-  position: absolute;
-  top: 98px;
-  right: 40px;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
-}
-
-.status-card-label {
-  display: block;
+  margin-top: 40px;
+  color: var(--green);
   font-size: 14px;
   font-weight: 600;
-  opacity: 0.92;
 }
 
-.status-card-value {
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.status-connected + .page-title {
+  margin-top: 8px;
+}
+
+.stat-block {
+  display: flex;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stat {
+  flex: 1;
+  padding: 16px 12px;
+  text-align: center;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--line);
+}
+
+.stat-label {
+  display: block;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.stat-value {
   display: block;
   margin-top: 4px;
-  font-size: 42px;
-  line-height: 48px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
-.status-card-row {
+@media (min-width: 960px) {
+  .stat {
+    padding: 20px 12px;
+  }
+
+  .stat-value {
+    font-size: 30px;
+    line-height: 36px;
+  }
+}
+
+/* Daftar baris rincian sesi (status, logout). */
+.info-list {
+  margin-top: 0;
+}
+
+.info-list--top {
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.info-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.status-card-row strong {
-  color: var(--brite-white);
-  font-weight: 700;
-}
-
-.info-card {
-  margin-top: 16px;
-  padding: 4px 16px;
-  border: 1px solid var(--line-soft);
-  border-radius: 14px;
-  background: var(--brite-white);
-}
-
-.info-card-title {
-  padding: 12px 0 0;
-  color: var(--text-2);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.info-table {
-  width: 100%;
-  margin: 0;
-  border-collapse: collapse;
+  min-height: 46px;
+  border-bottom: 1px solid var(--line);
   font-size: 14px;
 }
 
-.info-table td {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line-faint);
-  vertical-align: top;
-}
-
-.info-table tr:last-child td {
-  border-bottom: 0;
-}
-
-.info-table td:first-child {
-  padding-right: 12px;
+.info-row-label {
   color: var(--text-2);
-  white-space: nowrap;
 }
 
-.info-table td:last-child {
-  font-weight: 600;
+.info-row-value {
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
   text-align: right;
   word-break: break-all;
 }
 
-.status-actions {
+.info-row-value.mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.action-row {
   display: -ms-grid;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 10px;
-  column-gap: 10px;
-  margin-top: 16px;
+  grid-gap: 10px;
+  gap: 10px;
+  margin-top: 24px;
 }
 
-.status-actions form {
+.action-row form {
   margin: 0;
 }
 
-.logout-intro {
-  margin-top: 28px;
+.action-row .btn {
+  margin-top: 0;
 }
 
-.logout-actions {
-  margin-top: 16px;
-}
-
-@media (min-width: 960px) {
-  .page-status .page-main,
-  .page-center .page-main {
-    max-width: 440px;
-  }
-}
-
-/* ==============( Halaman berhasil login / error )=============== */
-
-.page-center .page-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+/* ==============( Halaman berhasil login / logout / error / connect )=============== */
 
 .center-block {
   text-align: center;
@@ -1345,106 +1074,49 @@ strong {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
-  margin: 0 auto;
+  width: 44px;
+  height: 44px;
+  margin: 48px auto 0;
   border-radius: 50%;
-  background: var(--brite-blue);
-  box-shadow: 0 0 0 10px rgba(52, 104, 192, 0.12);
+  background: var(--green-bg);
 }
 
 .success-icon::after {
   content: "";
   display: block;
-  width: 14px;
-  height: 28px;
-  border-right: 4px solid var(--brite-white);
-  border-bottom: 4px solid var(--brite-white);
-  -webkit-transform: translateY(-4px) rotate(45deg);
-  transform: translateY(-4px) rotate(45deg);
+  width: 12px;
+  height: 20px;
+  border-right: 2.5px solid var(--green);
+  border-bottom: 2.5px solid var(--green);
+  -webkit-transform: translateY(-2px) rotate(45deg);
+  transform: translateY(-2px) rotate(45deg);
 }
 
-.success-title {
-  margin-top: 36px;
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 700;
-}
-
-.success-text {
-  margin-top: 8px;
-  color: var(--text-2);
-  font-size: 15px;
-  line-height: 22px;
-}
-
-@-webkit-keyframes brite-fill {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes brite-fill {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-.progress-bar {
-  width: 200px;
-  height: 4px;
-  margin: 24px auto 0;
-  overflow: hidden;
-  border-radius: 2px;
-  background: var(--line-soft);
-}
-
-.progress-bar::before {
-  content: "";
-  display: block;
-  width: 0;
-  height: 100%;
-  border-radius: 2px;
-  background: var(--brite-blue);
-  -webkit-animation: brite-fill 3s linear infinite;
-  animation: brite-fill 3s linear infinite;
+.success-icon + .page-title {
+  margin-top: 20px;
 }
 
 .success-actions {
-  margin-top: 36px;
+  margin-top: 28px;
 }
 
-.error-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--red-light);
-  color: var(--red-text);
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.error-title {
-  margin-top: 24px;
-  font-size: 24px;
-  line-height: 30px;
-  font-weight: 700;
-}
-
-.error-text {
-  margin-top: 10px;
+.link-status {
+  display: block;
+  min-height: 44px;
+  margin-top: 8px;
   color: var(--text-2);
-  font-size: 15px;
-  line-height: 22px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 44px;
+  text-align: center;
+}
+
+.logout-actions {
+  margin-top: 24px;
 }
 
 .error-code {
-  margin-top: 18px;
-  padding: 10px 12px;
-  border-radius: var(--radius-box);
-  background: var(--bg-soft);
+  margin-top: 16px;
   color: var(--text-2);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -1460,9 +1132,8 @@ strong {
 /* ==============( Aksesibilitas )=============== */
 
 @media (prefers-reduced-motion: reduce) {
-  .spinner-arc,
-  .spinner-orbit,
-  .progress-bar::before {
+  .progress-indeterminate,
+  .progress-fill {
     -webkit-animation-duration: 3s;
     animation-duration: 3s;
   }
