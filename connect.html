@@ -2,10 +2,10 @@
 <html lang="id">
 
 <!-- Halaman masuk auto-login dari halaman invoice:
-       http://tsat.zone/connect.html?voucher=KODE
+       tsat.zone/connect.html?voucher=KODE
      File statis (tanpa variabel MikroTik), jadi selalu dilayani router apa
-     pun status login perangkatnya, termasuk saat masih sesi trial. Kode
-     disimpan lalu diteruskan ke halaman login; logika ada di js/autologin.js. -->
+     pun status login perangkatnya. Kode disimpan lalu diteruskan ke halaman
+     login; logika ada di js/autologin.js. -->
 
 <head>
     <meta charset="utf-8">
@@ -17,33 +17,22 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/fallback.css?v=1">
 </head>
 
 <body role="document">
-    <div class="page page-center">
-        <div class="shell">
-            <div class="shell-row">
-                <div class="shell-aside only-wide">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
-                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
-                </div>
-                <div class="shell-divider only-wide" aria-hidden="true"></div>
-                <div class="shell-content">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
+    <div class="fb-page">
+        <div class="fb-card">
+            <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="fb-logo" width="560" height="234">
 
-                    <div class="content-block center-block">
-                        <h1 class="page-title">Menyambungkan ke WiFi BRITE&hellip;</h1>
-                        <p class="page-lead">Kode voucher Anda sedang diproses. Mohon tunggu sebentar.</p>
-                        <noscript>
-                            <p class="page-lead">Halaman ini membutuhkan JavaScript.</p>
-                        </noscript>
-                        <span class="spinner" aria-hidden="true"><span class="spinner-track"></span><span class="spinner-arc"></span><span class="spinner-orbit"></span></span>
-                        <div class="success-actions">
-                            <a href="/login" class="btn btn-tinted">Masuk manual</a>
-                        </div>
-                    </div>
-                </div>
+            <h1 class="fb-title">Menyambungkan ke WiFi BRITE&hellip;</h1>
+            <p class="fb-lead">Kode voucher Anda sedang diproses. Mohon tunggu sebentar.</p>
+            <noscript>
+                <p class="fb-lead">Halaman ini membutuhkan JavaScript.</p>
+            </noscript>
+            <span class="fb-spinner" aria-hidden="true"></span>
+            <div class="fb-actions">
+                <a href="/login" class="fb-btn fb-btn-tinted">Masuk manual</a>
             </div>
         </div>
     </div>
