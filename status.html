@@ -37,8 +37,18 @@
     </script>
     <script type="text/javascript">
         (function () {
+            var root = document.documentElement;
+
+            // Tampilkan cadangan sekarang (aman dipanggil berulang).
+            function showFallback() {
+                if (!/\bhs-fallback-now\b/.test(root.className)) {
+                    root.className += ' hs-fallback-now';
+                }
+            }
+
             var P = window.HS_PORTAL;
             if (!P || !P.assetBase) {
+                showFallback();
                 return;
             }
             var v = encodeURIComponent(P.version || '');
@@ -47,14 +57,20 @@
             var css = document.createElement('link');
             css.rel = 'stylesheet';
             css.href = P.assetBase + 'app.css?v=' + v;
+            css.onerror = showFallback;
             head.appendChild(css);
 
             var js = document.createElement('script');
             js.src = P.assetBase + 'app.js?v=' + v;
-            js.onerror = function () {
-                document.documentElement.className += ' hs-fallback-now';
-            };
+            js.onerror = showFallback;
             head.appendChild(js);
+
+            // Pengaman: bila bundle belum mengambil alih dalam 3 detik.
+            setTimeout(function () {
+                if (!/\bhs-enhanced\b/.test(root.className)) {
+                    showFallback();
+                }
+            }, 3000);
         })();
     </script>
 
