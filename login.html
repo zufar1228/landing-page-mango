@@ -11,113 +11,94 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=5">
-    <style>
-        /* Modal tetap ada di HTML, tetapi benar-benar tersembunyi di browser biasa. */
-        #browser-hint-modal { display: none !important; }
-        #browser-hint-modal.is-open { display: flex !important; }
-    </style>
+    <link rel="stylesheet" href="css/fallback.css?v=1">
+
+    <!-- Cangkang tipis: bundle UI (app.css + app.js) diambil dari server pusat
+         lewat alamat di /portal-config.js. Bila gagal, form cadangan di bawah
+         tampil dan tetap bisa login tanpa JavaScript eksternal. -->
+    <script src="/portal-config.js"></script>
+    <script type="text/javascript">
+        window.HS = {
+            page: 'login',
+            linkLogin: '$(link-login)',
+            linkLoginOnly: '$(link-login-only)',
+            linkLogout: '$(link-logout)',
+            linkStatus: '$(link-status)',
+            linkOrig: '$(link-orig-esc)',
+            mac: '$(mac)',
+            ip: '$(ip)',
+            locationId: '$(location-id)',
+            username: '',
+            chapId: '$(chap-id)',
+            chapChallenge: '$(chap-challenge)'
+        };
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var P = window.HS_PORTAL;
+            if (!P || !P.assetBase) {
+                return;
+            }
+            var v = encodeURIComponent(P.version || '');
+            var head = document.getElementsByTagName('head')[0];
+
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = P.assetBase + 'app.css?v=' + v;
+            head.appendChild(css);
+
+            var js = document.createElement('script');
+            js.src = P.assetBase + 'app.js?v=' + v;
+            js.onerror = function () {
+                document.documentElement.className += ' hs-fallback-now';
+            };
+            head.appendChild(js);
+        })();
+    </script>
 </head>
 
 <body role="document">
 
+    <!-- Wadah kosong untuk bundle UI. -->
+    <div id="app"></div>
+
     <!-- =====================================================
-         MODAL "BUKA DI BROWSER"
+         TAMPILAN CADANGAN
          =====================================================
-         Hanya muncul kalau halaman terdeteksi dibuka di jendela
-         captive portal. Pilihan "Lanjutkan di sini" selalu tersedia
-         di setiap langkah supaya pengguna yang cuma mau memasukkan
-         kode voucher tidak pernah terkunci. -->
-    <div id="browser-hint-modal" class="bh-backdrop" role="dialog" aria-modal="true" aria-labelledby="bh-title">
-        <div class="bh-card">
+         Tampil otomatis bila bundle tidak mengambil alih #app
+         (lihat css/fallback.css). -->
+    <div id="hs-fallback">
+        <div class="fb-page">
+            <div class="fb-card">
+                <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="fb-logo" width="560" height="234">
 
-            <!-- Langkah 1: pilihan -->
-            <div class="bh-step" id="bh-choice">
-                <div class="bh-icon" aria-hidden="true"><span class="bh-icon-ring"></span><span class="bh-icon-dot"></span></div>
-                <h2 class="bh-title" id="bh-title">Bayar lebih lancar lewat browser</h2>
-                <p class="bh-text">
-                    Pembayaran dengan GoPay, ShopeePay, dan aplikasi bank lebih
-                    lancar jika halaman ini dibuka di Chrome atau Safari.
-                </p>
-                <button type="button" id="bh-open-browser" class="bh-btn btn btn-primary">Buka di Browser (disarankan)</button>
-                <button type="button" id="bh-stay" class="bh-btn btn btn-neutral">Lanjutkan di sini</button>
-                <p class="bh-hint">Hanya ingin memasukkan kode voucher? Pilih &ldquo;Lanjutkan di sini&rdquo;.</p>
-            </div>
+                <h1 class="fb-title">Masuk ke WiFi BRITE</h1>
+                <p class="fb-lead">Masukkan kode voucher Anda.</p>
 
-            <!-- Langkah 2: panduan manual, dipakai kalau pembukaan otomatis gagal -->
-            <div class="bh-step" id="bh-manual">
-                <h2 class="bh-title">Buka manual di browser</h2>
-                <p class="bh-text">
-                    Browser tidak terbuka otomatis. Ikuti 3 langkah berikut:
-                </p>
-                <ol class="bh-steps">
-                    <li>Salin link di bawah ini.</li>
-                    <li>Tutup jendela ini. Jika ditanya, pilih <strong>&ldquo;Tetap gunakan jaringan ini&rdquo;</strong>.</li>
-                    <li>Buka Chrome atau Safari, lalu tempel link.</li>
-                </ol>
-                <div class="bh-url" id="bh-url"></div>
-                <button type="button" id="bh-copy" class="bh-btn btn btn-primary">Salin Link</button>
-                <div class="bh-status" id="bh-copy-status" aria-live="polite"></div>
-                <button type="button" id="bh-stay-2" class="bh-btn btn btn-neutral">Lanjutkan di sini</button>
+                <div id="hs-err-msg" class="fb-alert" role="alert" hidden></div>
+                <p id="hs-status" class="fb-note" hidden></p>
+
+                <form name="login" id="formLogin" class="login-form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+                    <input type="hidden" name="dst" value="$(link-orig)">
+                    <input type="hidden" name="popup" value="true">
+
+                    <label for="username" class="fb-sr">Kode Voucher</label>
+                    <input type="text" id="username" class="fb-input input-voucher" name="username" placeholder="Kode voucher">
+
+                    <input type="hidden" class="input-login" name="password">
+
+                    <input type="submit" class="fb-btn fb-btn-primary" value="Masuk">
+                </form>
+
+                <div id="hs-buy-divider" class="fb-divider" hidden>Belum punya voucher?</div>
+                <a id="hs-buy" class="fb-btn fb-btn-tinted" target="_blank" rel="noopener" hidden>Beli Voucher</a>
             </div>
         </div>
     </div>
 
-    <!-- =====================================================
-         LOADING OVERLAY
-         =====================================================
-         display:none inline wajib dipertahankan: overlay dimunculkan
-         oleh jQuery fadeIn() saat tombol Beli Voucher ditekan. ID
-         loading-title/loading-text/loading-note dipakai oleh skrip
-         auto-login di bawah untuk mengganti teks overlay ini. -->
-    <div id="loading-overlay" class="loading-overlay" style="display:none;">
-        <div class="page">
-            <div class="shell">
-                <div class="shell-row">
-                    <div class="shell-aside only-wide">
-                        <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
-                    </div>
-                    <div class="shell-divider only-wide" aria-hidden="true"></div>
-                    <div class="shell-content">
-                        <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
-                        <div class="content-block center-block">
-                            <h2 class="page-title" id="loading-title">Membuka halaman pembelian</h2>
-                            <p class="page-lead" id="loading-text">Mohon tunggu sebentar, jangan tutup halaman ini.</p>
-                            <span class="spinner" aria-hidden="true"><span class="spinner-track"></span><span class="spinner-arc"></span><span class="spinner-orbit"></span></span>
-                            <p class="overlay-note" id="loading-note">Aplikasi e-wallet tidak terbuka saat membayar? Pilih metode <strong>QRIS</strong>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="site-footer">
-                <div class="site-footer-inner">
-                    <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
-                    <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
-                    <details class="contact">
-                        <summary class="contact-toggle">Hubungi Kami</summary>
-                        <div class="contact-panel">
-                            <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
-                            <div class="contact-groups">
-                                <div class="contact-group">
-                                    <span class="contact-group-title">Telepon</span>
-                                    <a href="tel:+628111500831" class="contact-item"><span class="contact-label">CS 1 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-831</span></a>
-                                    <a href="tel:+628111500832" class="contact-item"><span class="contact-label">CS 2 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-832</span></a>
-                                    <a href="tel:+6281288883767" class="contact-item"><span class="contact-label">Marketing Telkomsat</span><span class="contact-value">+62 812-8888-3767</span></a>
-                                </div>
-                                <div class="contact-group">
-                                    <span class="contact-group-title">Email</span>
-                                    <a href="mailto:sales@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Produk</span><span class="contact-value">sales@telkomsat.co.id</span></a>
-                                    <a href="mailto:noc@telkomsat.co.id" class="contact-item"><span class="contact-label">Layanan Pelanggan</span><span class="contact-value">noc@telkomsat.co.id</span></a>
-                                    <a href="mailto:general@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Umum</span><span class="contact-value">general@telkomsat.co.id</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </details>
-                </div>
-            </footer>
-        </div>
-    </div>
+    <!-- Teks dari router hanya dibaca lewat textContent, tidak pernah sebagai HTML. -->
+    <div id="hs-error" hidden>$(error)</div>
+    <div id="hs-username" hidden>$(username)</div>
 
     <!-- =====================================================
          MIKROTIK CHAP FORM
@@ -134,7 +115,7 @@
     $(endif)
 
     <!-- =====================================================
-         LOGIN FUNCTION & ERROR PARSER
+         LOGIN FUNCTION
          ===================================================== -->
     <script type="text/javascript">
         function doLogin() {
@@ -159,354 +140,93 @@
             return true;
             $(endif)
         }
-
-        var error_msg = "$(error)";
-        var matched;
-
-        if ((matched = error_msg.match(/Sorry... you have used all your data allowance/))) {
-            error_msg = "Maaf, kuota Anda sudah habis";
-        } else if ((matched = error_msg.match(/Sorry... you have used your (.*?) data allowance/))) {
-            error_msg = "Maaf, kuota Anda sudah habis";
-        } else if ((matched = error_msg.match(/Maximum usage exceeded/))) {
-            error_msg = "Maaf, waktu Anda sudah habis";
-        } else if ((matched = error_msg.match(/Maximum (.*?) usage exceeded/))) {
-            error_msg = "Maaf, waktu Anda sudah habis";
-        } else if ((matched = error_msg.match(/The time for voucher (.*?) is depleted/))) {
-            error_msg = "Maaf, waktu Anda sudah habis";
-        } else if ((matched = error_msg.match(/You are already logged in/))) {
-            error_msg = "Anda sudah login";
-        } else if ((matched = error_msg.match(/Account disabled/))) {
-            error_msg = "Voucher dinonaktifkan";
-        } else if ((matched = error_msg.match(/Unknown user/))) {
-            error_msg = "Voucher tidak diketahui";
-        } else if ((matched = error_msg.match(/Simultaneous connections limited to (\d+)/))) {
-            error_msg = "Voucher hanya bisa digunakan di " + matched[1] + " perangkat dalam waktu bersamaan";
-        } else if ((matched = error_msg.match(/User (.*?) not registered/))) {
-            error_msg = "Voucher tidak terdaftar";
-        }
     </script>
 
-    <div class="page page-login">
+    <!-- =====================================================
+         SKRIP CADANGAN: PESAN ERROR, ISI USERNAME, LINK BELI
+         ===================================================== -->
+    <script type="text/javascript">
+        (function () {
+            function text(id) {
+                var el = document.getElementById(id);
+                return el ? (el.textContent || '').replace(/^\s+|\s+$/g, '') : '';
+            }
 
-        <!-- =====================================================
-             LOGIN PAGE / CARD
-             ===================================================== -->
-        <div class="shell">
-            <div class="shell-row">
-                <div class="shell-aside only-wide">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
-                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
-                </div>
-                <div class="shell-divider only-wide" aria-hidden="true"></div>
-                <div class="shell-content">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
+            // Terjemahan pesan error router (pola tidak boleh diubah).
+            var error_msg = text('hs-error');
+            var matched;
 
-                    <div class="login-card content-block">
-                        <form name="login" id="formLogin" class="login-form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+            if ((matched = error_msg.match(/Sorry... you have used all your data allowance/))) {
+                error_msg = "Maaf, kuota Anda sudah habis";
+            } else if ((matched = error_msg.match(/Sorry... you have used your (.*?) data allowance/))) {
+                error_msg = "Maaf, kuota Anda sudah habis";
+            } else if ((matched = error_msg.match(/Maximum usage exceeded/))) {
+                error_msg = "Maaf, waktu Anda sudah habis";
+            } else if ((matched = error_msg.match(/Maximum (.*?) usage exceeded/))) {
+                error_msg = "Maaf, waktu Anda sudah habis";
+            } else if ((matched = error_msg.match(/The time for voucher (.*?) is depleted/))) {
+                error_msg = "Maaf, waktu Anda sudah habis";
+            } else if ((matched = error_msg.match(/You are already logged in/))) {
+                error_msg = "Anda sudah login";
+            } else if ((matched = error_msg.match(/Account disabled/))) {
+                error_msg = "Voucher dinonaktifkan";
+            } else if ((matched = error_msg.match(/Unknown user/))) {
+                error_msg = "Voucher tidak diketahui";
+            } else if ((matched = error_msg.match(/Simultaneous connections limited to (\d+)/))) {
+                error_msg = "Voucher hanya bisa digunakan di " + matched[1] + " perangkat dalam waktu bersamaan";
+            } else if ((matched = error_msg.match(/User (.*?) not registered/))) {
+                error_msg = "Voucher tidak terdaftar";
+            }
 
-                            <h1 class="page-title">Masuk ke WiFi BRITE</h1>
-                            <p class="page-lead">Masukkan kode voucher Anda.</p>
+            var box = document.getElementById('hs-err-msg');
+            if (error_msg && box) {
+                box.textContent = error_msg;
+                box.removeAttribute('hidden');
+            }
 
-                            <script type="text/javascript">
-                                if (error_msg) {
-                                    document.write(
-                                        '<div class="alert-error" role="alert">' +
-                                        '<span class="alert-text">' + error_msg + '</span>' +
-                                        '</div>'
-                                    );
-                                }
-                            </script>
+            // Isi ulang kolom voucher dengan yang terakhir dikirim ke router.
+            var field = document.login.username;
+            if (field && !field.value) {
+                field.value = text('hs-username');
+            }
 
-                            <input type="hidden" name="dst" value="$(link-orig)">
-                            <input type="hidden" name="popup" value="true">
-
-                            <div class="login-fields">
-                                <label for="username" class="field-label sr-only">Kode Voucher</label>
-
-                                <input type="text" id="username" class="input-voucher" name="username" placeholder="Kode voucher" value="$(username)">
-
-                                <input type="hidden" class="input-login" name="password">
-
-                                <input type="submit" class="btn btn-primary" value="Masuk">
-                            </div>
-
-                            <div class="divider">Belum punya voucher?</div>
-
-                            <div id="input-voucher">
-                                <a href="#" id="btn-buy-vchr" class="btn btn-tinted">Beli Voucher</a>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- =====================================================
-             FOOTER: TELKOMSAT & BANTUAN
-             ===================================================== -->
-        <footer class="site-footer">
-            <div class="site-footer-inner">
-                <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
-                <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
-                <details class="contact">
-                    <summary class="contact-toggle">Hubungi Kami</summary>
-                    <div class="contact-panel">
-                        <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
-                        <div class="contact-groups">
-                            <div class="contact-group">
-                                <span class="contact-group-title">Telepon</span>
-                                <a href="tel:+628111500831" class="contact-item"><span class="contact-label">CS 1 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-831</span></a>
-                                <a href="tel:+628111500832" class="contact-item"><span class="contact-label">CS 2 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-832</span></a>
-                                <a href="tel:+6281288883767" class="contact-item"><span class="contact-label">Marketing Telkomsat</span><span class="contact-value">+62 812-8888-3767</span></a>
-                            </div>
-                            <div class="contact-group">
-                                <span class="contact-group-title">Email</span>
-                                <a href="mailto:sales@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Produk</span><span class="contact-value">sales@telkomsat.co.id</span></a>
-                                <a href="mailto:noc@telkomsat.co.id" class="contact-item"><span class="contact-label">Layanan Pelanggan</span><span class="contact-value">noc@telkomsat.co.id</span></a>
-                                <a href="mailto:general@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Umum</span><span class="contact-value">general@telkomsat.co.id</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-        </footer>
-    </div>
+            // Link Beli Voucher cadangan. Nilai cmac adalah mac-esc dari router
+            // apa adanya (sudah ter-escape), jadi TIDAK di-encode lagi.
+            var P = window.HS_PORTAL;
+            var buy = document.getElementById('hs-buy');
+            if (buy && P && P.serverBase) {
+                buy.href = P.serverBase + 'hotspot/embed/voucher/buy/' +
+                    encodeURIComponent(HS.locationId) +
+                    '?cmac=' + '$(mac-esc)' +
+                    '&return_url=' + 'http%3A%2F%2Ftsat.zone%2Flogin';
+                buy.removeAttribute('hidden');
+                document.getElementById('hs-buy-divider').removeAttribute('hidden');
+            }
+        })();
+    </script>
 
     <!-- =====================================================
          AUTO-LOGIN DARI LINK: /login?voucher=KODE
          =====================================================
          Dipakai tombol "sambungkan" di halaman invoice pembayaran. Logika
-         lengkap (termasuk keluar dari sesi trial) ada di js/autologin.js.
-         Kode dikirim lewat alur yang sama dengan tombol Login (doLogin +
-         CHAP). Parameter sengaja bernama "voucher", bukan "username":
-         MikroTik sendiri memproses /login?username=... sebelum halaman ini. -->
+         ada di js/autologin.js. Kode dikirim lewat form login cadangan
+         (doLogin + CHAP). Parameter sengaja bernama "voucher", bukan
+         "username": MikroTik sendiri memproses /login?username=... sebelum
+         halaman ini. -->
     <script type="text/javascript" src="/js/autologin.js"></script>
     <script type="text/javascript">
-        if (window.BriteAutoLogin && BriteAutoLogin.onLoginPage(error_msg, document.login)) {
-            window.briteAutoLogin = true;
-
-            // Tampilkan status "Menyambungkan" selama router memproses.
-            var ov = document.getElementById('loading-overlay');
-            if (ov) {
-                var t = document.getElementById('loading-title');
-                var p = document.getElementById('loading-text');
-                var note = document.getElementById('loading-note');
-                if (t) { t.innerHTML = 'Menyambungkan ke WiFi BRITE&hellip;'; }
-                if (p) { p.innerHTML = 'Kode voucher Anda sedang diproses. Mohon tunggu sebentar.'; }
-                if (note) { note.style.display = 'none'; }
-                ov.style.display = 'block';
+        if (window.BriteAutoLogin && BriteAutoLogin.onLoginPage(document.login)) {
+            var st = document.getElementById('hs-status');
+            if (st) {
+                st.textContent = 'Menyambungkan ke WiFi BRITE. Kode voucher Anda sedang diproses, mohon tunggu sebentar.';
+                st.removeAttribute('hidden');
             }
         }
     </script>
 
-    <!-- =====================================================
-         JAVASCRIPT LIBRARIES & HANDLER
-         ===================================================== -->
-    <script src="/js/jquery-1.12.2.min.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>');
-    </script>
-
     <script type="text/javascript">
-        $(document).ready(function () {
-            // Alamat halaman login portal, dirender oleh router.
-            var loginUrl = "$(link-login-only)";
-
-            // =====================================================
-            // MODAL "BUKA DI BROWSER"
-            // =====================================================
-            // Jendela captive portal (WebView Android / CNA iOS) sering gagal
-            // membuka aplikasi e-wallet lewat deeplink. Tawarkan pindah ke
-            // browser asli lebih dulu, tanpa pernah mengunci pengguna yang
-            // hanya ingin memasukkan kode voucher.
-
-            function bhDismissed() {
-                // sessionStorage bisa tidak tersedia di jendela captive portal.
-                try {
-                    return sessionStorage.getItem('bh-dismissed') === '1';
-                } catch (e) {
-                    return false;
-                }
-            }
-
-            function bhRemember() {
-                try {
-                    sessionStorage.setItem('bh-dismissed', '1');
-                } catch (e) {
-                    // Diabaikan: modal cuma akan muncul lagi setelah refresh.
-                }
-            }
-
-            function bhNeedsHint() {
-                var ua = navigator.userAgent || '';
-
-                // Android captive portal biasanya dibuka oleh WebView / CaptivePortalLogin
-                // dan UA-nya mengandung token "; wv)".
-                if (/;\s?wv\)/i.test(ua) || /CaptivePortalLogin/i.test(ua)) {
-                    return true;
-                }
-
-                // iOS Captive Network Assistant (CNA) bukan Safari biasa.
-                // Browser iOS seperti Chrome/Firefox/Edge tetap membawa token Safari,
-                // sehingga tidak memunculkan modal.
-                if (/iPhone|iPad|iPod/i.test(ua)) {
-                    return !/Safari/i.test(ua);
-                }
-
-                // Browser desktop/Chrome/Firefox/Samsung/Edge biasa tidak menampilkan modal.
-                return false;
-            }
-
-            // Tombol "Lanjutkan di sini" dikunci beberapa detik supaya
-            // peringatannya sempat terbaca. Tombol "Buka di Browser" sengaja
-            // tidak ikut dikunci -- itu jalur yang memang kita anjurkan.
-            var BH_STAY_DELAY = 5;
-            var bhStayLeft = BH_STAY_DELAY;
-
-            function bhRenderStayButton() {
-                var $stay = $('#bh-stay, #bh-stay-2');
-
-                if (bhStayLeft > 0) {
-                    $stay.prop('disabled', true).text('Lanjutkan di sini (' + bhStayLeft + ')');
-                } else {
-                    $stay.prop('disabled', false).text('Lanjutkan di sini');
-                }
-            }
-
-            function bhStartStayCountdown() {
-                bhStayLeft = BH_STAY_DELAY;
-                bhRenderStayButton();
-
-                var timer = setInterval(function () {
-                    bhStayLeft--;
-                    bhRenderStayButton();
-
-                    if (bhStayLeft <= 0) {
-                        clearInterval(timer);
-                    }
-                }, 1000);
-            }
-
-            function bhClose() {
-                // Jaga-jaga kalau penutupan dipicu dari jalur lain.
-                if (bhStayLeft > 0) {
-                    return;
-                }
-
-                bhRemember();
-                $('#browser-hint-modal').removeClass('is-open');
-            }
-
-            function bhShowManual() {
-                $('#bh-choice').removeClass('is-open');
-                $('#bh-manual').addClass('is-open');
-            }
-
-            function bhCopyLink() {
-                var $status = $('#bh-copy-status');
-
-                function done() {
-                    $status.css('color', '#1a9c3c').text('Link berhasil disalin.');
-                }
-
-                function failed() {
-                    $status.css('color', '#c0392b')
-                        .text('Penyalinan otomatis gagal. Tekan lama teks link di atas untuk menyalin manual.');
-                }
-
-                function copyViaExecCommand() {
-                    var $tmp = $('<textarea>')
-                        .val(loginUrl)
-                        .css({ position: 'fixed', top: '-1000px', opacity: 0 })
-                        .appendTo('body');
-
-                    $tmp[0].focus();
-                    $tmp[0].select();
-
-                    var ok = false;
-                    try {
-                        ok = document.execCommand('copy');
-                    } catch (e) {
-                        ok = false;
-                    }
-
-                    $tmp.remove();
-                    ok ? done() : failed();
-                }
-
-                // Clipboard API hanya ada di konteks aman; portal ini diakses
-                // lewat HTTP, jadi execCommand yang biasanya terpakai.
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(loginUrl).then(done, copyViaExecCommand);
-                    return;
-                }
-
-                copyViaExecCommand();
-            }
-
-            // Saat auto-login dari link invoice, modal tidak perlu muncul.
-            if (bhNeedsHint() && !bhDismissed() && !window.briteAutoLogin) {
-                $('#bh-url').text(loginUrl);
-                $('#bh-choice').addClass('is-open');
-                $('#browser-hint-modal').addClass('is-open');
-                bhStartStayCountdown();
-            }
-
-            $('#bh-stay, #bh-stay-2').click(bhClose);
-            $('#bh-copy').click(bhCopyLink);
-
-            $('#bh-open-browser').click(function () {
-                if (/Android/i.test(navigator.userAgent || '')) {
-                    // Intent hanya dipahami Android, dan di jendela captive portal
-                    // sering gagal tanpa pesan apa pun -- jadi panduan manual tetap
-                    // dimunculkan setelah jeda singkat.
-                    var cleanUrl = loginUrl.replace(/^https?:\/\//, '');
-                    window.location.href = 'intent://' + cleanUrl + '#Intent;scheme=http;package=com.android.chrome;end;';
-                    setTimeout(bhShowManual, 1500);
-                } else {
-                    // iOS tidak punya cara membuka Safari dari CNA sebelum login.
-                    bhShowManual();
-                }
-            });
-
-            $(document).keyup(function (e) {
-                if (e.which === 27 && $('#browser-hint-modal').hasClass('is-open')) {
-                    bhClose();
-                }
-            });
-
-            // =====================================================
-            // PEMBELIAN VOUCHER -- NAVIGASI TOP-LEVEL (BUKAN IFRAME)
-            // =====================================================
-            // Halaman pembelian sengaja dibuka sebagai halaman utama, bukan
-            // di dalam iframe. Pembayaran GoPay perlu membuka aplikasi lewat
-            // deeplink, dan browser memblokir pembukaan aplikasi eksternal
-            // dari dalam iframe lintas-origin. Halaman GoPay sendiri juga
-            // menolak ditampilkan di dalam iframe (X-Frame-Options), yang
-            // membuat iframe berubah jadi layar putih.
-            $('#btn-buy-vchr').click(function (e) {
-                e.preventDefault();
-
-                $('#loading-overlay').fadeIn(200);
-
-                var mac = "$(mac-esc)";
-                var locationId = "$(location-id)";
-
-                // loginUrl dikirim supaya aplikasi pembelian bisa menyediakan
-                // tombol kembali ke portal dan memakainya sebagai callback URL
-                // pembayaran.
-                var targetBuyUrl = "http://172.22.230.118:8080/hotspot/embed/voucher/buy/" +
-                    encodeURIComponent(locationId) +
-                    "?cmac=" + encodeURIComponent(mac) +
-                    "&return_url=" + encodeURIComponent(loginUrl);
-
-                window.location.href = targetBuyUrl;
-            });
-        });
+        HS.username = (document.getElementById('hs-username') || {}).textContent || '';
     </script>
-
-    <script src="/js/contact.js"></script>
 </body>
 
 </html>
