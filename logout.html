@@ -5,168 +5,155 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
     <title>WiFi BRITE | Logout</title>
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=5">
-    <!-- Membawa kode voucher (auto-login dari link invoice) ke halaman login. -->
-    <script type="text/javascript" src="/js/autologin.js"></script>
+    <link rel="stylesheet" href="css/fallback.css?v=1">
 
-    <script language="JavaScript">
-	<!--
-	$(if advert-pending == 'yes')
-	var popup = '';
+    <!-- Cangkang tipis: bundle UI diambil dari server pusat (lihat login.html). -->
+    <script src="/portal-config.js"></script>
+    <script type="text/javascript">
+        window.HS = {
+            page: 'logout',
+            linkLogin: '$(link-login)',
+            linkLoginOnly: '$(link-login-only)',
+            linkLogout: '$(link-logout)',
+            linkStatus: '$(link-status)',
+            linkOrig: '$(link-orig-esc)',
+            mac: '$(mac)',
+            ip: '$(ip)',
+            locationId: '$(location-id)',
+            username: ''
+        };
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var P = window.HS_PORTAL;
+            if (!P || !P.assetBase) {
+                return;
+            }
+            var v = encodeURIComponent(P.version || '');
+            var head = document.getElementsByTagName('head')[0];
 
-	function focusAdvert() {
-		if (window.focus) popup.focus();
-	}
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = P.assetBase + 'app.css?v=' + v;
+            head.appendChild(css);
 
-	function openAdvert() {
-		popup = open('$(link-advert)', 'hotspot_advert', '');
-		setTimeout("focusAdvert()", 1000);
-	}
-	$(endif)
+            var js = document.createElement('script');
+            js.src = P.assetBase + 'app.js?v=' + v;
+            js.onerror = function () {
+                document.documentElement.className += ' hs-fallback-now';
+            };
+            head.appendChild(js);
+        })();
+    </script>
 
-	function byte_nice(bytes = 0) {
-		var s = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
-		if(bytes == 0){
-			return 0+" "+s[0];
-		}
-		var e = Math.floor(Math.log(bytes)/Math.log(1024));
-		return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
-	}
+    <script type="text/javascript">
+        function byte_nice(bytes) {
+            var s = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+            bytes = bytes || 0;
+            if (bytes == 0) {
+                return 0 + " " + s[0];
+            }
+            var e = Math.floor(Math.log(bytes) / Math.log(1024));
+            return (bytes / Math.pow(1024, Math.floor(e))).toFixed(2) + " " + s[e];
+        }
 
-	function bit_nice(bytes = 0) {
-		var s = ['bit', 'Kb', 'Mb', 'Gb', 'Tb', 'Pb'];
-		if(bytes == 0){
-			return 0+" "+s[0];
-		}
-		var e = Math.floor(Math.log(bytes)/Math.log(1024));
-		return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
-	}
+        function pad2(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
 
-	function secondsToTime(e){
-		const h = Math.floor(e / 3600).toString().padStart(2,'0'),
-			  m = Math.floor(e % 3600 / 60).toString().padStart(2,'0'),
-			  s = Math.floor(e % 60).toString().padStart(2,'0');
+        function secondsToTime(e) {
+            var h = Math.floor(e / 3600),
+                m = Math.floor(e % 3600 / 60),
+                s = Math.floor(e % 60);
 
-		return h + ':' + m + ':' + s;
-		//return `${h}:${m}:${s}`;
-	}
+            return pad2(h) + ':' + pad2(m) + ':' + pad2(s);
+        }
 
-	// MikroTik Hotspot bisa menyimpan cookie login (login-by "cookie") agar user
-	// otomatis ter-autentikasi lagi tanpa masukin voucher. Setelah logout (manual
-	// atau otomatis saat batal beli voucher), cookie ini harus dihapus supaya
-	// sesi tidak tersambung sendiri lewat cookie yang masih tersisa.
-	function clearHotspotCookies() {
-		var cookies = document.cookie.split(';');
-		for (var i = 0; i < cookies.length; i++) {
-			var eqPos = cookies[i].indexOf('=');
-			var name = (eqPos > -1 ? cookies[i].substr(0, eqPos) : cookies[i]).trim();
-			if (!name) continue;
-			document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
-		}
-	}
-	//-->
+        // MikroTik Hotspot bisa menyimpan cookie login (login-by "cookie") agar user
+        // otomatis ter-autentikasi lagi tanpa masukin voucher. Setelah logout (manual
+        // atau otomatis saat batal beli voucher), cookie ini harus dihapus supaya
+        // sesi tidak tersambung sendiri lewat cookie yang masih tersisa.
+        function clearHotspotCookies() {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var eqPos = cookies[i].indexOf('=');
+                var name = (eqPos > -1 ? cookies[i].substr(0, eqPos) : cookies[i]).trim();
+                if (!name) continue;
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+            }
+        }
     </script>
 </head>
 
-<body role="document" onLoad="clearHotspotCookies(); location.href=(window.BriteAutoLogin ? BriteAutoLogin.loginUrlFor('$(link-login)') : '$(link-login)')">
-    <div class="page page-status">
-        <div class="shell">
-            <div class="shell-row">
-                <div class="shell-aside only-wide">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
-                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
-                </div>
-                <div class="shell-divider only-wide" aria-hidden="true"></div>
-                <div class="shell-content">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
+<body role="document" onLoad="clearHotspotCookies(); location.href='$(link-login)'">
 
-                    <div id="pageStatus" class="content-block">
-                        <h1 class="page-title">Anda sudah logout</h1>
-                        <p class="page-lead">Ringkasan sesi terakhir Anda.</p>
+    <!-- Wadah kosong untuk bundle UI. -->
+    <div id="app"></div>
 
-                        <!-- <div class="status-caption">
-                            $(if login-by == 'trial')
-                            <br> Selamat Tinggal pengguna trial! <br>
-                            $(elif login-by != 'mac')
-                            <br> Selamat Tinggal $(username)! <br>
-                            $(endif)
-                        </div> -->
+    <!-- Tampilan cadangan (lihat css/fallback.css). -->
+    <div id="hs-fallback">
+        <div class="fb-page">
+            <div class="fb-card">
+                <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="fb-logo" width="560" height="234">
 
-                        <!-- Ringkasan sesi yang baru berakhir -->
-                        <div class="info-list info-list--top">
-                            <div class="info-row">
-                                <span class="info-row-label">Durasi sesi</span>
-                                <span class="info-row-value"><script>
-                                document.write(secondsToTime($(uptime-secs)));
-                                </script></span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-row-label">Unduh / Unggah</span>
-                                <span class="info-row-value"><script>
-                                document.write(byte_nice($(bytes-out)) + ' / ' + byte_nice($(bytes-in)));
-                                </script></span>
-                            </div>
-                            <div class="info-row">
-                                <span class="info-row-label">Sisa waktu</span>
-                                <span class="info-row-value"><script>
-                                document.write(secondsToTime($(session-time-left-secs)));
-                                </script></span>
-                            </div>
-                        </div>
+                <h1 class="fb-title">Anda sudah logout</h1>
+                <p class="fb-lead">Ringkasan sesi terakhir Anda.</p>
 
-                        <!-- Halaman ini muncul SETELAH logout berhasil diproses router,
-                             jadi langsung sediakan jalan kembali ke login, bukan tombol Logout lagi. -->
-                        <div class="logout-actions">
-                            <a href="$(link-login)" class="btn btn-primary">Kembali ke Halaman Login</a>
-                        </div>
+                <!-- Ringkasan sesi yang baru berakhir. Angka mentah dari router
+                     diformat oleh skrip di bawah (textContent). -->
+                <div class="fb-rows">
+                    <div class="fb-row">
+                        <span class="fb-row-label">Durasi sesi</span>
+                        <span class="fb-row-value" id="fb-uptime">$(uptime-secs)</span>
                     </div>
+                    <div class="fb-row">
+                        <span class="fb-row-label">Unduh / Unggah</span>
+                        <span class="fb-row-value"><span id="fb-bytes-out">$(bytes-out)</span> / <span id="fb-bytes-in">$(bytes-in)</span></span>
+                    </div>
+                    <div class="fb-row">
+                        <span class="fb-row-label">Sisa waktu</span>
+                        <span class="fb-row-value" id="fb-time-left">$(session-time-left-secs)</span>
+                    </div>
+                </div>
+
+                <!-- Halaman ini muncul SETELAH logout berhasil diproses router,
+                     jadi langsung sediakan jalan kembali ke login. -->
+                <div class="fb-actions">
+                    <a href="$(link-login)" class="fb-btn fb-btn-primary">Kembali ke Halaman Login</a>
                 </div>
             </div>
         </div>
-
-        <footer class="site-footer">
-            <div class="site-footer-inner">
-                <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
-                <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
-                <details class="contact">
-                    <summary class="contact-toggle">Hubungi Kami</summary>
-                    <div class="contact-panel">
-                        <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
-                        <div class="contact-groups">
-                            <div class="contact-group">
-                                <span class="contact-group-title">Telepon</span>
-                                <a href="tel:+628111500831" class="contact-item"><span class="contact-label">CS 1 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-831</span></a>
-                                <a href="tel:+628111500832" class="contact-item"><span class="contact-label">CS 2 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-832</span></a>
-                                <a href="tel:+6281288883767" class="contact-item"><span class="contact-label">Marketing Telkomsat</span><span class="contact-value">+62 812-8888-3767</span></a>
-                            </div>
-                            <div class="contact-group">
-                                <span class="contact-group-title">Email</span>
-                                <a href="mailto:sales@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Produk</span><span class="contact-value">sales@telkomsat.co.id</span></a>
-                                <a href="mailto:noc@telkomsat.co.id" class="contact-item"><span class="contact-label">Layanan Pelanggan</span><span class="contact-value">noc@telkomsat.co.id</span></a>
-                                <a href="mailto:general@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Umum</span><span class="contact-value">general@telkomsat.co.id</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-        </footer>
     </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery-1.12.2.min.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>')
+    <!-- Teks dari router hanya dibaca lewat textContent, tidak pernah sebagai HTML. -->
+    <div id="hs-username" hidden>$(username)</div>
+
+    <script type="text/javascript">
+        (function () {
+            // Ganti angka mentah (string) dengan versi yang mudah dibaca;
+            // kosong/bukan angka ditampilkan sebagai "-".
+            function format(id, fn) {
+                var el = document.getElementById(id);
+                if (el) {
+                    var n = parseFloat(el.textContent);
+                    el.textContent = isNaN(n) ? '-' : fn(n);
+                }
+            }
+
+            format('fb-uptime', secondsToTime);
+            format('fb-bytes-out', byte_nice);
+            format('fb-bytes-in', byte_nice);
+            format('fb-time-left', secondsToTime);
+        })();
+
+        HS.username = (document.getElementById('hs-username') || {}).textContent || '';
     </script>
-    <script src="/js/contact.js"></script>
 </body>
 
 </html>
