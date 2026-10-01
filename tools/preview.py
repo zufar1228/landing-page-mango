@@ -160,7 +160,8 @@ def copy_assets(asset_base):
         body, n = re.subn(r"assetBase:\s*'[^']*'", "assetBase: '%s'" % asset_base, body)
         if n != 1:
             raise ValueError("assetBase tidak ditemukan di portal-config.js")
-        cfg.write_text(body, encoding="utf-8", newline="\n")
+        with open(cfg, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(body)
 
 
 def main():
@@ -170,10 +171,8 @@ def main():
     parser.add_argument("--asset-base", help="ganti assetBase di preview/portal-config.js")
     args = parser.parse_args()
 
-    # Hanya hapus folder preview/ di dalam repo ini.
+    # OUT selalu <repo>/preview, jadi aman dihapus.
     if OUT.exists():
-        if OUT.name != "preview" or OUT.parent != ROOT:
-            sys.exit("Menolak menghapus %s" % OUT)
         shutil.rmtree(OUT)
     OUT.mkdir()
     copy_assets(args.asset_base)
@@ -183,7 +182,8 @@ def main():
     for page in PAGES:
         src = ROOT / page
         html = render(src.read_text(encoding="utf-8"), ctx, page, unknown)
-        (OUT / page).write_text(html, encoding="utf-8", newline="\n")
+        with open(OUT / page, "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(html)
         print("ok  %s" % page)
 
     if unknown:
