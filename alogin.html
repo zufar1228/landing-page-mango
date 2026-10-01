@@ -2,110 +2,98 @@
 <html lang="id">
 
 <head>
-
-    $(if refresh-timeout)
-    <meta http-equiv="refresh" content="$(refresh-timeout-secs)"> $(endif)
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)"> $(endif)
     <meta name="description" content="">
     <meta name="author" content="">
     <title>WiFi BRITE | Berhasil Login</title>
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/fallback.css?v=1">
 
-    <script type="text/javascript" src="/js/autologin.js"></script>
-    <script language="JavaScript">
-        <!--
-        function startClock() {
-            // Auto-login dari link invoice: kalau masih sesi trial, sesi trial
-            // diakhiri dulu lalu voucher dilogin-kan (lihat js/autologin.js).
-            if (window.BriteAutoLogin &&
-                BriteAutoLogin.onLoggedInPage($(if login-by == 'trial')true$(else)false$(endif))) {
+    <!-- Cangkang tipis: bundle UI diambil dari server pusat (lihat login.html). -->
+    <script src="/portal-config.js"></script>
+    <script type="text/javascript">
+        window.HS = {
+            page: 'alogin',
+            linkLogin: '$(link-login)',
+            linkLoginOnly: '$(link-login-only)',
+            linkLogout: '$(link-logout)',
+            linkStatus: '$(link-status)',
+            linkOrig: '$(link-orig-esc)',
+            mac: '$(mac)',
+            ip: '$(ip)',
+            locationId: '$(location-id)',
+            username: ''
+        };
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var P = window.HS_PORTAL;
+            if (!P || !P.assetBase) {
                 return;
             }
+            var v = encodeURIComponent(P.version || '');
+            var head = document.getElementsByTagName('head')[0];
 
-            // Trial cuma untuk keperluan beli voucher -- kalau ada sesi trial
-            // yang sampai ke halaman ini di luar alur beli-voucher kita,
-            // langsung kembalikan ke login. Login biasa (voucher/mac) diarahkan
-            // ke halaman status seperti biasa.
-            $(if login-by == 'trial')
-            location.href = '$(link-login)';
-            $(else)
-            location.href = '$(link-status)';
-            $(endif)
-        }
-        //-->
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = P.assetBase + 'app.css?v=' + v;
+            head.appendChild(css);
+
+            var js = document.createElement('script');
+            js.src = P.assetBase + 'app.js?v=' + v;
+            js.onerror = function () {
+                document.documentElement.className += ' hs-fallback-now';
+            };
+            head.appendChild(js);
+        })();
     </script>
 
+    <script type="text/javascript" src="/js/autologin.js"></script>
+    <script type="text/javascript">
+        function startClock() {
+            // Login berhasil: bersihkan state auto-login, lalu ke halaman status.
+            if (window.BriteAutoLogin) {
+                BriteAutoLogin.done();
+            }
+            location.href = '$(link-status)';
+        }
+    </script>
 </head>
 
 <body role="document" onLoad="startClock()">
 
-    <div class="page page-center">
-        <div class="shell">
-            <div class="shell-row">
-                <div class="shell-aside only-wide">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
-                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
-                </div>
-                <div class="shell-divider only-wide" aria-hidden="true"></div>
-                <div class="shell-content">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
+    <!-- Wadah kosong untuk bundle UI. -->
+    <div id="app"></div>
 
-                    <div class="content-block center-block">
-                        <div class="success-icon" aria-hidden="true"></div>
-                        <h1 class="page-title">Anda sudah terhubung</h1>
-                        <p class="page-lead">Internet siap digunakan. Anda akan dialihkan otomatis.</p>
-                        <div class="progress-track" aria-hidden="true"><span class="progress-fill"></span></div>
-                        <div class="success-actions">
-                            <button type="button" class="btn btn-primary" onclick="$(if login-by == 'trial')location.href='$(link-login)'$(else)location.href='$(link-status)'$(endif)">Lanjutkan Sekarang</button>
-                        </div>
-                        <a href="$(link-status)" class="link-status">Lihat status koneksi</a>
-                    </div>
+    <!-- Tampilan cadangan (lihat css/fallback.css). -->
+    <div id="hs-fallback">
+        <div class="fb-page">
+            <div class="fb-card">
+                <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="fb-logo" width="560" height="234">
+
+                <div class="fb-icon" aria-hidden="true"></div>
+                <h1 class="fb-title">Anda sudah terhubung</h1>
+                <p class="fb-lead">Internet siap digunakan. Anda akan dialihkan otomatis.</p>
+
+                <div class="fb-actions">
+                    <a href="$(link-status)" class="fb-btn fb-btn-primary">Lanjutkan Sekarang</a>
                 </div>
             </div>
         </div>
-
-        <footer class="site-footer">
-            <div class="site-footer-inner">
-                <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
-                <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
-                <details class="contact">
-                    <summary class="contact-toggle">Hubungi Kami</summary>
-                    <div class="contact-panel">
-                        <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
-                        <div class="contact-groups">
-                            <div class="contact-group">
-                                <span class="contact-group-title">Telepon</span>
-                                <a href="tel:+628111500831" class="contact-item"><span class="contact-label">CS 1 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-831</span></a>
-                                <a href="tel:+628111500832" class="contact-item"><span class="contact-label">CS 2 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-832</span></a>
-                                <a href="tel:+6281288883767" class="contact-item"><span class="contact-label">Marketing Telkomsat</span><span class="contact-value">+62 812-8888-3767</span></a>
-                            </div>
-                            <div class="contact-group">
-                                <span class="contact-group-title">Email</span>
-                                <a href="mailto:sales@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Produk</span><span class="contact-value">sales@telkomsat.co.id</span></a>
-                                <a href="mailto:noc@telkomsat.co.id" class="contact-item"><span class="contact-label">Layanan Pelanggan</span><span class="contact-value">noc@telkomsat.co.id</span></a>
-                                <a href="mailto:general@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Umum</span><span class="contact-value">general@telkomsat.co.id</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-        </footer>
     </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery-1.12.2.min.js"></script>
-    <script>
-        window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>')
+    <!-- Teks dari router hanya dibaca lewat textContent, tidak pernah sebagai HTML. -->
+    <div id="hs-username" hidden>$(username)</div>
+
+    <script type="text/javascript">
+        HS.username = (document.getElementById('hs-username') || {}).textContent || '';
     </script>
-    <script src="/js/contact.js"></script>
 </body>
 
 </html>
