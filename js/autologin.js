@@ -15,6 +15,10 @@
 var BriteAutoLogin = (function () {
     var KEY = 'brite-autologin';
     var TTL = 3 * 60 * 1000;
+    // Link voucher baru yang dibuka >= 30 detik setelah percobaan sebelumnya
+    // dianggap permintaan baru (percobaan boleh diulang). Loop tetap aman:
+    // URL dibersihkan dan respons POST router tidak membawa ?voucher.
+    var RETRY_AFTER = 30 * 1000;
     var CODE_RE = /^[A-Za-z0-9_-]{1,64}$/;
 
     function now() {
@@ -95,7 +99,7 @@ var BriteAutoLogin = (function () {
             if (!CODE_RE.test(fromUrl)) {
                 return { invalid: true };
             }
-            if (!s || s.code !== fromUrl) {
+            if (!s || s.code !== fromUrl || now() - s.ts >= RETRY_AFTER) {
                 s = { code: fromUrl, ts: now(), submitted: false };
             }
             write(s);
@@ -113,8 +117,12 @@ var BriteAutoLogin = (function () {
             }
 
             // Sudah pernah dikirim (login muncul lagi) atau router menolak:
-            // berhenti, pesan error tampil apa adanya.
+            // berhenti, pesan error tampil apa adanya. Kolom diisi kembali
+            // dengan kode supaya bisa dicoba manual.
             if (s.submitted || routerError()) {
+                if (!form.username.value) {
+                    form.username.value = s.code;
+                }
                 clear();
                 return false;
             }
