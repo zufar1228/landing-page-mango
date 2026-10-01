@@ -14,62 +14,90 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/fallback.css?v=1">
+
+    <!-- Cangkang tipis: bundle UI diambil dari server pusat (lihat login.html). -->
+    <script src="/portal-config.js"></script>
+    <script type="text/javascript">
+        window.HS = {
+            page: 'error',
+            linkLogin: '$(link-login)',
+            linkLoginOnly: '$(link-login-only)',
+            linkLogout: '$(link-logout)',
+            linkStatus: '$(link-status)',
+            linkOrig: '$(link-orig-esc)',
+            mac: '$(mac)',
+            ip: '$(ip)',
+            locationId: '$(location-id)',
+            username: ''
+        };
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var P = window.HS_PORTAL;
+            if (!P || !P.assetBase) {
+                return;
+            }
+            var v = encodeURIComponent(P.version || '');
+            var head = document.getElementsByTagName('head')[0];
+
+            var css = document.createElement('link');
+            css.rel = 'stylesheet';
+            css.href = P.assetBase + 'app.css?v=' + v;
+            head.appendChild(css);
+
+            var js = document.createElement('script');
+            js.src = P.assetBase + 'app.js?v=' + v;
+            js.onerror = function () {
+                document.documentElement.className += ' hs-fallback-now';
+            };
+            head.appendChild(js);
+        })();
+    </script>
 </head>
 
 <body role="document">
-    <div class="page page-center page-error">
-        <div class="shell">
-            <div class="shell-row">
-                <div class="shell-aside only-wide">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
-                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
-                </div>
-                <div class="shell-divider only-wide" aria-hidden="true"></div>
-                <div class="shell-content">
-                    <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="logo-top only-narrow">
 
-                    <div class="content-block center-block">
-                        <h1 class="page-title">Tidak dapat terhubung ke server</h1>
-                        <p class="page-lead">Layanan sedang mengalami gangguan sementara. Tunggu sebentar, lalu coba lagi.</p>
-                        <p class="error-code">Kode: $(error)</p>
-                        <div class="error-actions">
-                            <button type="button" class="btn btn-primary" onclick="location.reload()">Coba Lagi</button>
-                            <a href="$(link-login)" class="btn btn-tinted">Kembali ke Login</a>
-                        </div>
-                    </div>
+    <!-- Wadah kosong untuk bundle UI. -->
+    <div id="app"></div>
+
+    <!-- Tampilan cadangan (lihat css/fallback.css). Teks generik selalu
+         tampil; kode error router disalin ke #hs-err-msg oleh skrip di bawah. -->
+    <div id="hs-fallback">
+        <div class="fb-page">
+            <div class="fb-card">
+                <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="fb-logo" width="560" height="234">
+
+                <h1 class="fb-title">Tidak dapat terhubung ke server</h1>
+                <p class="fb-lead">Layanan sedang mengalami gangguan sementara. Tunggu sebentar, lalu coba lagi.</p>
+                <p id="hs-err-line" class="fb-code" hidden>Kode: <span id="hs-err-msg"></span></p>
+
+                <div class="fb-actions">
+                    <button type="button" class="fb-btn fb-btn-primary" onclick="location.reload()">Coba Lagi</button>
+                    <a href="$(link-login)" class="fb-btn fb-btn-tinted">Kembali ke Login</a>
                 </div>
             </div>
         </div>
-
-        <footer class="site-footer">
-            <div class="site-footer-inner">
-                <a href="https://www.telkomsat.co.id/" class="tsat-link footer-start only-narrow"><img src="img/tsat.webp" alt="Telkomsat" class="tsat-logo"></a>
-                <span class="footer-start only-wide">&copy; Telkomsat &middot; BRITE Internet Broadband Satellite</span>
-                <details class="contact">
-                    <summary class="contact-toggle">Hubungi Kami</summary>
-                    <div class="contact-panel">
-                        <div class="contact-head"><span class="contact-head-title">Hubungi Kami</span></div>
-                        <div class="contact-groups">
-                            <div class="contact-group">
-                                <span class="contact-group-title">Telepon</span>
-                                <a href="tel:+628111500831" class="contact-item"><span class="contact-label">CS 1 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-831</span></a>
-                                <a href="tel:+628111500832" class="contact-item"><span class="contact-label">CS 2 &middot; Layanan Telepon</span><span class="contact-value">+62 811-1500-832</span></a>
-                                <a href="tel:+6281288883767" class="contact-item"><span class="contact-label">Marketing Telkomsat</span><span class="contact-value">+62 812-8888-3767</span></a>
-                            </div>
-                            <div class="contact-group">
-                                <span class="contact-group-title">Email</span>
-                                <a href="mailto:sales@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Produk</span><span class="contact-value">sales@telkomsat.co.id</span></a>
-                                <a href="mailto:noc@telkomsat.co.id" class="contact-item"><span class="contact-label">Layanan Pelanggan</span><span class="contact-value">noc@telkomsat.co.id</span></a>
-                                <a href="mailto:general@telkomsat.co.id" class="contact-item"><span class="contact-label">Informasi Umum</span><span class="contact-value">general@telkomsat.co.id</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-            </div>
-        </footer>
     </div>
-    <script src="/js/contact.js"></script>
+
+    <!-- Teks dari router hanya dibaca lewat textContent, tidak pernah sebagai HTML. -->
+    <div id="hs-error" hidden>$(error)</div>
+    <div id="hs-username" hidden>$(username)</div>
+
+    <script type="text/javascript">
+        (function () {
+            var src = document.getElementById('hs-error');
+            var msg = src ? (src.textContent || '').replace(/^\s+|\s+$/g, '') : '';
+            var out = document.getElementById('hs-err-msg');
+            var line = document.getElementById('hs-err-line');
+            if (msg && out && line) {
+                out.textContent = msg;
+                line.removeAttribute('hidden');
+            }
+        })();
+
+        HS.username = (document.getElementById('hs-username') || {}).textContent || '';
+    </script>
 </body>
 
 </html>
