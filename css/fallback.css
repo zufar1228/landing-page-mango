@@ -7,7 +7,9 @@
    horizontal, area sentuh minimal 44px.
 
    Kompatibilitas WebView lama / iOS CNA: tanpa 100vh, tanpa
-   flex gap (jarak antar-elemen pakai margin).
+   flex gap (jarak antar-elemen pakai margin). Setiap var(--x)
+   didahului deklarasi literal bernilai sama, supaya WebView
+   tanpa custom properties tetap mendapat warna dan ukuran.
    =========================================================== */
 
 /* ==============( Token )=============== */
@@ -37,11 +39,12 @@
 }
 
 /* Cadangan tidak langsung tampil: ditahan 3 detik supaya bundle punya
-   waktu mengambil alih. Murni CSS, jadi tetap jalan tanpa JavaScript. */
+   waktu mengambil alih. Murni CSS, jadi tetap jalan tanpa JavaScript.
+   Durasi 0.01s (bukan 0s) agar animasi pasti dijalankan browser. */
 #hs-fallback {
   visibility: hidden;
-  -webkit-animation: hs-show 0s 3s forwards;
-  animation: hs-show 0s 3s forwards;
+  -webkit-animation: hs-show 0.01s 3s forwards;
+  animation: hs-show 0.01s 3s forwards;
 }
 
 @-webkit-keyframes hs-show {
@@ -52,7 +55,7 @@
   to { visibility: visible; }
 }
 
-/* Bundle gagal diunduh (onerror): tampilkan langsung. */
+/* Bundle gagal diunduh (onerror) atau tidak ada: tampilkan langsung. */
 .hs-fallback-now #hs-fallback {
   visibility: visible;
   -webkit-animation: none;
@@ -72,6 +75,7 @@ html {
 
 body {
   margin: 0;
+  background: #FFFFFF;
   background: var(--white);
 }
 
@@ -83,10 +87,13 @@ body {
 
 .fb-page {
   padding: 24px 16px 32px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.5;
+  color: #1F2329;
   color: var(--ink);
+  background: #FFFFFF;
   background: var(--white);
 }
 
@@ -116,6 +123,7 @@ body {
 .fb-lead {
   margin: 0 0 20px;
   font-size: 15px;
+  color: #5E6166;
   color: var(--text-2);
   text-align: center;
   word-wrap: break-word;
@@ -139,9 +147,13 @@ body {
   margin: 0 0 16px;
   padding: 12px 14px;
   font-size: 15px;
+  color: #1F2329;
   color: var(--ink);
+  background: #FDECEA;
   background: var(--red-soft);
+  border-left: 4px solid #EE3124;
   border-left: 4px solid var(--red);
+  border-radius: 12px;
   border-radius: var(--radius);
   word-wrap: break-word;
 }
@@ -150,9 +162,13 @@ body {
   margin: 0 0 16px;
   padding: 12px 14px;
   font-size: 15px;
+  color: #1F2329;
   color: var(--ink);
+  background: #F5F6F7;
   background: var(--soft);
+  border-left: 4px solid #3468C0;
   border-left: 4px solid var(--blue);
+  border-radius: 12px;
   border-radius: var(--radius);
   word-wrap: break-word;
 }
@@ -160,6 +176,7 @@ body {
 .fb-code {
   margin: 0 0 20px;
   font-size: 14px;
+  color: #5E6166;
   color: var(--text-2);
   text-align: center;
   word-wrap: break-word;
@@ -176,15 +193,20 @@ body {
   padding: 10px 14px;
   font-family: inherit;
   font-size: 16px;
+  color: #1F2329;
   color: var(--ink);
+  background: #FFFFFF;
   background: var(--white);
+  border: 1px solid #9C9C9D;
   border: 1px solid var(--gray);
+  border-radius: 12px;
   border-radius: var(--radius);
   -webkit-appearance: none;
   appearance: none;
 }
 
 .fb-input:focus {
+  outline: 2px solid #3468C0;
   outline: 2px solid var(--blue);
   outline-offset: 1px;
 }
@@ -202,7 +224,9 @@ body {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
+  border: 1px solid #3468C0;
   border: 1px solid var(--blue);
+  border-radius: 12px;
   border-radius: var(--radius);
   -webkit-appearance: none;
   appearance: none;
@@ -210,26 +234,35 @@ body {
 }
 
 .fb-btn-primary {
+  color: #FFFFFF;
   color: var(--white);
+  background: #3468C0;
   background: var(--blue);
 }
 
 .fb-btn-primary:active {
+  background: #2C5CAE;
   background: var(--blue-dark);
 }
 
 .fb-btn-tinted {
+  color: #3468C0;
   color: var(--blue);
+  background: #FFFFFF;
   background: var(--white);
 }
 
 .fb-btn-danger {
+  color: #EE3124;
   color: var(--red);
+  background: #FFFFFF;
   background: var(--white);
+  border-color: #EE3124;
   border-color: var(--red);
 }
 
 .fb-btn:focus {
+  outline: 2px solid #3468C0;
   outline: 2px solid var(--blue);
   outline-offset: 2px;
 }
@@ -238,8 +271,10 @@ body {
   margin: 20px 0 12px;
   padding-top: 16px;
   font-size: 14px;
+  color: #5E6166;
   color: var(--text-2);
   text-align: center;
+  border-top: 1px solid #E6E6E7;
   border-top: 1px solid var(--line);
 }
 
@@ -257,6 +292,7 @@ body {
   margin: 0 0 8px;
   font-size: 15px;
   font-weight: 600;
+  color: #3468C0;
   color: var(--blue);
   text-align: center;
 }
@@ -266,6 +302,7 @@ body {
   width: 10px;
   height: 10px;
   margin-right: 8px;
+  background: #3468C0;
   background: var(--blue);
   border-radius: 50%;
 }
@@ -278,13 +315,16 @@ body {
 .fb-stat {
   margin: 0 0 12px;
   padding: 14px 16px;
+  background: #F5F6F7;
   background: var(--soft);
+  border-radius: 12px;
   border-radius: var(--radius);
 }
 
 .fb-stat-label {
   display: block;
   font-size: 14px;
+  color: #5E6166;
   color: var(--text-2);
 }
 
@@ -293,12 +333,14 @@ body {
   font-size: 24px;
   font-weight: 700;
   line-height: 1.3;
+  color: #3468C0;
   color: var(--blue);
   word-wrap: break-word;
 }
 
 .fb-rows {
   margin: 0 0 20px;
+  border-top: 1px solid #E6E6E7;
   border-top: 1px solid var(--line);
 }
 
@@ -313,11 +355,13 @@ body {
   justify-content: space-between;
   padding: 12px 0;
   font-size: 15px;
+  border-bottom: 1px solid #E6E6E7;
   border-bottom: 1px solid var(--line);
 }
 
 .fb-row-label {
   margin-right: 12px;
+  color: #5E6166;
   color: var(--text-2);
 }
 
@@ -330,6 +374,7 @@ body {
 }
 
 .fb-mono {
+  font-family: Menlo, Consolas, "Courier New", monospace;
   font-family: var(--mono);
   font-size: 14px;
 }
@@ -341,6 +386,7 @@ body {
   width: 56px;
   height: 56px;
   margin: 0 auto 16px;
+  background: #3468C0;
   background: var(--blue);
   border-radius: 50%;
 }
@@ -352,6 +398,7 @@ body {
   top: 11px;
   width: 12px;
   height: 22px;
+  border: solid #FFFFFF;
   border: solid var(--white);
   border-width: 0 4px 4px 0;
   -webkit-transform: rotate(45deg);
@@ -363,7 +410,9 @@ body {
   width: 40px;
   height: 40px;
   margin: 8px auto 24px;
+  border: 4px solid #E6E6E7;
   border: 4px solid var(--line);
+  border-top-color: #3468C0;
   border-top-color: var(--blue);
   border-radius: 50%;
   -webkit-animation: fb-spin 0.9s linear infinite;
