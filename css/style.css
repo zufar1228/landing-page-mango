@@ -174,10 +174,49 @@ strong {
   width: 100%;
 }
 
+/* Mobile: logo tetap di atas, blok konten dipusatkan vertikal di ruang
+   antara logo dan footer (margin auto, tanpa gap). Bila ruang tidak cukup,
+   margin auto jadi 0 dan konten mengalir normal. */
+@media (max-width: 959px) {
+  .shell {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shell-row {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    width: 100%;
+  }
+
+  .shell-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    padding-bottom: 24px;
+  }
+
+  /* Margin bawah logo = padding bawah .shell-content (24px) supaya
+     pemusatan simetris. */
+  .logo-top {
+    flex: none;
+    margin-bottom: 24px;
+  }
+
+  .content-block {
+    flex: none;
+    margin: auto 0;
+  }
+}
+
 @media (min-width: 960px) {
+  /* padding-top = tinggi footer (64px) supaya konten tepat di tengah
+     viewport, bukan di tengah area di atas footer. */
   .shell {
     display: flex;
     align-items: center;
+    padding-top: 64px;
   }
 
   .shell-row {
@@ -211,6 +250,22 @@ strong {
 
   .content-block {
     max-width: 380px;
+  }
+
+  /* Tanpa jarak atas elemen pertama supaya blok konten benar-benar
+     terpusat secara vertikal (jarak ini hanya untuk layar sempit). */
+  .shell .content-block .page-title,
+  .shell .content-block .status-connected,
+  .shell .content-block .success-icon {
+    margin-top: 0;
+  }
+
+  .shell .content-block .status-connected + .page-title {
+    margin-top: 8px;
+  }
+
+  .shell .content-block .success-icon + .page-title {
+    margin-top: 20px;
   }
 
   .page-status .content-block {
@@ -316,9 +371,17 @@ strong {
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
+/* Mobile: panel keluar dari alur (absolute di bawah baris footer) supaya
+   membukanya hanya menambah tinggi halaman ke bawah, tanpa menggeser
+   logo/form/baris footer. */
 .contact-panel {
-  clear: both;
-  margin-top: 8px;
+  position: absolute;
+  top: 100%;
+  left: 24px;
+  right: 24px;
+  z-index: 5;
+  padding-bottom: 24px;
+  background: #fff;
 }
 
 .contact-head {
@@ -367,12 +430,15 @@ strong {
 @media (min-width: 960px) {
   .contact-panel {
     position: absolute;
+    top: auto;
+    left: auto;
     right: 56px;
     bottom: 100%;
     z-index: 5;
     width: 520px;
     max-width: calc(100% - 112px);
     margin: 0 0 8px;
+    padding-bottom: 0;
     overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 12px;
