@@ -37,6 +37,23 @@
             }, CLOSE_DELAY);
         });
 
+        // Di HP, setelah dibuka gulir panel ke dalam pandangan (panel ada
+        // di bawah baris footer, menambah tinggi halaman).
+        details.addEventListener('toggle', function () {
+            if (!details.open || hoverMode()) {
+                return;
+            }
+            var panel = details.querySelector('.contact-panel');
+            if (!panel || !panel.scrollIntoView) {
+                return;
+            }
+            try {
+                panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            } catch (err) {
+                panel.scrollIntoView(false);
+            }
+        });
+
         if (summary) {
             summary.addEventListener('click', function (e) {
                 // Klik mouse saat mode hover tidak menutup panel yang sedang
