@@ -335,6 +335,14 @@ strong {
   display: block;
 }
 
+/* Logo Telkomsat di footer: tengah vertikal, sejajar teks "Hubungi Kami". */
+.tsat-link.footer-start {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
 .tsat-logo {
   display: block;
   width: 84px;
