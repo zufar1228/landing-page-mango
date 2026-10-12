@@ -36,7 +36,7 @@
                 <div class="bh-icon" aria-hidden="true"><span class="bh-icon-ring"></span><span class="bh-icon-dot"></span></div>
                 <h2 class="bh-title" id="bh-title">Bayar lebih lancar lewat browser</h2>
                 <p class="bh-text">
-                    Pembayaran dengan GoPay, ShopeePay, dan aplikasi bank lebih
+                    Pembayaran dengan GoPay lebih
                     lancar jika halaman ini dibuka di Chrome atau Safari.
                 </p>
                 <button type="button" id="bh-open-browser" class="bh-btn btn btn-primary">Buka di Browser (disarankan)</button>
@@ -84,7 +84,6 @@
                             <h2 class="page-title" id="loading-title">Membuka halaman pembelian</h2>
                             <p class="page-lead" id="loading-text">Mohon tunggu sebentar, jangan tutup halaman ini.</p>
                             <span class="spinner" aria-hidden="true"><span class="spinner-track"></span><span class="spinner-arc"></span><span class="spinner-orbit"></span></span>
-                            <p class="overlay-note" id="loading-note">Aplikasi e-wallet tidak terbuka saat membayar? Pilih metode <strong>QRIS</strong>.</p>
                         </div>
                     </div>
                 </div>
@@ -195,7 +194,7 @@
             <div class="shell-row">
                 <div class="shell-aside only-wide">
                     <img src="img/brite-logo.webp" alt="BRITE by Telkomsat" class="aside-logo">
-                    <p class="aside-tagline">Internet satelit Telkomsat, dari daratan hingga perairan Indonesia.</p>
+                    <p class="aside-tagline">Internet satelit Telkomsat, menjangkau daratan hingga perairan Indonesia.</p>
                 </div>
                 <div class="shell-divider only-wide" aria-hidden="true"></div>
                 <div class="shell-content">
@@ -204,8 +203,8 @@
                     <div class="login-card content-block">
                         <form name="login" id="formLogin" class="login-form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
 
-                            <h1 class="page-title">Masuk ke WiFi BRITE</h1>
-                            <p class="page-lead">Masukkan kode voucher Anda.</p>
+                            <h1 class="sr-only">Masuk ke WiFi BRITE</h1>
+                            <p class="page-lead">Isi kode voucher</p>
 
                             <script type="text/javascript">
                                 if (error_msg) {
@@ -496,7 +495,7 @@
                 // loginUrl dikirim supaya aplikasi pembelian bisa menyediakan
                 // tombol kembali ke portal dan memakainya sebagai callback URL
                 // pembayaran.
-                var targetBuyUrl = "http://172.22.230.118:8080/hotspot/embed/voucher/buy/" +
+                var targetBuyUrl = "http://10.83.252.114:8090/hotspot/embed/voucher/buy/" +
                     encodeURIComponent(locationId) +
                     "?cmac=" + encodeURIComponent(mac) +
                     "&return_url=" + encodeURIComponent(loginUrl);
