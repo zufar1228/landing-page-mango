@@ -11,7 +11,7 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="img/brite-favicon-32.webp">
     <link rel="icon" type="image/webp" sizes="48x48" href="img/brite-favicon-48.webp">
     <link rel="apple-touch-icon" href="img/brite-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css?v=8">
+    <link rel="stylesheet" href="css/style.css?v=9">
     <style>
         /* Modal tetap ada di HTML, tetapi benar-benar tersembunyi di browser biasa. */
         #browser-hint-modal { display: none !important; }
@@ -203,7 +203,7 @@
                     <div class="login-card content-block">
                         <form name="login" id="formLogin" class="login-form" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
 
-                            <h1 class="page-title">Isi kode voucher</h1>
+                            <h1 class="page-title">Masuk ke WiFi Brite</h1>
 
                             <script type="text/javascript">
                                 if (error_msg) {
@@ -221,7 +221,7 @@
                             <div class="login-fields">
                                 <label for="username" class="field-label sr-only">Kode Voucher</label>
 
-                                <input type="text" id="username" class="input-voucher" name="username" placeholder="Kode voucher" value="$(username)">
+                                <input type="text" id="username" class="input-voucher" name="username" placeholder="Isi kode voucher" value="$(username)">
 
                                 <input type="hidden" class="input-login" name="password">
 
@@ -494,7 +494,7 @@
                 // loginUrl dikirim supaya aplikasi pembelian bisa menyediakan
                 // tombol kembali ke portal dan memakainya sebagai callback URL
                 // pembayaran.
-                var targetBuyUrl = "http://10.83.252.114:8090/hotspot/embed/voucher/buy/" +
+                var targetBuyUrl = "http://172.88.88.118:8080/hotspot/embed/voucher/buy/" +
                     encodeURIComponent(locationId) +
                     "?cmac=" + encodeURIComponent(mac) +
                     "&return_url=" + encodeURIComponent(loginUrl);
