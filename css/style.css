@@ -839,11 +839,13 @@ strong {
   animation: brite-spin 1s linear infinite;
 }
 
+/* Orbit 6px lebih lebar dari lingkaran supaya titik merah berjarak
+   ~6px dari garis (dulu menempel). */
 .spinner-orbit {
-  top: -10px;
-  left: -10px;
-  width: 96px;
-  height: 96px;
+  top: -16px;
+  left: -16px;
+  width: 108px;
+  height: 108px;
   -webkit-animation: brite-spin 2.6s linear infinite;
   animation: brite-spin 2.6s linear infinite;
 }
